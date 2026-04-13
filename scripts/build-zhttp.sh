@@ -5,7 +5,7 @@ ROOT=$(CDPATH= cd -- "$(dirname -- "$0")/.." && pwd)
 BUILD="$ROOT/build/zhttp"
 HOST_HOME=${HOME:-/home/$USER}
 WATCOM_ROOT=${WATCOM:-"$HOST_HOME/opt/watcom"}
-WATT_ROOT=${WATT_ROOT:-"$HOST_HOME/opt/watt32/src"}
+WATT_ROOT=${WATT_ROOT:-"$ROOT/3rd/watt32/src"}
 
 mkdir -p "$BUILD"
 mkdir -p "$ROOT/mnt"

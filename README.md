@@ -166,7 +166,7 @@ ZHTTP.EXE OUT
 ZHTTP.EXE C:\MYBLOG\OUT 8080
 ```
 
-The `net_watt32.c` module is the only module that includes Watt-32 headers or calls Watt-32 functions. The local build expects Watt-32 under `$HOME/opt/watt32` by default and links `$HOME/opt/watt32/src/lib/wattcpwl.lib`. Override `WATT_ROOT` if your Watt-32 tree lives somewhere else. See `ZHTTP_BUILD.TXT` for the separate build notes.
+The `net_watt32.c` module is the only module that includes Watt-32 headers or calls Watt-32 functions. The local build now defaults to the repository-local `3RD/watt32/src` tree and links `3RD/watt32/src/lib/wattcpwl.lib`. Override `WATT_ROOT` if your Watt-32 tree lives somewhere else. See `ZHTTP_BUILD.TXT` for the separate build notes.
 
 ## Typical Workflow
 

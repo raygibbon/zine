@@ -33,18 +33,18 @@ The real local build links Watt-32 and defines ZHTTP_USE_WATT32.
 
 Current local Watt-32 path:
 
-  $HOME/opt/watt32
+  3RD/watt32
 
 For zhttp.exe's 16-bit large-model build, the library we need is:
 
-  $HOME/opt/watt32/src/lib/wattcpwl.lib
+  3RD/watt32/src/lib/wattcpwl.lib
 
 The VS Code `Build Watt32 Watcom Large` task builds this from the Linux host
 using the same OpenWatcom install as zine.exe.
 
 That should generate the large-model Watcom library:
 
-  $HOME/opt/watt32/src/lib/wattcpwl.lib
+  3RD/watt32/src/lib/wattcpwl.lib
 
 The VS Code task uses `scripts/configure-watt32-watcom.sh` instead of
 Watt-32's `configur.sh` directly. This avoids a Linux helper argument parsing
@@ -61,7 +61,7 @@ After WATTCPWL.LIB exists, the zhttp.exe build shape is:
   scripts\build-zhttp.sh
 
 Current status:
-  - $HOME/opt/watt32/src/lib/wattcpwl.lib builds successfully
+  - 3RD/watt32/src/lib/wattcpwl.lib builds successfully
   - zhttp.exe links successfully against Watt-32
 
 Performance test knobs:

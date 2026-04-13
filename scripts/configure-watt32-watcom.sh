@@ -3,7 +3,7 @@ set -eu
 
 ROOT_DIR=$(CDPATH= cd -- "$(dirname -- "$0")/.." && pwd)
 HOST_HOME=${HOME:-/home/$USER}
-WATT_ROOT=${WATT_ROOT:-"$HOST_HOME/opt/watt32/src"}
+WATT_ROOT=${WATT_ROOT:-"$ROOT_DIR/3rd/watt32/src"}
 SRC_DIR="$WATT_ROOT/src"
 UTIL_DIR="$WATT_ROOT/util"
 PREP="$ROOT_DIR/scripts/watt32-prep-make.py"

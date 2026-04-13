@@ -41,6 +41,29 @@
       "problemMatcher": []
     },
     {
+      "label": "Run Dosbox",
+      "type": "shell",
+      "dependsOn": "Build Zine",
+      "command": "flatpak",
+      "args": [
+        "run",
+        "com.dosbox_x.DOSBox-X",
+        "-conf",
+        "${env:HOME}/.config/dosbox-x/dosbox-x-2025.02.01.conf",
+        "-c",
+        "mount c ${workspaceFolder}/mnt",
+        "-c",
+        "set MTCPCFG=C:\\MTCP\\MTCP.CFG",
+        "-c",
+        "ne2000 0x60 3 0x300",
+        "-c",
+        "c:",
+        "-c",
+        "pause"
+      ],
+      "problemMatcher": []
+    },
+    {
       "label": "Build ZHTTP",
       "type": "shell",
       "dependsOn": "Build Watt32 Watcom Large",
@@ -151,100 +174,6 @@
           "W32_BIN2C": "${env:HOME}/opt/watt32/src/util/linux/bin2c"
         }
       },
-      "problemMatcher": []
-    },
-    {
-      "label": "Build MYBLOG",
-      "type": "shell",
-      "dependsOn": "Build Zine",
-      "command": "flatpak",
-      "args": [
-        "run",
-        "com.dosbox_x.DOSBox-X",
-        "-conf",
-        "${env:HOME}/.config/dosbox-x/dosbox-x-2025.02.01.conf",
-        "-c",
-        "mount c ${workspaceFolder}/mnt",
-        "-c",
-        "c:",
-        "-c",
-        "zine.exe build MYBLOG",
-        "-c",
-        "pause"
-      ],
-      "problemMatcher": []
-    },
-    {
-      "label": "Serve MYBLOG",
-      "type": "shell",
-      "dependsOn": [
-        "Build Zine",
-        "Build ZHTTP"
-      ],
-      "command": "flatpak",
-      "args": [
-        "run",
-        "com.dosbox_x.DOSBox-X",
-        "-conf",
-        "${env:HOME}/.config/dosbox-x/dosbox-x-2025.02.01.conf",
-        "-c",
-        "mount c ${workspaceFolder}/mnt",
-        "-c",
-        "c:",
-        "-c",
-        "set WATTCP.CFG=C:\\",
-        "-c",
-        "ne2000 0x60 3 0x300",
-        "-c",
-        "zine.exe serve MYBLOG",
-        "-c",
-        "pause"
-      ],
-      "problemMatcher": []
-    },
-    {
-      "label": "Serve OUT with ZHTTP",
-      "type": "shell",
-      "dependsOn": "Build ZHTTP",
-      "command": "flatpak",
-      "args": [
-        "run",
-        "com.dosbox_x.DOSBox-X",
-        "-conf",
-        "${env:HOME}/.config/dosbox-x/dosbox-x-2025.02.01.conf",
-        "-c",
-        "mount c ${workspaceFolder}/mnt",
-        "-c",
-        "c:",
-        "-c",
-        "set WATTCP.CFG=C:\\",
-        "-c",
-        "ne2000 0x60 3 0x300",
-        "-c",
-        "zhttp.exe OUT 8080",
-        "-c",
-        "pause"
-      ],
-      "problemMatcher": []
-    },
-    {
-      "label": "DOS Shell (Debug)",
-      "type": "shell",
-      "command": "flatpak",
-      "args": [
-        "run",
-        "com.dosbox_x.DOSBox-X",
-        "-conf",
-        "${env:HOME}/.config/dosbox-x/dosbox-x-2025.02.01.conf",
-        "-c",
-        "mount c ${workspaceFolder}/mnt",
-        "-c",
-        "c:",
-        "-c",
-        "set WATTCP.CFG=C:\\",
-        "-c",
-        "ne2000 0x60 3 0x300"
-      ],
       "problemMatcher": []
     }
   ]
