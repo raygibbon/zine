@@ -29,9 +29,12 @@ static void sort_posts_by_date(Post *posts, int post_count) {
     }
 }
 
+static const char *ZINE_VERSION = "0.1.0";
+
 static void print_usage(void) {
     printf("Usage:\n");
     printf("  zine.exe [-v]           Build site in current folder\n");
+    printf("  zine.exe -V|--version   Print version information\n");
     printf("  zine.exe build DIR [-v] Build site in DIR\n");
     printf("  zine.exe init DIR  Create a starter site in DIR\n");
     printf("  zine.exe new SLUG  Create a new post in current folder\n");
@@ -42,12 +45,20 @@ static void print_usage(void) {
     printf("  zine.exe serve [DIR] [PORT] Serve OUT preview, default port 8080\n");
 }
 
+static void print_version(void) {
+    printf("Zine %s\n", ZINE_VERSION);
+}
+
 static const char *count_word(int count, const char *singular, const char *plural) {
     return count == 1 ? singular : plural;
 }
 
 static int is_verbose_arg(const char *arg) {
     return stricmp(arg, "-v") == 0 || stricmp(arg, "/v") == 0 || stricmp(arg, "verbose") == 0;
+}
+
+static int is_version_arg(const char *arg) {
+    return stricmp(arg, "-V") == 0 || stricmp(arg, "--version") == 0 || stricmp(arg, "version") == 0;
 }
 
 static int parse_port_arg(const char *arg, int *port) {
@@ -234,6 +245,11 @@ static int serve_site(const char *site_dir, int port) {
 
 int main(int argc, char **argv) {
     int port;
+
+    if (argc == 2 && is_version_arg(argv[1])) {
+        print_version();
+        return 0;
+    }
 
     if (argc == 2 && is_verbose_arg(argv[1])) {
         return build_current_site(1);

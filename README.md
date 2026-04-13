@@ -45,6 +45,8 @@ It is designed to run under DOSBox-X or on vintage DOS hardware.
 
 ```text
 zine.exe
+zine.exe -V
+zine.exe --version
 zine.exe -v
 zine.exe build MYBLOG
 zine.exe build MYBLOG -v
@@ -62,6 +64,7 @@ zine.exe serve C:\MYBLOG\OUT 8080
 ### Command summary
 
 - `zine.exe` — build the current site into `OUT/`
+- `zine.exe -V` / `zine.exe --version` — print the version
 - `zine.exe -v` — verbose build
 - `zine.exe build MYBLOG` — build a site from another folder
 - `zine.exe init MYBLOG` — scaffold a new site
