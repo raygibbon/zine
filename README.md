@@ -4,6 +4,8 @@
 It builds real DOS binaries with OpenWatcom and generates plain HTML from simple text source files.
 It is designed to run under DOSBox-X or on vintage DOS hardware.
 
+*This repository is licensed under BSD 2-clause. See `LICENSE`.*
+
 ---
 
 ## Why this exists
@@ -136,6 +138,16 @@ The preview server links Watt-32 from:
 - `3rd/watt32/src/lib/wattcpwl.lib`
 
 Override `WATT_ROOT` if you want to use a different Watt-32 installation.
+
+### License
+
+This repository is licensed under the BSD 2-clause license. See `LICENSE`.
+
+### Third-party licenses
+
+- Watt-32 is included from `3rd/watt32` under its existing license terms.
+- See `3rd/watt32/src/inc/copying.bsd` for the BSD license text included in the Watt-32 tree.
+- OpenWatcom itself is not included in this repo and is used as a host tool under its own license.
 
 ### VS Code tasks
 
