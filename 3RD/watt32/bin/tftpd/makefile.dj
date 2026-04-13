@@ -1,0 +1,15 @@
+#
+# GNU Makefile for Watt-32 tftp (djgpp) server.
+#
+
+DJGPP_EXE = tftpd32.exe
+SRC       = bootptab.c tftpd.c tftpsubs.c utils.c
+
+include ../djcommon.mak
+
+
+# DO NOT DELETE THIS LINE
+bootptab.o: bootptab.c tftp.h
+tftpd.o: tftpd.c tftp.h
+tftpsubs.o: tftpsubs.c tftp.h
+utils.o: utils.c tftp.h

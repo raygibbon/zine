@@ -1,0 +1,24 @@
+#
+# Makefile for Watt-32 ioctrl daemon
+#
+# Nuno Sucena <slug@student.dee.uc.pt>
+# Ken Yap     <ken@nlc.net.au>
+# Gisle Vanem <gvanem@yahoo.no>
+#
+
+SRC = io.c file.c util.c servidor.c fnmatch.c b64encod.c sock.c
+
+DJGPP_EXE = serv32.exe
+
+include ../djcommon.mak
+
+CFLAGS += -DVERSION=\"GNUC-C\" -DLANG_XLAT
+
+# DO NOT DELETE THIS LINE
+io.o: io.c config.h util.h io.h file.h sock.h
+file.o: file.c config.h file.h sock.h util.h fnmatch.h b64encod.h
+util.o: util.c config.h io.h util.h file.h sock.h
+servidor.o: servidor.c config.h sock.h file.h io.h util.h
+fnmatch.o: fnmatch.c config.h fnmatch.h
+b64encod.o: b64encod.c b64encod.h
+sock.o: sock.c config.h util.h file.h

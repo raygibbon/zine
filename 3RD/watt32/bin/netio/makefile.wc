@@ -1,0 +1,34 @@
+#
+# OpenWatcom WMAKE Makefile for `netio' utility.
+# Watcom-386 / DOS4GW   (netio4.exe)
+# Watcom-386 / Win32    (netiow.exe)  !! must use stack-calls
+#
+
+CFLAGS = -mf -s -w5 -zq -d2 -fpi -fr=nul -olrtf -I..\..\inc -DWATT32
+
+OBJECTS = netio.obj
+
+all: netio4.exe netiow.exe .PRECIOUS
+
+netio4.exe: netio4.obj
+    *wlink libpath $(%watcom)\lib386 libpath $(%watcom)\lib386\dos      &
+           system dos32a debug all sort global                          &
+           option quiet, map, verbose, caseexact, stack=250k, eliminate &
+           file $[@ library ..\..\lib\wattcpwf.lib name $@
+
+netiow.exe: netiow.obj
+    *wlink libpath $(%watcom)\lib386 system nt debug all sort global &
+           option quiet, map, verbose, caseexact, eliminate          &
+           file $[@ library ..\..\lib\wattcpw_imp.lib name $@
+
+.ERASE
+netio4.obj: netio.c
+    *wcc386 -bt=dos -3r $(CFLAGS) -fo=$@ $[@
+
+netiow.obj: netio.c
+    *wcc386 -bt=nt -3s $(CFLAGS) -fo=$@ $[@
+
+clean: .SYMBOLIC
+    @del netio4.*
+    @del netiow.*
+

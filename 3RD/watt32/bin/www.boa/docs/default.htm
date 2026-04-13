@@ -1,0 +1,296 @@
+<!DOCTYPE html public "-//IETF//DTD HTML 3.0//EN">
+<HTML>
+<HEAD>
+  <META name="description" content="Watt-32 homepage, tcp/ip programming for DOS"> 
+  <META name="keywords" content="tcp/ip, internet, programming, DOS,
+     embedded, BSD-socket, djgpp, Borland, Watcom, Pharlap, Metaware,
+     PKTDRVR, Packet-driver">
+  <META name="author" content="Gisle Vanem">
+  <TITLE>Watt-32 Homepage</TITLE>
+  <LINK rev=made href=mailto:giva@bgnett.no>
+<!--  <BASE HREF="http://www.bgnett.no/~giva/"> -->
+</HEAD>
+
+<BODY LINK="#0000ff" VLINK="#800080">
+
+<table BORDER="0" CELLPADDING="2" CELLSPACING="0">
+  <tr valign="center">
+    <td WIDTH="200"> <IMG SRC="optilynx.gif" BORDER=0 WIDTH=64 HEIGHT=64
+      ALT="[Lynx Friendly Page]"><!--<a HREF="http://lynx.isc.org/"></a>-->
+    </td>
+    <td WIDTH="500"> <h3>Watt-32 tcp/ip Homepage</h3>    
+    </td>
+  </tr>
+</table>
+
+<p><hr></p>
+
+<p>This page contains my port of Waterloo tcp/ip (WatTCP).
+Watt-32 is an enhanced version of <a HREF=mailto:erick@sail.uwaterloo.ca>
+Erick Engelke's</a> WatTCP. The latest <a HREF="http://www.wattcp.com">version</a>
+is dated November 1999 with features integrated into Watt-32.</p>
+
+<p>Watt-32 is a library for making networked TCP/IP programs in the language
+of C and C++. Both 16-bit real-mode and 32-bit protected-mode is supported.
+Watt-32 requires a packet-driver (<i>PKTDRVR</i>) to access the data-link layer
+(ether-PPP, SLIP or Ethernet. Token-Ring is untested).</p>
+
+<p>The name Watt-32 was chosen to signal the emphasis on 32-bit platforms
+(Allthough 16-bit compiler are also supported). What, besides embedded systems,
+is DOS good for these days if not running high-performance 32-bit programs.
+And the embedded market is booming; with the price of PC-104/EtherNet cards,
+Watt-32 could be used in a lot of fancy boxes. How about an <i>IP-telephone</i>,
+<i>MP3 home-player</i> or an <i>Internet Radio</i>.</p>
+
+<p>These are some of the new functions in Watt-32:</p>
+
+<ul>
+<i><li>DHCP-client</i>: An RFC-1541/2131 compliant DHCP-client allocates an IP
+       for you, sets the netmask and gateways etc. <br>
+       User doesn't need to configure <i>wattcp.cfg</i>.
+    </li>
+<i><li>RARP-client</i>: <a HREF=mailto:dank@alumni.caltech.edu>Dan Kegel</a>
+       contributed a RARP-client which translates your EtherNet address into
+       a usable IP-address.
+   </li>
+<i><li>TFTP-client</i>: A small udp client which could be used to transfer an
+       OS image or any file specified at startup. Great for embedded boxes
+       and/or hosts using DHCP or fixed IP address.
+   </li>
+<i><li>ICMP-redirect</i>: Watt-32 automatically switches gateway if an ICMP-
+       redirect is received. Optionally "ICMP-address mask request" will check your
+       configured net-mask.
+   </li>
+<i><li>PPP-support</i>: Watt-32 supports both types of PPP-drivers; i.e. types
+       that emulate EtherNet frames and those who don't. <br>
+       <a HREF=mailto:tonilop@redestb.es>Antonio Lopez Molero</a> has written
+       the excellent <a href="http://personal.redestb.es/tonilop/dosppp/dosppp06.zip">
+       DOS-PPP</a> driver that works very well with Watt-32.
+   </li>
+<i><li>Protocol debugger</i>: A much improved protocol debugger/tracer analyses
+       IP (ICMP, UDP and TCP) and ARP/RARP packets to/from your host (or
+       broadcast). Various headers can be filtered. DNS-records and IP/TCP
+       options are also shown.
+   </li>
+<i><li>BIND Resolver</i>: A port of the Unix resolver/DNS library. This was
+       added mainly to implement the <i>getmxbyname()</i> function used to
+       verify email addresses (see <i>vrfy</i> below).
+   </li>
+<i><li>File based lookup</i>: User may specify fixed IP/names in a hosts file.
+       All the <i>getXbyY()</i> functions from &lt;netdb.h&gt; are supported.
+       Also supports loading and parsing of <i>/etc/services</i>,
+       <i>/etc/protocols</i> and <i>/etc/ethers</i>.
+   </li>
+<i><li>BSD-Sockets</i>: Watt-32 tries to mimic the BSD-socket API with support
+       for SOCK_DGRAM, SOCK_STREAM, SOCK_RAW, blocking and non- blocking I/O.
+       Most header files required to port Unix network programs to Watt-32/DOS
+       are provided. This API needs some work to better support raw-sockets,
+       compliance to the man-pages etc. But it is currently used to built the
+       Web-browser <a HREF="http://lynx.isc.org/current/">Lynx</a>.
+   </li>
+</ul>
+
+<p>
+Other planned (or not-yet-working) things include TCP features like
+<i>RTT cache</i>, <i>window scaling</i>, <i>SACK</i> (selective acknowledge),
+<i>time-stamping</i>, <i>PAWS</i> (protect against wrapped segments) and better 
+retransmit strategy. Support for <i>IPv6</i> is started but not fully
+working yet. 
+</p>
+
+<p>
+Promiscous mode <i>SOCK_PACKET</i> support for the BSD-socket API. A spin-off 
+from my <a href="pcap/index.html">tcpdump/libpcap</a> project might produce a 
+protected-mode packet-driver API for djgpp/Pharlap/Watcom targets (driver for 
+3Com's 3C509 is working okay).
+</p>
+
+<p>
+A RTP/RTCP module for Realtime (voice/video) applications is planned.
+PPP-over-Ethernet (<i>PPPoE</i>) encapsulation for xDSL users is underway
+(contributions are welcome).
+</p>
+
+<h3>Supported Platforms</h3>
+
+<p>Watt-32 supports these compilers and environments:</p>
+
+<ul>
+  <li>GNU C/C++ 2.7 (or later) with djgpp 2.x DOS-extender. </li>
+  <li>Metaware HighC 3.x with PharLap DOS-extenders. </li>
+  <li>Borland C/C++ 4.x (or later), small/large model, real-mode.</li>
+  <li>Watcom C/C++ 11.x (or later), small/large/flat (DOS4GW) model.</li>
+  <li>Microsoft Quick C v6.0 (or later), small/large model.</li>
+  <li>Digital Mars Compiler 8.28 (or later), small/large/32-bit model.</li>
+</ul>
+
+The current distribution of Watt-32 is dated October 6, 2002:
+</p>
+
+<p><pre>
+   <b><a HREF="watt32b-2.2-dev.1.zip">watt32b 2.2 dev.rel.1</a></b> 5.3M  -- Binaries
+   <b><a HREF="watt32s-2.2-dev.1.zip">watt32s 2.2 dev.rel.1</a></b> 1312k -- Source
+   <b><a HREF="watt32d-2.1-dev.1.zip">watt32d 2.1 dev.rel.1</a></b> 876k  -- Docs/RFCs
+</pre></p>
+
+
+<h3>Watt-32 Network Tools</h3>
+
+<p>The binary distribution contains some tools in addition to the one in
+the original Waterloo package:
+<table BORDER="0" CELLPADDING="2" CELLSPACING="0">
+  <tr valign="top">
+    <td WIDTH="100"><i>archie:</i></td>
+    <td WIDTH="600"> Searches Archie (Prospero) servers for files and
+      directories. Regular expressions is supported. Original design by
+      <a HREF=mailto:bcn@isi.edu>Clifford Neuman</a> for the Prospero
+      Project, changes by <a HREF=mailto:ferguson@cs.rochester.edu>George
+      Ferguson</a> and me.</td>
+  </tr>
+  <tr valign="top">
+    <td WIDTH="100"><i>dig:</i></td>
+    <td WIDTH="600"> Domain Information Groper; send domain name query packets
+      to name servers. Lists Resource Records, Zone information, SOA,
+      MX-records etc. Developed by: <a HREF=mailto:address_unknown>Paul Vixie</a> (DEC), 
+      <a HREF=mailto:address_unknown>Steve Hotz</a> and <a HREF=mailto:address_unknown>
+      Paul Mockapetris</a> (USC-ISI).</td>
+  </tr>
+  <tr valign="top">
+    <td WIDTH="100"><i>DOS-VNC:</i></td>
+    <td WIDTH="600">Virtual Network Console allows remote control of Unix or Windows 
+      machines from DOS. This port is currently for djgpp only (using 
+      <a HREF="http://www.talula.demon.co.uk/allegro/">Allegro</a> graphics library).
+      Original <a HREF="http://www.uk.research.att.com/vnc/">version</a> by AT&amp;T. 
+      Ported to DOS by <a HREF=mailto:mjy@pobox.com>Marinos J. Yannikos</a> and me.</td>
+  </tr>
+  <tr valign="top">
+    <td WIDTH="100"><i>fping:</i></td>
+    <td WIDTH="600"> Fast parallell Ping. A tool to quickly ping <i>N</i>
+      number of hosts to determine their reachability without flooding the
+      network. Original version by <a HREF=mailto:schemers@slapshot.stanford.edu>
+      Roland J. Schemers</a> - Stanford University.</td>
+  </tr>
+  <tr valign="top">
+    <td WIDTH="100"><i>host:</i></td>
+    <td WIDTH="600"> Send domain name query packets to name servers. Similar
+      to <i>dig</i>, but with tons of options. Original version by
+      <a HREF=mailto:e07@nikhef.nl>Eric Wassenaar</a>.</td>
+  </tr>
+  <tr valign="top">
+    <td WIDTH="100"><i>ICMP-push:</i></td>
+    <td WIDTH="600"> Another expert tool for sending all kinds of ICMP-packets.
+      Not all of which are fiendly... Done by <a HREF=mailto:tcpbgp@softhome.net>
+      Slayer</a>.</td>
+  </tr>
+  <tr valign="top">
+    <td WIDTH="100"><i>MathOpd:</i></td>
+    <td WIDTH="600"> A fast, lightweight, non-forking HTTP server. HTTP/1.0 and
+      HTTP/1.1 compliant, virtual server and CGI support. The server also has a 
+      <a HREF=mailto:mathopd-request@diva.nl> mailing list</a>. Done by 
+      <a HREF=mailto:boland@diva.nl>Michiel Boland</a>.</td>
+  </tr>
+  <tr valign="top">
+    <td WIDTH="100"><i>netcat:</i></td>
+    <td WIDTH="600">A tool for reading and writing arbitrary data using UDP/TCP.
+      Handy for redirecting <i>stdin</i>/<i>stdout</i> across the network. 
+      <i>Note:</i>Little tested with Watt-32. Created by 
+      <a HREF=mailto:hobbit@avian.org>hobbit@avian.org</a>.</td>
+  </tr>
+  <tr valign="top">
+    <td WIDTH="100"><i>NetIO:</i></td>
+    <td WIDTH="600">A djgpp tool for measuring read/write speed across network. 
+      Win32 and OS/2 executables included for comparision and testing other end of 
+      connection. Some test results for the Watt-32 version is <a HREF="watt32.netio">here</a>. 
+      Created by <a HREF=mailto:rommel@ars.de>Kai Uwe Rommel</a>.</td>
+  </tr>
+  <tr valign="top">
+    <td WIDTH="100"><i>NetKalahari:</i></td>
+    <td WIDTH="600">A simple text-based networked game. It uses 
+      <a HREF=ftp://ftp.qut.edu.au/pub/markh/PDCurses/beta/pdcurs24.zip>PDcurses</a>
+      and is currently only ported to djgpp. Created by <a HREF=mailto:theo.wilhelm@uibk.ac.at>
+      Theo  Wilhelm</a> and others.</td>
+  </tr>
+  <tr valign="top">
+    <td WIDTH="100"><i>nslookup:</i></td>
+    <td WIDTH="600"> An interactive DNS tool (similar to <i>host</i> and
+      <i>dig</i>. Originally by Andrew Cherenson (UC Berkeley) and Paul Vixie
+      (DEC).</td>
+  </tr>
+  <tr valign="top">
+    <td WIDTH="100"><i>popmail:</i></td>
+    <td WIDTH="600"> Simple mail retriever and sender (POP3/SMTP). Can use
+      APOP authentication to login to POP3 server (doesn't send you password
+      in plain-text). <a HREF=mailto:wan@eng.ufl.edu>Walter A. Nolan</a>
+      wrote it, I added APOP, ISO-8859 charset etc.</td>
+  </tr>
+  <tr valign="top">
+    <td WIDTH="100"><i>rdate:</i></td>
+    <td WIDTH="600"> Obtain (and set) the time from a time server (UDP or TCP).
+      Originally by <a HREF=mailto:teffta@crypt.erie.ge.com>Andy Tefft</a>
+      and <a HREF="maito:rth@tamu.edu">Richard Henderson</a>. Ported to
+      Watt-32 by <a HREF=mailto:ken_yap@nlc.net.au>Ken Yap</a>.
+    </td>
+  </tr>
+  <tr valign="top">
+    <td WIDTH="100"><i>syslogd:</i></td>
+    <td WIDTH="600"> Syslog Daemon for logging events/messages from Unix
+      clients. Logs to disk or line-printer. Also synchronizes time with NTP
+      broadcasts sent on LAN. Ported to Watt-32 by
+      <a HREF=mailto:ken_yap@nlc.net.au>Ken Yap</a>.</td>
+   </tr>
+   <tr valign="top">
+     <td WIDTH="100"><i>suck:</i></td>
+     <td WIDTH="600"> Pulls newsgroups from a NNTP news-server. Accompanying
+       tools sorts and posts articles. Original Authors <a HREF=mailto:unknown_address>
+       Tim Smith</a>, <a HREF=mailto:goldt@math.tu-berlin.de>Sven Goldt</a> and
+       <a HREF=mailto:boby@pixi.com>Robert A. Yetman</a>.</td>
+   </tr>
+   <tr valign="top">
+     <td WIDTH="100"><i>talk:</i></td>
+     <td WIDTH="600"> A chat client with colour (conio), aliases, old/new
+       BSD-talk protocol, answer mode and logging. Ported to WatTCP by
+       <a HREF=mailto:unknown_address> Michael Ringe</a></td>
+   </tr>
+   <tr valign="top">
+     <td WIDTH="100"><i>ttcp:</i></td>
+     <td WIDTH="600"> A benchmarking tool for determining TCP and
+       UDP performance between 2 systems. Someone at US Army Ballistics
+       Research Lab (BRL) did this eons ago, but it's still a nice tool.
+       Ported to Watt-32 by <a HREF=mailto:ken_yap@nlc.net.au>Ken Yap</a>.
+       </td>
+   </tr>
+   <tr valign="top">
+     <td WIDTH="100"><i>vrfy:</i></td>
+     <td WIDTH="600"> Verifies validity of email addresses. Requires <i>MX</i>
+       host to support the <i>VRFY</i> or <i>EXPN</i> commands. Original version 
+       by <a HREF=mailto:e07@nikhef.nl>Eric Wassenaar</a>.</td>
+   </tr>
+   <tr valign="top">
+     <td WIDTH="100"><i>wget:</i></td>
+     <td WIDTH="600"> A very nice utility to retrieve files from servers using 
+       HTTP or FTP. By <a HREF=mailto:hniksic@srce.hr>Hrvoje Niksic</a>.</td>
+   </tr>
+</table>
+
+<p>If your serious about WatTCP or Watt-32 developement, I strongly advice a 
+purchase of the <i>WATTCP Programmers Manual</i> available 
+<a HREF="http://www.wattcp.com/docs.shtml">here</a>.
+</p>
+
+<p>Comments, Watt-32 bug-fixes and contributions are welcome.<br>
+E-mail <a HREF=mailto:giva@bgnett.no>giva@bgnett.no</a> for comments or
+preferably join the Watt-32 <a href=mailto:watt-32@egroups.com>mailing list</a>
+at URL below.</p>
+
+<p>Watt-32 <i>change.log</i> file is <a HREF="change.log">here</a>.
+</p>
+
+<p>You are visitor number <IMG SRC="/cgi-bin/Count.cgi?dd=D|ft=3|df=giva.dat"
+WIDTH=60 HEIGHT=19> since Feb 9 1999. &nbsp;&nbsp;&nbsp;
+<IMG SRC="join.gif" border=1 height=36 width=100>
+<a HREF="http://groups.yahoo.com/group/watt-32/join">Subscribe</a> to the Watt-32
+mailing list.
+</p>
+
+</BODY>
+</HTML>

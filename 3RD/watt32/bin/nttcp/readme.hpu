@@ -1,0 +1,55 @@
+Package name:     nttcp
+Version number:   1.47
+Original author:  Elmar Bartel <Elmar.Bartel@in.tum.de>
+Original URL:     http://www.leo.org/~elmar/nttcp/
+HP-UX URL:        http://hpux.connect.org.uk/hppd/cgi-bin/search?package=&term=nttcp-
+Install tree:     /opt/nttcp
+Report bugs to:   stephie@connect.org.uk
+Tested on:        HP 9000/780/C160 running HP-UX 11.00
+C compiler used:  Version A.11.01.21505.GP
+Purpose:
+An improved version of the popular ttcp program. It measures the transfer rate
+and other stats on a TCP, UDP or UDP multicast connection. It is a much more
+convenient version of the ttcp program. It uses inetd to start off the remote
+side program which will send or receive data. Both sides measure the time and
+number of bytes transferred. The local side will print the measures.
+Date archived:    Mon  8 Apr 2002
+
+-------------------------------------------------------------------------------
+
+System:
+======
+	HP-UX shin B.10.20 A 9000/780
+
+URL:
+====
+	http://www.leo.org/~elmar/nttcp/
+
+HP Porting Changes:
+===================
+  Configuration Files 
+  -------------------
+
+  Makefile - slightly touched up!
+
+  
+Building:
+=========
+
+  Run "make" in the top level dir.
+
+  Use "make -n install" to check the defaults, then "make install"
+
+
+Installed:
+==========
+ By
+ --     [steff@csc.liv.ac.uk]
+ On
+ --	[ 8/4/2002 ]
+ 
+ 
+       HPUX Porting and Archive Centre, Connect, Liverpool University.
+  __/__/__/__/__/__/__/__/__/__/__/__/__/__/__/__/__/__/__/__/__/__/__/__/
+
+		         The Happy Archive

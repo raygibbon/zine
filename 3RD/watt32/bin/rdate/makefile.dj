@@ -1,0 +1,7 @@
+SRC       = rdate.c
+DJGPP_EXE = rdate32.exe
+
+include ../djcommon.mak
+
+# DO NOT DELETE THIS LINE
+rdate.o: rdate.c portable.h

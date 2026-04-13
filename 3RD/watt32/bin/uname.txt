@@ -1,0 +1,68 @@
+ÿ
+   uname(1)                                                    uname(1)
+
+
+   NAME
+         uname - print name of current UNIX system
+
+   SYNOPSIS
+         uname [-amnprsv]
+         uname [-S system_name ]
+
+   DESCRIPTION
+         uname prints the current system name of the UNIX system to
+         standard output.  It is mainly useful to determine which
+         system one is using.  The options cause selected information
+         returned by uname(2) and/or sysinfo(2) to be printed.
+         Invoking uname with no options is equivalent to invoking uname
+         -s.
+
+         -a    Print all information.
+
+         -m    Print the machine hardware name.
+
+         -n    Print the node name (the node name is the name by which
+               the system is known to a communications network).
+
+         -p    Print the current host's processor type.
+
+         -r    Print the operating system release.
+
+         -s    Print the name of this implementation of the operating
+               system (for example, UNIX System V).
+
+         -v    Print the operating system version.
+
+         -S    Set both the system name and the node name to
+               system_name.  system_name is restricted to SYS_NMLN
+               characters [see limits(4)].  Only a privileged user is
+               allowed this capability.
+
+               This option is provided only for compatibility reasons.
+               It is recommended that you use setuname(1M) instead.
+               setuname -s lets you change the system name
+               independently of the node name.
+
+               Be aware that if you change a node name, other software
+               may break unexpectedly; so, it is good practice not to
+               change a node name once it is set.  For example,
+               networking software and application packages may save
+               the node name of your system at the time the package is
+               installed.  Therefore, each time you change the node
+               name, you need to locate all the files where it has been
+               saved and change its value.  See your System
+               Administration guide for more information about setting
+               up your work environment.
+
+         The LC_CTYPE environment variable determines the processing of
+         the output data.  [See LANG in environ(5).]
+
+   FILES
+         /etc/nodename
+         /etc/systemid
+         /usr/lib/locale/locale/LC_MESSAGES/uxcore.abi
+                             language-specific message file [See LANG
+                             on environ(5).]
+
+   REFERENCES
+         environ(5), limits(4), setuname(1M), sysinfo(2), uname(2)

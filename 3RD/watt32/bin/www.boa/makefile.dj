@@ -1,0 +1,156 @@
+#
+#  GNU Makefile for Waterloo BOA 0.93 (djgpp)
+#
+
+SRC = grammar.c lexer.c alias.c boa.c cgi.c config.c debug.c get.c \
+      hash.c log.c queue.c read.c request.c response.c signals.c util.c
+
+DJGPP_EXE = boa32.exe
+YACC      = bison -y
+LEX       = flex
+GENERATED = grammar.c grammar.h lexer.c
+
+include ../djcommon.mak
+
+#
+# Add -DVERBOSE_CGI_LOGS to CFLAGS if you want logs
+# of CGI program start and stop times
+#
+CFLAGS += -DDEBUG -D__MSDOS
+
+lexer.c: lexer.l
+	$(LEX) -olexer.c lexer.l
+
+grammar.c: grammar.y
+	$(YACC) -d -ogrammar.c grammar.y
+
+# DO NOT DELETE THIS LINE
+grammar.o: grammar.c boa.h e:/net/watt/inc/sys/socket.h \
+  e:/net/watt/inc/sys/werrno.h e:/net/watt/inc/sys/djgpp.err \
+  e:/net/watt/inc/sys/cdefs.h e:/net/watt/inc/sys/wtypes.h \
+  e:/net/watt/inc/sys/wtime.h e:/net/watt/inc/netinet/in.h \
+  e:/net/watt/inc/sys/param.h e:/net/watt/inc/sys/swap.h \
+  e:/net/watt/inc/sys/packon.h e:/net/watt/inc/sys/packoff.h \
+  e:/net/watt/inc/sys/ioctl.h e:/net/watt/inc/arpa/inet.h \
+  e:/net/watt/inc/netdb.h e:/net/watt/inc/tcp.h defines.h compat.h
+lexer.o: lexer.c boa.h e:/net/watt/inc/sys/socket.h \
+  e:/net/watt/inc/sys/werrno.h e:/net/watt/inc/sys/djgpp.err \
+  e:/net/watt/inc/sys/cdefs.h e:/net/watt/inc/sys/wtypes.h \
+  e:/net/watt/inc/sys/wtime.h e:/net/watt/inc/netinet/in.h \
+  e:/net/watt/inc/sys/param.h e:/net/watt/inc/sys/swap.h \
+  e:/net/watt/inc/sys/packon.h e:/net/watt/inc/sys/packoff.h \
+  e:/net/watt/inc/sys/ioctl.h e:/net/watt/inc/arpa/inet.h \
+  e:/net/watt/inc/netdb.h e:/net/watt/inc/tcp.h defines.h compat.h \
+  grammar.h
+alias.o: alias.c boa.h e:/net/watt/inc/sys/socket.h \
+  e:/net/watt/inc/sys/werrno.h e:/net/watt/inc/sys/djgpp.err \
+  e:/net/watt/inc/sys/cdefs.h e:/net/watt/inc/sys/wtypes.h \
+  e:/net/watt/inc/sys/wtime.h e:/net/watt/inc/netinet/in.h \
+  e:/net/watt/inc/sys/param.h e:/net/watt/inc/sys/swap.h \
+  e:/net/watt/inc/sys/packon.h e:/net/watt/inc/sys/packoff.h \
+  e:/net/watt/inc/sys/ioctl.h e:/net/watt/inc/arpa/inet.h \
+  e:/net/watt/inc/netdb.h e:/net/watt/inc/tcp.h defines.h compat.h
+boa.o: boa.c boa.h e:/net/watt/inc/sys/socket.h \
+  e:/net/watt/inc/sys/werrno.h e:/net/watt/inc/sys/djgpp.err \
+  e:/net/watt/inc/sys/cdefs.h e:/net/watt/inc/sys/wtypes.h \
+  e:/net/watt/inc/sys/wtime.h e:/net/watt/inc/netinet/in.h \
+  e:/net/watt/inc/sys/param.h e:/net/watt/inc/sys/swap.h \
+  e:/net/watt/inc/sys/packon.h e:/net/watt/inc/sys/packoff.h \
+  e:/net/watt/inc/sys/ioctl.h e:/net/watt/inc/arpa/inet.h \
+  e:/net/watt/inc/netdb.h e:/net/watt/inc/tcp.h defines.h compat.h
+cgi.o: cgi.c boa.h e:/net/watt/inc/sys/socket.h \
+  e:/net/watt/inc/sys/werrno.h e:/net/watt/inc/sys/djgpp.err \
+  e:/net/watt/inc/sys/cdefs.h e:/net/watt/inc/sys/wtypes.h \
+  e:/net/watt/inc/sys/wtime.h e:/net/watt/inc/netinet/in.h \
+  e:/net/watt/inc/sys/param.h e:/net/watt/inc/sys/swap.h \
+  e:/net/watt/inc/sys/packon.h e:/net/watt/inc/sys/packoff.h \
+  e:/net/watt/inc/sys/ioctl.h e:/net/watt/inc/arpa/inet.h \
+  e:/net/watt/inc/netdb.h e:/net/watt/inc/tcp.h defines.h compat.h
+config.o: config.c boa.h e:/net/watt/inc/sys/socket.h \
+  e:/net/watt/inc/sys/werrno.h e:/net/watt/inc/sys/djgpp.err \
+  e:/net/watt/inc/sys/cdefs.h e:/net/watt/inc/sys/wtypes.h \
+  e:/net/watt/inc/sys/wtime.h e:/net/watt/inc/netinet/in.h \
+  e:/net/watt/inc/sys/param.h e:/net/watt/inc/sys/swap.h \
+  e:/net/watt/inc/sys/packon.h e:/net/watt/inc/sys/packoff.h \
+  e:/net/watt/inc/sys/ioctl.h e:/net/watt/inc/arpa/inet.h \
+  e:/net/watt/inc/netdb.h e:/net/watt/inc/tcp.h defines.h compat.h
+debug.o: debug.c boa.h e:/net/watt/inc/sys/socket.h \
+  e:/net/watt/inc/sys/werrno.h e:/net/watt/inc/sys/djgpp.err \
+  e:/net/watt/inc/sys/cdefs.h e:/net/watt/inc/sys/wtypes.h \
+  e:/net/watt/inc/sys/wtime.h e:/net/watt/inc/netinet/in.h \
+  e:/net/watt/inc/sys/param.h e:/net/watt/inc/sys/swap.h \
+  e:/net/watt/inc/sys/packon.h e:/net/watt/inc/sys/packoff.h \
+  e:/net/watt/inc/sys/ioctl.h e:/net/watt/inc/arpa/inet.h \
+  e:/net/watt/inc/netdb.h e:/net/watt/inc/tcp.h defines.h compat.h
+get.o: get.c boa.h e:/net/watt/inc/sys/socket.h \
+  e:/net/watt/inc/sys/werrno.h e:/net/watt/inc/sys/djgpp.err \
+  e:/net/watt/inc/sys/cdefs.h e:/net/watt/inc/sys/wtypes.h \
+  e:/net/watt/inc/sys/wtime.h e:/net/watt/inc/netinet/in.h \
+  e:/net/watt/inc/sys/param.h e:/net/watt/inc/sys/swap.h \
+  e:/net/watt/inc/sys/packon.h e:/net/watt/inc/sys/packoff.h \
+  e:/net/watt/inc/sys/ioctl.h e:/net/watt/inc/arpa/inet.h \
+  e:/net/watt/inc/netdb.h e:/net/watt/inc/tcp.h defines.h compat.h
+hash.o: hash.c boa.h e:/net/watt/inc/sys/socket.h \
+  e:/net/watt/inc/sys/werrno.h e:/net/watt/inc/sys/djgpp.err \
+  e:/net/watt/inc/sys/cdefs.h e:/net/watt/inc/sys/wtypes.h \
+  e:/net/watt/inc/sys/wtime.h e:/net/watt/inc/netinet/in.h \
+  e:/net/watt/inc/sys/param.h e:/net/watt/inc/sys/swap.h \
+  e:/net/watt/inc/sys/packon.h e:/net/watt/inc/sys/packoff.h \
+  e:/net/watt/inc/sys/ioctl.h e:/net/watt/inc/arpa/inet.h \
+  e:/net/watt/inc/netdb.h e:/net/watt/inc/tcp.h defines.h compat.h
+log.o: log.c boa.h e:/net/watt/inc/sys/socket.h \
+  e:/net/watt/inc/sys/werrno.h e:/net/watt/inc/sys/djgpp.err \
+  e:/net/watt/inc/sys/cdefs.h e:/net/watt/inc/sys/wtypes.h \
+  e:/net/watt/inc/sys/wtime.h e:/net/watt/inc/netinet/in.h \
+  e:/net/watt/inc/sys/param.h e:/net/watt/inc/sys/swap.h \
+  e:/net/watt/inc/sys/packon.h e:/net/watt/inc/sys/packoff.h \
+  e:/net/watt/inc/sys/ioctl.h e:/net/watt/inc/arpa/inet.h \
+  e:/net/watt/inc/netdb.h e:/net/watt/inc/tcp.h defines.h compat.h
+queue.o: queue.c boa.h e:/net/watt/inc/sys/socket.h \
+  e:/net/watt/inc/sys/werrno.h e:/net/watt/inc/sys/djgpp.err \
+  e:/net/watt/inc/sys/cdefs.h e:/net/watt/inc/sys/wtypes.h \
+  e:/net/watt/inc/sys/wtime.h e:/net/watt/inc/netinet/in.h \
+  e:/net/watt/inc/sys/param.h e:/net/watt/inc/sys/swap.h \
+  e:/net/watt/inc/sys/packon.h e:/net/watt/inc/sys/packoff.h \
+  e:/net/watt/inc/sys/ioctl.h e:/net/watt/inc/arpa/inet.h \
+  e:/net/watt/inc/netdb.h e:/net/watt/inc/tcp.h defines.h compat.h
+read.o: read.c boa.h e:/net/watt/inc/sys/socket.h \
+  e:/net/watt/inc/sys/werrno.h e:/net/watt/inc/sys/djgpp.err \
+  e:/net/watt/inc/sys/cdefs.h e:/net/watt/inc/sys/wtypes.h \
+  e:/net/watt/inc/sys/wtime.h e:/net/watt/inc/netinet/in.h \
+  e:/net/watt/inc/sys/param.h e:/net/watt/inc/sys/swap.h \
+  e:/net/watt/inc/sys/packon.h e:/net/watt/inc/sys/packoff.h \
+  e:/net/watt/inc/sys/ioctl.h e:/net/watt/inc/arpa/inet.h \
+  e:/net/watt/inc/netdb.h e:/net/watt/inc/tcp.h defines.h compat.h
+request.o: request.c boa.h e:/net/watt/inc/sys/socket.h \
+  e:/net/watt/inc/sys/werrno.h e:/net/watt/inc/sys/djgpp.err \
+  e:/net/watt/inc/sys/cdefs.h e:/net/watt/inc/sys/wtypes.h \
+  e:/net/watt/inc/sys/wtime.h e:/net/watt/inc/netinet/in.h \
+  e:/net/watt/inc/sys/param.h e:/net/watt/inc/sys/swap.h \
+  e:/net/watt/inc/sys/packon.h e:/net/watt/inc/sys/packoff.h \
+  e:/net/watt/inc/sys/ioctl.h e:/net/watt/inc/arpa/inet.h \
+  e:/net/watt/inc/netdb.h e:/net/watt/inc/tcp.h defines.h compat.h
+response.o: response.c boa.h e:/net/watt/inc/sys/socket.h \
+  e:/net/watt/inc/sys/werrno.h e:/net/watt/inc/sys/djgpp.err \
+  e:/net/watt/inc/sys/cdefs.h e:/net/watt/inc/sys/wtypes.h \
+  e:/net/watt/inc/sys/wtime.h e:/net/watt/inc/netinet/in.h \
+  e:/net/watt/inc/sys/param.h e:/net/watt/inc/sys/swap.h \
+  e:/net/watt/inc/sys/packon.h e:/net/watt/inc/sys/packoff.h \
+  e:/net/watt/inc/sys/ioctl.h e:/net/watt/inc/arpa/inet.h \
+  e:/net/watt/inc/netdb.h e:/net/watt/inc/tcp.h defines.h compat.h
+signals.o: signals.c boa.h e:/net/watt/inc/sys/socket.h \
+  e:/net/watt/inc/sys/werrno.h e:/net/watt/inc/sys/djgpp.err \
+  e:/net/watt/inc/sys/cdefs.h e:/net/watt/inc/sys/wtypes.h \
+  e:/net/watt/inc/sys/wtime.h e:/net/watt/inc/netinet/in.h \
+  e:/net/watt/inc/sys/param.h e:/net/watt/inc/sys/swap.h \
+  e:/net/watt/inc/sys/packon.h e:/net/watt/inc/sys/packoff.h \
+  e:/net/watt/inc/sys/ioctl.h e:/net/watt/inc/arpa/inet.h \
+  e:/net/watt/inc/netdb.h e:/net/watt/inc/tcp.h defines.h compat.h
+util.o: util.c boa.h e:/net/watt/inc/sys/socket.h \
+  e:/net/watt/inc/sys/werrno.h e:/net/watt/inc/sys/djgpp.err \
+  e:/net/watt/inc/sys/cdefs.h e:/net/watt/inc/sys/wtypes.h \
+  e:/net/watt/inc/sys/wtime.h e:/net/watt/inc/netinet/in.h \
+  e:/net/watt/inc/sys/param.h e:/net/watt/inc/sys/swap.h \
+  e:/net/watt/inc/sys/packon.h e:/net/watt/inc/sys/packoff.h \
+  e:/net/watt/inc/sys/ioctl.h e:/net/watt/inc/arpa/inet.h \
+  e:/net/watt/inc/netdb.h e:/net/watt/inc/tcp.h defines.h compat.h

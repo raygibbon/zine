@@ -1,0 +1,28 @@
+I've made several changes.  Primarily, I fixed a bug that assumed a
+long was four bytes.  Secondarily, not liking to do anything destructive
+without express permission, we no longer set the local system time by
+default when run as root.  There are now command-line options to control
+that sort of thing.
+
+Richard Henderson <rth@tamu.edu>
+23 Sep 1996
+
+
+[The original README follows]
+
+
+I originally got this to compile under HP-UX. I don't remember where
+I got it from, although the man page has attribution to Lee Moore
+at University of Rochester.
+
+I made two sets of changes. The first one actually sets the date if
+run by root, rather than just displaying it. The other changes were to
+make it compile under Linux. I did not change the manual page.
+
+rdate.c.orig is the original source, and rdate is the binary I compiled
+under Linux 1.1.52 with libc 4.5.26.
+
+Andy Tefft
+teffta@crypt.erie.ge.com
+10/10/94
+

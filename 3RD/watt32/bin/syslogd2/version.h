@@ -1,0 +1,1 @@
+#define SYSLOGD_VERSION	"1.2"

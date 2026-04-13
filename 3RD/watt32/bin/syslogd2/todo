@@ -1,0 +1,9 @@
+* Make sure that we use "const" where it should be
+
+* Handle full caches in a less abrupt manner
+
+* Should "break" skip all following actions and "continue" jump to the
+  next facility group?
+
+* Do wild card or regex matching on program names, but becareful about
+  the expense.

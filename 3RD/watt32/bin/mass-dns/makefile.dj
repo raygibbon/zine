@@ -1,0 +1,15 @@
+#
+# GNU Makefile for Mass-DNS (djgpp) utility
+#
+
+MAKE_MAP  = 0
+STRIP_EXE = 0
+PACK_EXE  = 0
+
+CC_SRC    = massdns.cc
+DJGPP_EXE = massdns.exe
+
+include ../djcommon.mak
+
+# DO NOT DELETE THIS LINE
+massdns.o: massdns.cc

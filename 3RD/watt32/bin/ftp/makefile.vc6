@@ -1,0 +1,85 @@
+#
+# nmake Makefile for DOS-ftp (Win32 version)
+# MwConio for Win32 is required. Change $INCLUDE and $LIB
+# to the directory of MwConio.
+#
+
+DEBUG_MODE = 1
+
+CC      = cl
+CFLAGS  = -DWIN32 -nologo -W1 -Gy -I$(WATT_ROOT)\inc
+LDFLAGS = -warn:2 -machine:i386 -nodefaultlib
+
+!if $(DEBUG_MODE) == 1
+DEBUG   = _d
+CFLAGS  = $(CFLAGS) -MDd -Yd -Ge -GZ -Zi -Os -D_DEBUG
+LDFLAGS = $(LDFLAGS) -debug -fixed:no
+LIBS    = msvcrtd.lib
+!else
+DEBUG   =
+CFLAGS  = $(CFLAGS) -MD -Ot -Gs
+LDFLAGS = $(LDFLAGS) -release
+LIBS    = msvcrt.lib
+!endif
+
+LIBS = $(LIBS) mwconio.lib user32.lib kernel32.lib oldnames.lib
+
+SOURCE = lang_scn.c ftp.c main.c util.c command.c config.c url.c macro.c \
+         screen.c bsd_glob.c cgets.c crc.c parse.c
+
+OBJECTS = $(SOURCE:.c=.obj)
+
+all: wftp.exe
+
+lang_scn.c: lang_scn.l
+        flex -o$*.c $*.l
+
+lang_scn.obj: lang_scn.c
+
+.c.obj:
+	$(CC) -c $(CFLAGS) $*.c
+
+wftp.exe: $(OBJECTS)
+	link @<<
+	  $(LDFLAGS) -map:$*.map -out:$*.exe
+	  $(OBJECTS) $(WATT_ROOT)\lib\wattcpvc_imp$(DEBUG).lib $(LIBS)
+<<
+
+cgets.exe: cgets.c
+	$(CC) -c -DTEST $(CFLAGS) $*.c
+	link @<<
+	  $(LDFLAGS) -map:$*.map -out:$*.exe cgets.obj $(LIBS)
+<<
+
+
+clean:
+	rm -f $(OBJECTS) wftp.* cgets.exe vc*.pdb
+
+lang_scn.obj: lang_scn.c ftp.h fortify.h ufortify.h screen.h macro.h \
+  config.h cgets.h util.h crc.h
+ftp.obj: ftp.c parse.h ftp.h fortify.h ufortify.h screen.h macro.h config.h \
+  cgets.h util.h
+main.obj: main.c ftp.h fortify.h ufortify.h screen.h macro.h config.h \
+  cgets.h util.h
+util.obj: util.c ftp.h fortify.h ufortify.h screen.h macro.h config.h \
+  cgets.h util.h
+command.obj: command.c ftp.h fortify.h ufortify.h screen.h macro.h config.h \
+  cgets.h util.h
+config.obj: config.c ftp.h fortify.h ufortify.h screen.h macro.h config.h \
+  cgets.h util.h
+url.obj: url.c ftp.h fortify.h ufortify.h screen.h macro.h config.h cgets.h \
+  util.h
+macro.obj: macro.c ftp.h fortify.h ufortify.h screen.h macro.h config.h \
+  cgets.h util.h
+screen.obj: screen.c ftp.h fortify.h ufortify.h screen.h macro.h config.h \
+  cgets.h util.h
+cgets.obj: cgets.c ftp.h fortify.h ufortify.h screen.h macro.h config.h \
+  cgets.h util.h
+int29.obj: int29.c ftp.h fortify.h ufortify.h screen.h macro.h config.h \
+  cgets.h util.h
+crc.obj: crc.c ftp.h fortify.h ufortify.h screen.h macro.h config.h cgets.h \
+  util.h crc.h
+dosname.obj: dosname.c ftp.h fortify.h ufortify.h screen.h macro.h config.h \
+  cgets.h util.h
+bsd_glob.obj: bsd_glob.c
+parse.obj: parse.c parse.h

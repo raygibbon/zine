@@ -1,0 +1,16 @@
+#
+#  GNU Makefile for Watt-32 (djgpp) http.
+#  Rewritten from Adonis Project time tools
+#      by L. Demailly
+#
+#      (c)1996 Observatoire de Paris
+#
+
+SRC       = http_lib.c http.c
+DJGPP_EXE = http32.exe
+
+include ../djcommon.mak
+
+# DO NOT DELETE THIS LINE
+http_lib.o: http_lib.c http_lib.h
+http.o: http.c http_lib.h

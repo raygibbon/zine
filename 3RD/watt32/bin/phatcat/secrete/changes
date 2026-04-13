@@ -1,0 +1,7 @@
+29-03-2002 (0.2pre1)
+	
+	changed bf_keyinit() to use unsigned char* as a key.
+	some speed optimization in RC4 routines. 
+
+
+ 

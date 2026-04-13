@@ -1,0 +1,54 @@
+#
+# Last changed: 28-Aug-97, v1.3
+#
+# djgpp Makefile for WatTCP archie Prospero client.
+#
+
+SRC = archie.c query.c alloc.c dirsend.c perrno.c regex.c support.c get_vdir.c
+
+DJGPP_EXE = archie32.exe
+DPMI_STUB = 1
+
+include ../djcommon.mak
+
+# DO NOT DELETE THIS LINE
+archie.o: archie.c pfs.h e:/net/watt/inc/tcp.h \
+  e:/net/watt/inc/sys/wtypes.h e:/net/watt/inc/sys/wtime.h \
+  e:/net/watt/inc/sys/swap.h e:/net/watt/inc/netinet/in.h \
+  e:/net/watt/inc/sys/param.h e:/net/watt/inc/sys/packon.h \
+  e:/net/watt/inc/sys/packoff.h copyrigh.h archie.h
+query.o: query.c pfs.h e:/net/watt/inc/tcp.h e:/net/watt/inc/sys/wtypes.h \
+  e:/net/watt/inc/sys/wtime.h e:/net/watt/inc/sys/swap.h \
+  e:/net/watt/inc/netinet/in.h e:/net/watt/inc/sys/param.h \
+  e:/net/watt/inc/sys/packon.h e:/net/watt/inc/sys/packoff.h copyrigh.h \
+  perrno.h archie.h
+alloc.o: alloc.c pfs.h e:/net/watt/inc/tcp.h e:/net/watt/inc/sys/wtypes.h \
+  e:/net/watt/inc/sys/wtime.h e:/net/watt/inc/sys/swap.h \
+  e:/net/watt/inc/netinet/in.h e:/net/watt/inc/sys/param.h \
+  e:/net/watt/inc/sys/packon.h e:/net/watt/inc/sys/packoff.h copyrigh.h
+dirsend.o: dirsend.c e:/net/watt/inc/tcp.h e:/net/watt/inc/sys/wtypes.h \
+  e:/net/watt/inc/sys/wtime.h e:/net/watt/inc/sys/swap.h \
+  e:/net/watt/inc/netinet/in.h e:/net/watt/inc/sys/param.h \
+  e:/net/watt/inc/sys/packon.h e:/net/watt/inc/sys/packoff.h \
+  e:/net/watt/inc/netdb.h e:/net/watt/inc/sys/socket.h \
+  e:/net/watt/inc/sys/werrno.h e:/net/watt/inc/sys/djgpp.err pfs.h \
+  copyrigh.h perrno.h archie.h
+perrno.o: perrno.c pfs.h e:/net/watt/inc/tcp.h \
+  e:/net/watt/inc/sys/wtypes.h e:/net/watt/inc/sys/wtime.h \
+  e:/net/watt/inc/sys/swap.h e:/net/watt/inc/netinet/in.h \
+  e:/net/watt/inc/sys/param.h e:/net/watt/inc/sys/packon.h \
+  e:/net/watt/inc/sys/packoff.h copyrigh.h perrno.h
+regex.o: regex.c pfs.h e:/net/watt/inc/tcp.h e:/net/watt/inc/sys/wtypes.h \
+  e:/net/watt/inc/sys/wtime.h e:/net/watt/inc/sys/swap.h \
+  e:/net/watt/inc/netinet/in.h e:/net/watt/inc/sys/param.h \
+  e:/net/watt/inc/sys/packon.h e:/net/watt/inc/sys/packoff.h copyrigh.h
+support.o: support.c pfs.h e:/net/watt/inc/tcp.h \
+  e:/net/watt/inc/sys/wtypes.h e:/net/watt/inc/sys/wtime.h \
+  e:/net/watt/inc/sys/swap.h e:/net/watt/inc/netinet/in.h \
+  e:/net/watt/inc/sys/param.h e:/net/watt/inc/sys/packon.h \
+  e:/net/watt/inc/sys/packoff.h copyrigh.h perrno.h regex.h
+get_vdir.o: get_vdir.c pfs.h e:/net/watt/inc/tcp.h \
+  e:/net/watt/inc/sys/wtypes.h e:/net/watt/inc/sys/wtime.h \
+  e:/net/watt/inc/sys/swap.h e:/net/watt/inc/netinet/in.h \
+  e:/net/watt/inc/sys/param.h e:/net/watt/inc/sys/packon.h \
+  e:/net/watt/inc/sys/packoff.h copyrigh.h perrno.h archie.h

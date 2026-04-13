@@ -1,0 +1,12 @@
+phatcat readme
+==============
+
+This is completely undocumented but we don't have a volunteer to do it yet ;)
+
+
+new stuff:
+----------
+Added the optimized '-e' parsing from Roman Hoog Antink. This allows you to use
+command args of the command you submit to '-e'.
+
+Also added encryption with a homebrew small blowphish library

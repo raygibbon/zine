@@ -1,0 +1,13 @@
+#
+# GNU Makefile for WatTCP ttcp (djgpp) test program
+#
+# Ken Yap <ken@nlc.net.au>
+#
+
+SRC       = ttcp.c
+DJGPP_EXE = ttcp32.exe
+
+include ../djcommon.mak
+
+# DO NOT DELETE THIS LINE
+ttcp.o: ttcp.c portable.h

@@ -1,0 +1,14 @@
+#
+# GNU Makefile for nttcp (Watt-32/djgpp)
+#
+
+SRC = nttcp.c support.c
+
+DJGPP_EXE = nttcp.exe
+CFLAGS    = -DVERSION=\"1.4.7\"
+
+include ../djcommon.mak
+
+# DO NOT DELETE THIS LINE
+nttcp.o: nttcp.c
+support.o: support.c support.h

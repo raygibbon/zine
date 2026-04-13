@@ -1,0 +1,68 @@
+##
+## syslogd -- system logging daemon
+## Copyright (c) 1998 Douglas K. Rand   <rand@aero.und.edu>
+## All Rights Reserved.
+##
+
+##
+## This program is free software; you can redistribute it and/or modify
+## it under the terms of the GNU General Public License as published by
+## the Free Software Foundation; either version 2 of the License, or
+## (at your option) any later version.
+##
+## This program is distributed in the hope that it will be useful,
+## but WITHOUT ANY WARRANTY; without even the implied warranty of
+## MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+## GNU General Public License for more details.
+##
+## You should have received a copy of the GNU General Public License
+## along with this program; see the file COPYING.  If not, write to
+## the Free Software Foundation, Inc., 59 Temple Place - Suite 330,
+## Boston, MA 02111-1307, USA.
+##
+## Watt-32/djgpp version by Gisle Vanem <gvanem@yahoo.no>
+## Requires bison and flex.
+##
+
+SRC = syslogd.c conf-par.c conf-lex.c conf-mis.c debug.c \
+      local.c inet.c misc.c snprintf.c
+
+DJGPP_EXE = syslogd.exe
+
+GENERATED = conf-par.[ch] conf-lex.c
+
+include ../djcommon.mak
+
+PATHS = -DPATH_LOG=\"./syslogd.log\"    \
+        -DPATH_KLOG=\"./kernel.log\"    \
+        -DPATH_PID=\"./syslogd.pid\"    \
+        -DPATH_SYSLOG_CONF=\"./syslogd.cnf\"
+
+CFLAGS += $(PATHS) -DMAXHOSTNAMELEN=80 -DDEBUG -DKLOG_LOGGING \
+          -Dselect=select_s
+
+LEX  = flex.exe -8
+YACC = bison.exe --defines --debug
+
+dist:
+	zip syslgd12.zip copying README TODO *.[chly] \
+            syslogd.conf.8 Makefile.dj syslogd.8 syslogd.conf
+
+conf-lex.c: conf-lex.l
+	$(LEX) -o$*.c $<
+
+conf-par.h conf-par.c: conf-par.y
+	$(YACC) --output-file=$*.c $<
+
+
+# DO NOT DELETE THIS LINE
+syslogd.o: syslogd.c syslogd.h config.h debug.h version.h proto.h
+conf-par.o: conf-par.c syslogd.h config.h debug.h version.h proto.h
+conf-lex.o: conf-lex.c syslogd.h config.h debug.h version.h proto.h \
+ conf-par.h
+conf-mis.o: conf-mis.c syslogd.h config.h debug.h version.h proto.h
+debug.o: debug.c config.h debug.h
+local.o: local.c syslogd.h config.h debug.h version.h proto.h
+inet.o: inet.c syslogd.h config.h debug.h version.h proto.h
+misc.o: misc.c syslogd.h config.h debug.h version.h proto.h
+snprintf.o: snprintf.c

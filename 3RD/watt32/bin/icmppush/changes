@@ -1,0 +1,51 @@
+CHANGES for ICMPush v2.2
+========================
+v2.2:
+- Changed the name from ICMP to ICMPush.
+- Size of pattern data grow up to 64k (or more on Linuz). Fragmentation made
+  by the program itself on Linuz.
+- IP_HDRINCL supported. Use only a socket.
+- Random sequence number of Information packets.
+- Support for Router Advertisement to test routers. Can send multiple
+  routers addresses with their own preference on 1 Advertisement packet.
+- Cleaned up the code. A parser function with multiple options and a more
+  friendly user interface.
+- Resolving hosts to names is now optional (-n).
+- Changed the compile option -DEBUG to a runtime option (-vv).
+- Support for bytes of data garbage to test icmp/ip implementations.
+  Option = '-gbg bytes|max'.
+- Support for another ICMP error type: Parameter Problem.
+- Max code support for the ICMP types that have codes (Redirect, Unreach
+  and Time Exceeded). This sends an ICMP code greater than the standard
+  codes. Option= '-c max'.
+- Numeric codes support for the ICMP types that *DOESN'T* support codes
+  (Echo Request, Source Quench, Timestamp Request, Parameter problem,
+  Router Advertisement, Router Solicitation, Info Request and Address
+  Mask Request). This sends an ICMP packet with the code equal to the
+  number parsed from the command line. Option = '-c number'.  
+- Finally we have a man page. Thx to wait_man (wait_man@apostols.org)
+  and for the english translation to binaria (binaria@totalcoredump.org)
+  kisses! :DD.
+
+v2.11:
+- GNU GPL license distribution.
+- The Router Discovery support has been tested and works ok.
+- Support for data pattern into an ECHO REQUEST type. Idea by Sean
+  (fa-q@infomind.net). Option = '-pat pattern'.
+
+v2.1:
+- Added support for transmit/receive ICMP Echo Request/Echo Reply.
+- Cleared the broadcast setsockopt error.
+
+v2.06:
+- Added support for ICMP Address Mask Request, Information Request, Timestamp
+  and Router Solicitation (Router Discovery). Can read the replies
+  via RAW socket. Can put a timeout replies on command line. (default is
+  5 secs).
+- Added support on compat.h for BIG ENDIAN systems in the IP header and
+  support for Router Discovery structures.
+- Various minor changes.
+
+Slayer,
+
+Madrid, 1999.

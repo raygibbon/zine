@@ -1,0 +1,23 @@
+#
+#  Makefile for Waterloo DIG. Based on the Berkley version:
+#
+#  Copyright (c) 1987
+#    The Regents of the University of California.  All rights reserved.
+#
+#  Targets:
+#     GNU C 2.7+          (djgpp2 Dos extender)
+#
+
+STRIP_EXE = 0
+
+SRC = dig.c 
+NS  = ../nslookup
+
+DJGPP_EXE = dig32.exe
+
+OBJS = $(NS)/list.o $(NS)/send.o $(NS)/subr.o $(NS)/debug.o
+
+include ../djcommon.mak
+
+# DO NOT DELETE THIS LINE
+dig.o: dig.c ../nslookup/res.h

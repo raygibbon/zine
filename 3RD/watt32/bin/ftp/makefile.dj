@@ -1,0 +1,88 @@
+#
+# GNU Makefile for Watt-32 (djgpp) DOS-ftp
+#
+
+SRC = lang_scn.c ftp.c main.c util.c command.c config.c url.c macro.c \
+      screen.c cgets.c int29.c crc.c dosname.c bsd_glob.c parse.c
+
+GENERATED = lang_scn.c      # Generated sources may be scrubbed
+
+DJGPP_EXE = ftp32.exe
+CFLAGS    = -W
+
+# CFLAGS = -DUSE_BSD_GLOB  # test bsd_glob
+
+#
+# Use Secure Remote Protocol (SRP) with data encryption.
+# NB! not fully working yet. Remove '-DFORTIFY' when confident that
+#     it works.
+#
+# Change SRP_ROOT and path for 'libkrypt.a' below to suit:
+#
+#  '$(SRP_ROOT)/libkrypt.us' = US version is not exportable
+#  '$(SRP_ROOT)/libkrypt'    = non-US version is exportable
+#
+# SRP and libcrypt must be installed and compiled before use.
+#
+SRP_ROOT = /net/srp
+
+USE_SRP=0
+
+ifeq ($(USE_SRP),1)
+  SRC   += srp.c srp_cmd.c secure.c radix.c fortify.c
+  CFLAGS = -DFORTIFY -DUSE_SRP       \
+           -I$(SRP_ROOT)/libkrypt.us \
+           -I$(SRP_ROOT)/libsrp
+
+  LFLAGS = $(SRP_ROOT)/lib/libkrypt.a \
+           $(SRP_ROOT)/lib/libsrp.a   \
+           $(DJDIR)/contrib/crypt.lib/crypt.lib/lib/dos/libcrypt.a
+endif
+
+include ../djcommon.mak
+
+
+.l.c:
+	flex -o$*.c $*.l
+
+lang_scn.c: lang_scn.l
+
+
+################### Test programs ########################
+
+radix.exe:
+	$(CC) -I../../inc -DSTANDALONE radix.c -o radix.exe
+
+cgets.exe:
+	$(CC) -DTEST cgets.c -o cgets.exe
+
+
+# DO NOT DELETE THIS LINE
+lang_scn.o: lang_scn.c ftp.h fortify.h ufortify.h screen.h macro.h \
+  config.h cgets.h util.h crc.h
+ftp.o: ftp.c parse.h ftp.h fortify.h ufortify.h screen.h macro.h config.h \
+  cgets.h util.h
+main.o: main.c ftp.h fortify.h ufortify.h screen.h macro.h config.h \
+  cgets.h util.h
+util.o: util.c ftp.h fortify.h ufortify.h screen.h macro.h config.h \
+  cgets.h util.h
+command.o: command.c ftp.h fortify.h ufortify.h screen.h macro.h config.h \
+  cgets.h util.h
+config.o: config.c ftp.h fortify.h ufortify.h screen.h macro.h config.h \
+  cgets.h util.h
+url.o: url.c ftp.h fortify.h ufortify.h screen.h macro.h config.h cgets.h \
+  util.h
+macro.o: macro.c ftp.h fortify.h ufortify.h screen.h macro.h config.h \
+  cgets.h util.h
+screen.o: screen.c ftp.h fortify.h ufortify.h screen.h macro.h config.h \
+  cgets.h util.h
+cgets.o: cgets.c ftp.h fortify.h ufortify.h screen.h macro.h config.h \
+  cgets.h util.h
+int29.o: int29.c ftp.h fortify.h ufortify.h screen.h macro.h config.h \
+  cgets.h util.h
+crc.o: crc.c ftp.h fortify.h ufortify.h screen.h macro.h config.h cgets.h \
+  util.h crc.h
+dosname.o: dosname.c ftp.h fortify.h ufortify.h screen.h macro.h config.h \
+  cgets.h util.h
+bsd_glob.o: bsd_glob.c
+parse.o: parse.c parse.h

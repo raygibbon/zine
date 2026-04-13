@@ -1,0 +1,116 @@
+.TH netkala 6 "August 1, 1999" "" "Linux Users Manual"
+.SH NAME
+netkala \- play the game kalahari with somebody via internet
+.SH SYNOPSIS
+.B netkala  
+.RB \fIHOST_IP\fP\fB|\fP\fIHOST_NAME\fP
+.RB [ \-l_port
+.IR LOCAL_PORT ]
+.RB [ \-r_port
+.IR REMOTE_PORT ]
+.IR [ -help ]
+.IR [ -rules ]
+.SH DESCRIPTION
+.B Netkala
+Netkala is a game for two players. To my knowledge it comes from
+Afrika, where it was played in sand with marbles or Kaori 
+shells as pawns (pieces). It is a simple and short game. 
+One rather needs to be clever than lucky to win. 
+It has a similar character as 'draughts' (American 'checker', 
+German 'Dame') or the German kind of 'morris' (called 'Muehle').
+The rules of the game are shown further down in this text.
+.PP
+Both players have to start \fBnetkala\fP with either the
+hostname (\fIHOST_NAME\fP) or the host IP (\fIHOST_IP\fP) of
+the other player as first argument. 
+A socket based connection between the two machines will be
+established, and upon success the curses based game dialog will
+appear.
+.PP
+In case you don't know your IP address, use \fBifconfig(8)\fP to 
+find it out. 
+\fBnslookup(8)\fP might be useful to find the appropriate host 
+name for a given IP number.
+.PP
+If not other specified port 8880 will be used on both ends of
+the connection.
+In case of troubles, or if one wants to play kalahari on a
+single machine between two xterm's, the port number can be
+changed by use of the command line option \fB\-r_port\fP or
+\fB\-l_port\fP.
+It should be clear, that the remote port of one machine/player
+(\fB\-r_port\fP) must be set as local port on the other players
+machine via \fB\-l_port\fP and vis a versa.
+.PP
+.B How to play netkala:
+.PP
+Each player sits in front of a row of five holes (indicated by 
+small 'o' and the appropriate color/line style), and has a big 
+whole to his right (indicated by capital 'O'):
+.PP
+            \fBPlayer 1\fP
+          \fBo  o  o  o  o\fP
+       \fBO\fP                 \fIO\fP
+          \fIo  o  o  o  o\fP
+            \fIPlayer 2\fP
+.PP
+At the beginning of the game all the small ('o') holes
+are filled with three pieces each. 
+The aim of the game is to collect as many pieces in his
+big hole.
+.PP
+An arbitrary player starts (usually the one, that dies earlier). 
+He can choose one of his small holes and move. 
+He does this by picking all the pieces
+of the hole he choose, and distributing them over all the 
+following holes. 
+.PP
+To understand what I mean by \fIfollowing holes\fP
+you have to think of all the holes forming an accidently 
+flattened circle. 
+Moreover we define the direction of the game opposite to the 
+direction of conventional clocks (swiss quality clocks).
+By \fIdistributing\fP it is meant, that the player leaves exactly 
+one piece in each of the following holes. No matter whether its 
+his or his opponents whole. 
+And no matter whether its a small or a big whole.
+.PP
+Usually the players play one after each other and nothing
+embarrassing will happen. To avoid, that kalahari becomes too
+boring, there are three extra rules:
+.PP
+.IP "\fIRule 1\fP"
+If the last piece in a move goes into one of the big side holes
+(capital 'O'), the same player plays again.
+.IP "\fIRule 2\fP"
+If the last piece in a move goes into a small hole, that is
+empty, the player can take all pieces from the small hole 
+opposite to it, and put them into his big hole 
+(no matter, whether the pieces come from one of his, or his 
+opponents small holes).
+.IP "\fIRule 3\fP"
+At the time one of the players hasn't a single piece in one of 
+his small holes left, the other player can collect all the pieces
+that are left in his small holes and put them into his big hole. 
+The number of pieces in the big holes are compared.
+The one who was able to collect more wins.
+The game is finished.
+.SH OPTIONS
+.IP \fB\-help\fP
+Shows a short help text.
+.IP \fB\-rules\fP
+Displays the rules of the game.
+.IP "\fB\-r_port\fP \fIport number\fP"
+Changes the remote port for the socket based connection from
+its default value (8880) to the give port number. 
+.IP "\fB\-l_port\fP \fIport number\fP"
+Changes the local port for the socket based connection from
+its default value (8880) to the give port number. 
+.SH AUTHOR
+Theo Wilhelm (theo.wilhelm@uibk.ac.at), Hermann Schwaerzler
+(hermann.schwaezler@uibk.ac.at)
+.SH "SEE ALSO"
+In well sorted game shops, where they sell nice wooden kalahari
+game boards.
+.PP
+\fBifconfig(8)\fP, \fBnslookup(8)\fP 

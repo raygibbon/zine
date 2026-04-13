@@ -1,0 +1,19 @@
+#
+# GNU makefile for Watt-32/djgpp NetKalahari
+#
+
+SRC       = netkala.c
+DJGPP_EXE = netkala.exe
+
+#
+# This assumes PCcurses 2.6
+#
+PDCURSES_HOME = $(DJDIR)/contrib/pdcurses.26
+
+include ../djcommon.mak
+
+CFLAGS += -I$(PDCURSES_HOME) -Dselect=select_s
+LFLAGS += $(PDCURSES_HOME)/dos/pdcurses.a
+
+# DO NOT DELETE THIS LINE
+netkala.o: netkala.c

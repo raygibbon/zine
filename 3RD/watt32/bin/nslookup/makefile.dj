@@ -1,0 +1,101 @@
+#
+#  Makefile for Waterloo NSlookup. Based on the Berkley version:
+#
+#  Copyright (c) 1987
+#    The Regents of the University of California.  All rights reserved.
+#
+#  Targets:
+#     GNU C 2.7+          (djgpp2 DOS extender)
+#
+#  Remember to define $PAGER to view the help in interactive mode.
+#
+STRIP_EXE = 0
+
+SRC       = commands.c main.c debug.c getinfo.c list.c send.c skip.c subr.c
+DJGPP_EXE = nslook32.exe
+
+include ../djcommon.mak
+
+# CFLAGS += -DDEBUG
+
+.l.c:
+	flex -o$*.c $*.l
+
+commands.c: commands.l
+
+# DO NOT DELETE THIS LINE
+commands.o: commands.c res.h e:/net/watt/inc/sys/socket.h \
+  e:/net/watt/inc/sys/w32api.h e:/net/watt/inc/sys/werrno.h \
+  e:/net/watt/inc/sys/djgpp.err e:/net/watt/inc/sys/cdefs.h \
+  /dev/env/DJDIR/include/sys/cdefs.h e:/net/watt/inc/sys/wtypes.h \
+  e:/net/watt/inc/sys/wtime.h e:/net/watt/inc/netinet/in.h \
+  e:/net/watt/inc/sys/pack_on.h e:/net/watt/inc/sys/pack_off.h \
+  e:/net/watt/inc/arpa/nameser.h e:/net/watt/inc/sys/param.h \
+  e:/net/watt/inc/sys/swap.h e:/net/watt/inc/arpa/inet.h \
+  e:/net/watt/inc/resolv.h e:/net/watt/inc/netdb.h e:/net/watt/inc/tcp.h
+main.o: main.c res.h e:/net/watt/inc/sys/socket.h \
+  e:/net/watt/inc/sys/w32api.h e:/net/watt/inc/sys/werrno.h \
+  e:/net/watt/inc/sys/djgpp.err e:/net/watt/inc/sys/cdefs.h \
+  /dev/env/DJDIR/include/sys/cdefs.h e:/net/watt/inc/sys/wtypes.h \
+  e:/net/watt/inc/sys/wtime.h e:/net/watt/inc/netinet/in.h \
+  e:/net/watt/inc/sys/pack_on.h e:/net/watt/inc/sys/pack_off.h \
+  e:/net/watt/inc/arpa/nameser.h e:/net/watt/inc/sys/param.h \
+  e:/net/watt/inc/sys/swap.h e:/net/watt/inc/arpa/inet.h \
+  e:/net/watt/inc/resolv.h e:/net/watt/inc/netdb.h e:/net/watt/inc/tcp.h \
+  paths.h
+debug.o: debug.c e:/net/watt/inc/netinet/in.h \
+  e:/net/watt/inc/sys/socket.h e:/net/watt/inc/sys/w32api.h \
+  e:/net/watt/inc/sys/werrno.h e:/net/watt/inc/sys/djgpp.err \
+  e:/net/watt/inc/sys/cdefs.h /dev/env/DJDIR/include/sys/cdefs.h \
+  e:/net/watt/inc/sys/wtypes.h e:/net/watt/inc/sys/wtime.h \
+  e:/net/watt/inc/sys/pack_on.h e:/net/watt/inc/sys/pack_off.h \
+  e:/net/watt/inc/arpa/nameser.h e:/net/watt/inc/sys/param.h \
+  e:/net/watt/inc/sys/swap.h e:/net/watt/inc/arpa/inet.h \
+  e:/net/watt/inc/resolv.h e:/net/watt/inc/netdb.h res.h \
+  e:/net/watt/inc/tcp.h
+getinfo.o: getinfo.c e:/net/watt/inc/sys/socket.h \
+  e:/net/watt/inc/sys/w32api.h e:/net/watt/inc/sys/werrno.h \
+  e:/net/watt/inc/sys/djgpp.err e:/net/watt/inc/sys/cdefs.h \
+  /dev/env/DJDIR/include/sys/cdefs.h e:/net/watt/inc/sys/wtypes.h \
+  e:/net/watt/inc/sys/wtime.h e:/net/watt/inc/netinet/in.h \
+  e:/net/watt/inc/sys/pack_on.h e:/net/watt/inc/sys/pack_off.h \
+  e:/net/watt/inc/arpa/nameser.h e:/net/watt/inc/sys/param.h \
+  e:/net/watt/inc/sys/swap.h e:/net/watt/inc/arpa/inet.h \
+  e:/net/watt/inc/resolv.h e:/net/watt/inc/tcp.h res.h \
+  e:/net/watt/inc/netdb.h
+list.o: list.c e:/net/watt/inc/sys/socket.h e:/net/watt/inc/sys/w32api.h \
+  e:/net/watt/inc/sys/werrno.h e:/net/watt/inc/sys/djgpp.err \
+  e:/net/watt/inc/sys/cdefs.h /dev/env/DJDIR/include/sys/cdefs.h \
+  e:/net/watt/inc/sys/wtypes.h e:/net/watt/inc/sys/wtime.h \
+  e:/net/watt/inc/netinet/in.h e:/net/watt/inc/sys/pack_on.h \
+  e:/net/watt/inc/sys/pack_off.h e:/net/watt/inc/arpa/nameser.h \
+  e:/net/watt/inc/sys/param.h e:/net/watt/inc/sys/swap.h \
+  e:/net/watt/inc/arpa/inet.h e:/net/watt/inc/resolv.h \
+  e:/net/watt/inc/netdb.h e:/net/watt/inc/tcp.h paths.h res.h
+send.o: send.c res.h e:/net/watt/inc/sys/socket.h \
+  e:/net/watt/inc/sys/w32api.h e:/net/watt/inc/sys/werrno.h \
+  e:/net/watt/inc/sys/djgpp.err e:/net/watt/inc/sys/cdefs.h \
+  /dev/env/DJDIR/include/sys/cdefs.h e:/net/watt/inc/sys/wtypes.h \
+  e:/net/watt/inc/sys/wtime.h e:/net/watt/inc/netinet/in.h \
+  e:/net/watt/inc/sys/pack_on.h e:/net/watt/inc/sys/pack_off.h \
+  e:/net/watt/inc/arpa/nameser.h e:/net/watt/inc/sys/param.h \
+  e:/net/watt/inc/sys/swap.h e:/net/watt/inc/arpa/inet.h \
+  e:/net/watt/inc/resolv.h e:/net/watt/inc/netdb.h e:/net/watt/inc/tcp.h
+skip.o: skip.c res.h e:/net/watt/inc/sys/socket.h \
+  e:/net/watt/inc/sys/w32api.h e:/net/watt/inc/sys/werrno.h \
+  e:/net/watt/inc/sys/djgpp.err e:/net/watt/inc/sys/cdefs.h \
+  /dev/env/DJDIR/include/sys/cdefs.h e:/net/watt/inc/sys/wtypes.h \
+  e:/net/watt/inc/sys/wtime.h e:/net/watt/inc/netinet/in.h \
+  e:/net/watt/inc/sys/pack_on.h e:/net/watt/inc/sys/pack_off.h \
+  e:/net/watt/inc/arpa/nameser.h e:/net/watt/inc/sys/param.h \
+  e:/net/watt/inc/sys/swap.h e:/net/watt/inc/arpa/inet.h \
+  e:/net/watt/inc/resolv.h e:/net/watt/inc/netdb.h e:/net/watt/inc/tcp.h
+subr.o: subr.c res.h e:/net/watt/inc/sys/socket.h \
+  e:/net/watt/inc/sys/w32api.h e:/net/watt/inc/sys/werrno.h \
+  e:/net/watt/inc/sys/djgpp.err e:/net/watt/inc/sys/cdefs.h \
+  /dev/env/DJDIR/include/sys/cdefs.h e:/net/watt/inc/sys/wtypes.h \
+  e:/net/watt/inc/sys/wtime.h e:/net/watt/inc/netinet/in.h \
+  e:/net/watt/inc/sys/pack_on.h e:/net/watt/inc/sys/pack_off.h \
+  e:/net/watt/inc/arpa/nameser.h e:/net/watt/inc/sys/param.h \
+  e:/net/watt/inc/sys/swap.h e:/net/watt/inc/arpa/inet.h \
+  e:/net/watt/inc/resolv.h e:/net/watt/inc/netdb.h e:/net/watt/inc/tcp.h

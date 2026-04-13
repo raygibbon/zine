@@ -1,0 +1,51 @@
+#
+# nmake Makefile for `nslookup' (Watt32/Win32/MSVC) utility
+#
+
+DEBUG_MODE = 1
+OLD_MSVC   = 0
+
+CC      = cl
+CFLAGS  = -DWIN32 -nologo -W2 -Gy -I. -I$(WATT_ROOT)\inc -DWATT32
+
+!if $(OLD_MSVC) == 1
+CFLAGS  = $(CFLAGS) -GZ -Yd
+LDFLAGS = -warn:2 -machine:i386
+!else
+CFLAGS  = $(CFLAGS) -RTC1
+LDFLAGS = -machine:i386
+!endif
+
+!if $(DEBUG_MODE) == 1
+DEBUG   = _d
+CFLAGS  = $(CFLAGS) -MDd -Zi -Os -D_DEBUG
+LDFLAGS = $(LDFLAGS) -debug -fixed:no
+!else
+DEBUG   =
+CFLAGS  = $(CFLAGS) -MD -Ot
+LDFLAGS = $(LDFLAGS) -release
+!endif
+
+SOURCE  = commands.c main.c debug.c getinfo.c list.c send.c skip.c subr.c
+OBJECTS = $(SOURCE:.c=.obj)
+
+all: nslookup.exe
+
+.c.obj:
+	$(CC) -c $(CFLAGS) $*.c
+
+.l.c:
+        flex -o$*.c $*.l
+
+nslookup.exe: $(OBJECTS) $(WATT_ROOT)\lib\wattcpvc_imp$(DEBUG).lib
+	link @<<
+	  $(LDFLAGS) -map:$*.map -out:$*.exe
+	  $(OBJECTS) $(WATT_ROOT)\lib\wattcpvc_imp$(DEBUG).lib
+<<
+
+clean:
+	rm -f $(OBJECTS)
+
+vclean: clean
+	rm -f nslookup.map nslookup.exe
+

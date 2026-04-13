@@ -1,0 +1,410 @@
+
+   Go to the previous, next section.
+   
+                         Archie Project Overall Design
+                                       
+   @everyfooting Author: rootd // Editor: rootd // Texinfo: rootd @| @| 3
+   December 1994
+   
+Brief Reminder of Functional Capabilities
+
+   In order to best understand the design of the archie server, it's
+   useful to review the capabilities of the archie system. Note, however,
+   that this section is NOT the specification. The specification is the
+   user manual given earlier in this document. If there is a difference
+   between the user manual and this section, then there is an error in
+   this section.
+   
+   Reviewing the functionality in this manner will help show how the
+   archie system design is capable of meeting the requirements.
+   
+   In the following document, "users" are people who use archie for
+   searching ftp sites, and "maintainers" are people who set up archie
+   servers. A "system administrator" usually specifies an administrator
+   at the user's site--not the maintainer's site (because of the
+   privileges necessary to run an archie server, we assume that the
+   maintainers are also qualified system administrators).
+   
+  The Environment Variable Concept
+  
+   Each of the interfaces that users can use to request archie searches
+   have the concept of "environment variables." These are variables which
+   determine the behavior of other commands. The SEARCH environment
+   variable is an example of this--it allows the user to specify what
+   type of search his later search commands will execute.
+   
+  Search Commands
+  
+   These commands actually cause some sort of search to be performed by
+   the archie search engine. There are five types of searches: exact,
+   subcase, sub, regex, and whatis.
+   
+  Maintenance Commands
+  
+   These commands give users the ability to assist the maintainers in
+   improving the archie service. The only current example is the
+   "addnewsite" command which requests that a new anonymous ftp site be
+   added to the ftp-site-list. As we will see later, this one command
+   needs to be handled differently from all the others.
+   
+  The Telnet Interface
+  
+   This is a miniature "shell" which allows people to telnet to an archie
+   server and request archie searches. Because there is no remote
+   software at all, the telnet interface needs to keep track of
+   environment variables.
+   
+  The Email Interface
+  
+   This is a program which parses incoming email. It's very similar to
+   the telnet interface (with the same command structure and environment
+   variables) differing only because some environment variables (most of
+   which deal with the display type of the interactive terminal) are not
+   necessary in the email interface.
+   
+  The Prospero Interface
+  
+   This interface provides compatibility with existing clients which use
+   the prospero protocol. Because the prospero protocol is a
+   connectionless stateless protocol, the remote client needs to keep
+   track of environment variables.
+   
+  Next Generation Interface
+  
+   This interface allows the "next generation" of archie client to exist,
+   allowing the following new functionality to occur: 1) remote client
+   can load balance between archie servers, and 2) the remote client will
+   use a simple TCP connection to connect to the server (to make the
+   creation of new archie clients easier).
+   
+The Master Archie Server
+
+   Our archie server system has a concept of a "master archie server".
+   This site has the responsibility of generating and testing the list of
+   all ftp sites which the other archie servers will index. The current
+   site list will be available via anonymous ftp.
+   
+   The master archie server will receive email with addnewsite commands.
+   At this point, the master server will perform the following tasks:
+   
+    1. Get the primary IP address and primary domain name for the site.
+    2. Check to see if that IP address is already in the site list.
+    3. Anonymously ftp to that site and obtain an "ls -lR".
+    4. Check the "ls -lR" for errors which would make it incompatible
+       with the archie system.
+    5. If appropriate, add the site to the site list.
+       
+   The master archie server should not also be a regular archie server to
+   reduce load on this critical link in the archie system. In addition,
+   users should not have to know that the master server even exists. They
+   should be able to send the "addnewsite" command to any archie server,
+   which will do the "correct thing" and forward it to the master server.
+   
+The Archie Server
+
+   An "archie server" is a server that allows users to submit searches.
+   It consists of the following software modules:
+   
+    1. Telnet interface
+    2. Email interface
+    3. Prospero interface
+    4. Next Generation interface
+    5. Queuer
+    6. Searcher
+    7. Database builder
+    8. ls -lR getter
+    9. Site list getter
+       
+   In addition, a database is created by the database builder and
+   searched by the searcher. The site list is obtained from the master
+   archie server by the site list getter.
+   
+   Each component is described in detail in a separate chapter. For now,
+   we will give a brief description of each modules's function, and the
+   data passed between modules. The precise format of the information
+   passed between modules will be detailed in the appropriate chapter.
+   
+Interfaces
+
+   An interface communicates with a user and helps a user submit his
+   search request. then the interface sends the request to the queuer.
+   There are four types of interfaces in the archie system: telnet,
+   email, prospero, and next-generation.
+   
+   During normal operation, there are many interface processes running on
+   the archie server. Each interface process only has to deal with one
+   remote user at a time. This is the interface's primary purpose: to
+   keep the complicated archie modules (queuer and searcher) from having
+   to deal with multiple remote users over unreliable communication
+   lines.
+   
+   When an interface has a search request, it sends the following
+   information to the queuer:
+   
+    1. type of search
+    2. number of hits
+    3. niceness level
+    4. search string
+    5. verbose output option
+    6. unique search identifier
+       
+   The information is sent to the queuer through a named pipe. The unique
+   search identifier includes two parts, one of which is the pid of the
+   interface. When the queuer needs to send the search results back to
+   the interface, the queuer puts the data in a file and uses this pid to
+   send a signal to the appropriate interface. Upon receipt of the
+   signal, the interface knows that the output of the search is ready.
+   
+   The maintenance command addnewsite is dealt with in a different
+   manner. If an addnewsite command is executed, the interface will send
+   an email to the master archie site with the addnewsite command.
+   
+   Now for information specific to each interface.
+   
+  Telnet Interface
+  
+   This interface allows users to login to an archie server directly and
+   interactively request searches. A login with no password will be
+   created on the archie server allowing people to login. The telnet
+   interface will be the shell (given in the /etc/passwd file) of the
+   remote user. Since there is no "remote site client", the telnet
+   interface/shell must keep track of all environment variables.
+   
+   Since we are allowing the general public to login without
+   identification or a password, this interface is a potential security
+   risk. Care must be taken to make certain that users are limited to
+   archie functionality, and cannot break out of the archie-shell and
+   gain unauthorized privileges. As a minimum, the "archie-user" must not
+   own any files (designers note: will having different users owning
+   different archie processes mess up our signal passing mechanism--this
+   must be tested and dealt with if necessary).
+   
+   One telnet interface will be spawned for each remote user.
+   
+  Email Interface
+  
+   The fake archie user created for the telnet interface will also have a
+   .forward file. This will cause two copies of incoming email to be
+   created: one will be added to a log file, and the other will be
+   forwarded into the email interface. This will cause one email
+   interface to be spawned off for every incoming email archie request.
+   
+   To prevent email storms, the email interface must not respond to email
+   error messages. In addition, all outgoing email should have
+   "precedence=bulk" to minimize the generation of email error messages.
+   
+   The email client will parse the incoming email one line at a time,
+   modifying the appropriate environment variables and generating the
+   search commands as needed. In addition to the regular environment
+   variables, the email interface will also keep the return address of
+   the remote user.
+   
+   In the event multiple searches are requested in one email, the email
+   interface will submit the searches one at a time, and wait for the
+   result of one search before submitting the next search. Although this
+   is unnecessary and (slightly) inefficient (with regards to the
+   computational resources of the server which will have more email
+   interface processes running at any one time), this will prevent one
+   email with large or difficult searches from making the server
+   completely useless until the email is completely processed.
+   
+  Prospero Interface
+  
+   The prospero interface provides compatibility with existing archie
+   clients. These clients are located on remote machines and have two
+   purposes: 1) by using the (non-computationally intensive) prospero
+   protocol, remote clients reduce the load on the archie server (telnet
+   sessions are much more intensive), and 2) the ability to support
+   remote clients allows programmers to provide "friendlier" user
+   interface support without requiring changes to the archie server.
+   
+   Unlike the telnet and email interfaces, a prospero interface is NOT
+   spawned off each time a request comes in. Instead, when the archie
+   server starts up several prospero interface daemons are created which
+   attempt to read messages on one well-known UDP port. Because of the
+   way UDP works, when a UDP packet comes in, ONE prospero daemon gets
+   the packet (which contains an entire search request) and then the
+   daemon processes the request (by submitting it to the queuer, and
+   waiting for the signal indicating that the reply is ready--and then
+   sending the reply to the remote client).
+   
+  Next Generation Interface
+  
+   inetd.conf is modified to listen on a new "well-known" tcp port, and
+   each time a connection request comes in, a next generation interface
+   is spawned.
+   
+   This interface is somewhat more intensive than the prospero interface,
+   but is simpler to program (because it's a simple TCP connection) so a
+   greater variety of remote clients are to be expected. In addition to
+   the normal functionality, this interface will respond to a request for
+   server loads. This will cause the interface to print out all the
+   information on the server load on all known archie servers, allowing
+   remote clients to load balance between servers.
+   
+Queuer
+
+   There is only one queuer process running on an archie server. It is
+   the "mother of all archie processes" and it's creation brings the
+   archie server on line.
+   
+   The queuer has two purposes. When first created, the queuer is
+   responsible for bringing the archie system on-line. Later, during
+   normal operation, the queuer maintains the queue of search requests
+   (allowing the searcher to only have to worry about one search at a
+   time).
+   
+   During initialization, the queuer does the following things:
+   
+    1. spawn off the searcher
+    2. spawn off the prospero interfaces
+    3. record its PID in a well-known file
+    4. create a FIFO for queuer input
+       
+   Search requests come in through the FIFO, and consist of the following
+   information (repeated from the section on interfaces):
+   
+    1. type of search
+    2. number of hits
+    3. niceness level
+    4. search string
+    5. verbose output option
+    6. unique search identifier
+       
+   Since the queuer deals with the order of the queue, the verbose output
+   option and the niceness level are for the queuer to use. The other
+   data, namely:
+   
+    1. type of search
+    2. number of hits
+    3. search string
+    4. unique search identifier
+       
+   are sent to the searcher via the pipe created with the popen command.
+   Only one search is sent at a time, and the queuer waits for the
+   searcher to respond (the searcher sends a signal to its parent--the
+   queuer--each time a search is complete) before sending another search.
+   
+Searcher
+
+   The searcher has one purpose: to search the database as quickly as
+   possible. The searcher obtains the following information from the
+   queuer:
+   
+    1. type of search
+    2. number of hits
+    3. search string
+    4. unique search identifier
+       
+   The searcher looks through the appropriate database, writes the result
+   of the search to a file (in a known directory, with the unique search
+   identifier name), and then sends a signal to it's parent (the queuer).
+   Since the queuer spawned the searcher with the popen() command, the
+   searcher can read the search information from standard input (but it
+   has to be careful not to block). (designers note: an error recovery
+   mechanism here would be good: perhaps an alarm could go off if a
+   search takes a very long time--like 60 seconds, that way if an error
+   occurs the entire archie server won't go down until manually
+   restarted).
+   
+Database
+
+   The speed of the searcher is dependent on the format of the database,
+   so the database is a little complicated. The database consists of four
+   directories, with one file in each directory for each indexed ftp
+   site.
+   
+   The directories are: index, nocaseindex, data, and direc. Files inside
+   the index directory are called index files. Files inside the
+   nocaseindex directory are called nocaseindex files, etc...
+   
+   An example filename would be ftp.cs.pdx.edu-131.252.21.199 Note that
+   this gives us the primary domain name and primary IP address, which we
+   need for our output (by always using the primary domain name and
+   primary ip address, we eliminate the possibility of duplicated ftp
+   sites).
+   
+   The index files consist of the filenames of each file on the ftp site,
+   followed by a newline.
+   
+   The nocaseindex files consist of the filenames of each file on the ftp
+   site, with all upper case characters converted to lowercase
+   characters.
+   
+   The data file consists of the information on each file listed in the
+   index and nocaseindex files. This includes permissions, owner, group,
+   link count, modification date, and size. In addition, the "directory
+   number" (to be defined in a moment) is also listed on the line. Since
+   each line is a specific size (in our prototype, 67 characters,
+   including newline), we can lseek() to any specific line in the file.
+   
+   The index, nocaseindex, and data files for a particular remote site
+   are all related. The data on line X in one file refers to same file as
+   the data on line X in the other file. This means that we can search
+   through the index file relatively quickly (because it only contains
+   the names of files through which we are searching) and get the line
+   number of the "hit". Then we lseek() to that line number in the data
+   file and get the rest of the data on that file (except the directory,
+   but we get the directory number). Because the size of the directory
+   name varies widely, we can't put it in the data file. As a result, we
+   put the directories in a separate file, and give the line number in
+   the data file.
+   
+   By separating the file names from the rest of the data, we make the
+   file through which we have to search smaller, increasing the speed of
+   our search. In addition, it allows us to have a separate file for each
+   type of search (which allows us to have the separate index file for
+   case-insensitive searches, eliminating the need for our searcher to
+   test each character twice while performing case-insensitive searches).
+   
+Database Builder
+
+   Each night, the database builder will look to see if there are any
+   ls-lr files which have been modified more recently than the
+   corresponding database files in the INSTALLDIR/database-ng
+   directories. If there are ls-lr files that are more recent, the
+   database builder will recreate the database from the ls-lr files.
+   
+   The builder will go through the ls-lr file, and create the four parts
+   of the database (index, nocaseindex, data, and direc). This will be
+   done in a temporary directory in the same filesystem as the
+   database-ng directory, and then mv instructions will be used to move
+   them in (this reduces the probability that an intermittent error will
+   occur if the searcher is searching one of these files at the time it
+   is moved--as opposed to copied--there is still a small possibility of
+   error that a semaphore system could fix, but the probability is
+   sufficiently low that we will worry about this later).
+   
+   Upon completing the construction of the database, the builder will
+   eliminate that particular ls-lr file (it's no longer needed and uses
+   considerable disk space).
+   
+ls -lR Getter
+
+   Each night, the ls -lR getter will do two things:
+   
+    1. Determine which ls -lR files need to be obtained
+    2. Get them, and put them in the INSTALLDIR/lslr directory with the
+       correct name (of the format ftp.cs.pdx.edu-131.252.21.14)
+       
+   There are two reasons why ls -lR files would need to be obtained:
+    1. The current database files are over N days old (archie site
+       determines N)
+    2. An entry in the ftp site list file does not have a corresponding
+       entry in the database.
+       
+   The ls -lR Getter will then anonymously ftp to the remote site and
+   execute the ls -lR command. It will put the returned file in a
+   temporary directory while it does the download, and then move it to
+   the lslr directory once the download is complete.
+   
+Site List Getter
+
+   The site list is maintained by the Master Archie Server and made
+   available via anonymous ftp for anyone to download. Each archie site
+   should download it about once a month. This is done manually by the
+   archie server administrator so that they have the ability to customize
+   the ftp site list (some searchers in Australia only index sites in
+   Australia for example).
+   
+   Go to the previous, next section.

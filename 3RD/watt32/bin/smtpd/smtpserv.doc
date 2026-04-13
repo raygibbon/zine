@@ -1,0 +1,221 @@
+                              SMTPSERV
+                        A Simple SMTP Server
+
+SMTPSERV is a program which runs on your pc and allows it to accept SMTP
+based mail from other sources, even from several sources at one time.
+
+Introduction:
+    On the Internet, mail is usually transferred using SMTP (Simple Mail
+    Transfer Protocol).  The mail sender's computer simply calls up the
+    receiver's computer (where something like SMTPSERV is running) and
+    asks it to accept the mail on behalf of the receiver.
+
+    With PC networks, SMTP service is not as easy since the receiver's
+    personal computer is not usually running a program like SMTPSERV
+    or it may even be turned off.  This makes it pretty hard to send
+    mail to the pc user!
+
+    There are several workarounds, such as sending all the person's Email
+    to their UNIX account, but many sites simply wish or need to have their
+    mail handled by pcs.
+
+    The classic way of doing this is to have a mail gateway, a machine
+    which is always running a program which waits for incoming mail.  This
+    machine (or another) will then convert the mail into a format usable
+    for on it's local network.
+
+    Brad Clemments' CHARON gateway does an excellent job of this for Novell
+    Netware users.  Check it out via anonymous ftp to omnigate.clarkson.edu
+    if you are running Netware.
+
+    Most other mail gateways are more generic, i.e. they don't know how to
+    send mail on the local network.  Instead, they simply accept mail and
+    place it into a subdirectory repository from which users or another pc
+    (or another task) must sort out for whom the mail is destined.
+
+    SMTPSERV fits in this latter class along with Phil Karn's NOS and the
+    commercial SMTPSRV (FTP Software, approx $400).
+
+    Phil's program is free and incredibly flexible but is not usable by
+    anyone other than educational institutions or for the private use of
+    amateur radio operators.
+
+    We originally used NOS but found it unable to handle our high message
+    load reliably (avg. about 2000 inbound per day).  With that sort of
+    average load, you can immagine that several hosts were typically SMTPing
+    in similtaneously.  As FTP's product only allows a single incomming
+    session at a time, it offerred no hope.  We could have developed our
+    own using the FTP toolkit, but that would require other sites to also
+    purchase FTP's kernal to use our product.
+
+    SMTPSERV was designed as a direct replacement for NOS (in this SMTPD
+    mode), so it uses similar file naming conventions.  BTW, the similarity
+    is only in the function, the internals are radically different.
+
+    So, in summary, SMTPSERV simply accepts inbound mail and places it into
+    a single subdirectory.
+
+    It does not:
+        forward mail            sort mail by userid         notify users
+        notify users            fail if invalid userid      transmit mail (yet)
+
+                              - - -
+
+Details:
+
+    SMTPSERV works by allocating several tcp sockets so it can accept multiple
+    connections.  Each socket is managed independantly and one slow connection
+    will not affect the performance of other zippy connections.  Currently
+    the system supports a maximum of about 15 sessions - this is a DOS
+    file limit (actually, just an annoyance, I will be increasing that number).
+
+    Inbound messages are assigned a unique 32 bit message number.  The numbers
+    will not necessarily be consequetive integers though they will be ascending
+    until you hit the 2^32 messages wraparound.  When a message is being
+    received, SMTPSERV will initially attempt to create two files:
+
+        xxx.CMD     containing From: and To: directives
+        xxx.TMP     containing the body of the message
+
+    Eg. Message 5321 would generate the following intermediate files:
+
+      +-5321.CMD---------+  +--5321.TMP----------------------------------+
+      |From: erick@maggot|  |Received: from maggot by gnat with SMTP     |
+      |To: bruce@gnat    |  |       id A5321 ; Fri, 20 Dec 91 23:03:48   |
+      +------------------+  |Date: Fri, 20 Dec 91 15:05:49 -0800         |
+                            |From: erick@maggot                          |
+                            |To: bruce@gnat                              |
+                            |                                            |
+                            |Beers?                                      |
+                            +--------------------------------------------+
+
+    If the message is successfully received, the files are renamed:
+        xxx.CMD  ------>   xxx.WRK
+        xxx.TMP  ------>   xxx.TXT
+    With the CMD file being renamed last - ie. if you see a WRK file, you can
+    process it delete it, or do whatever you wish.
+
+    If the message was not successfully received, SMTPSERV deletes all the
+    files related to that message.
+
+    When parsing the .WRK file, ensure you do the following things:
+
+        1) Check for multiple To: lines, this is called mail exploding,
+           you must send a copy to each intended recipient
+
+        2) Return an error message to the sender if any one of the
+           intended recipients will not receive the mail
+
+        3) Send mail destined to the local postmaster account actually
+           go to someone.
+
+
+
+                               - - -
+
+Installation:
+
+To use SMTPSERV you must create a valid WATTCP.CFG file as described
+in the documentation available in the standard WATTCP installation notes
+(location given at end of this document).
+
+There are some parameters which are peculiar to SMTPSERV or perhaps just a
+little more important when SMTPSERV is in use.
+
+smtp.sessions=numsessions
+
+    The default value is 8, but it should work fine up to about 15.  I
+    currently use 12.  The limit of 15 comes from 20 dos file handles
+    minus standard io, standard error, standard prn, etc.  This limit will
+    probably be changed at a later date.
+
+    eg. smtp.sessions=12
+
+    NOTE: YOU SHOULD HAVE THE FOLLOWING LINES IN YOUR CONFIG.SYS
+    (you can use larger values if you wish)
+        FILES=20
+        BUFFERS=20
+
+
+smtp.subdir=pathname
+    The newly received files must be stored somewhere.  Select a subdirectory
+    where they will not be inconvienenced.  You really should give a
+    full path specifier including drive: and a path from the root directory.
+
+    eg. smtp.subdir=n:\spool\rqueue
+
+
+inactive=seconds
+
+    The inactive value tells WATTCP to give up if its partner does not
+    do anything within a certain period of time.  This is not a keepalive,
+    it is an inactivity timeout, WATTCP makes no attempt to correspond
+    with the partner except to hangup.  A good value for inactive is
+    1200 seconds or 20 minutes
+
+    eg. inactive=1200   ; 20 minutes
+
+
+mss=bytes
+    The maximum segment size should be made small enough that ip packets
+    will not become fragmented.  A good value is 500 bytes.
+
+    eg. mss=500
+
+
+hostname=name
+    The mail server really should be given a name and told its name.
+
+    eg. hostname=snail
+
+
+domain=name
+    This too should be set.
+
+    eg. domain=uwaterloo.ca
+
+
+You must also load a packet driver for your netword card.  If you don't
+know what I mean by that, ftp the notes described at the end of this doc.
+
+                                   - - -
+
+Sample WATTCP.CFG file, you will have to configure one for your machine.
+
+my_ip=129.97.176.99         # set ip address
+netmask=255.255.254.0       # 23 bit subnet mask
+nameserver=129.97.129.140   # primary and
+nameserver=129.97.128.196   #    secondary nameservers
+gateway=129.97.176.1        # my gateway to the world
+                            # for advanced subnetting details see the complete
+                            # wattcp installation guide ftpable from
+                            # sunee.uwaterloo.ca in pub/wattcp/apps.zip
+domainslist="watstar.uwaterloo.ca"
+inactive=1200
+hostname=maggot
+smtp.subdir=n:\spool\rqueue
+smtp.sessions=12
+
+                                   - - -
+
+More Information:
+
+    SMTPSERV was written using the WATTCP TCP/IP communications library
+    in about 500 lines of C code.  WATTCP handles most of the complexities
+    of network communciations so the programmer can concentrate on the
+    data rather than the connection.
+
+    If you have any suggestions on how SMTPSERV can be improved, please
+    let me know.  The next planned addition is an outbound mail service
+    (like Karn's embedded one).  Once that's in place I will be calling up
+    the Paegus mail folks to see how we can get our two programs to work
+    together.
+
+    For some other free and neat examples of WATTCP based network
+    applications anonymous ftp to sunee.uwaterloo.ca and read
+    pub/wattcp/README try out the new MSKermit 3.11 with TELNET capabilities.
+
+    Details on packet drivers and indepth configuration notices are
+    available via anonymous ftp to sunee.uwaterloo.ca in pub/wattcp/apps.zip
+
+Erick

@@ -1,0 +1,34 @@
+#
+#  Makefile for Waterloo NSlookup. Based on the Berkley version:
+#
+#  Copyright (c) 1987
+#    The Regents of the University of California.  All rights reserved.
+#
+#  Targets:
+#     GNU C 2.7+          (djgpp2 DOS extender)
+#
+#  Remember to define $PAGER to view the help in interactive mode.
+#
+STRIP_EXE = 0
+
+SRC       = commands.c main.c debug.c getinfo.c list.c send.c skip.c subr.c
+DJGPP_EXE = nslook32.exe
+
+include ../djcommon.mak
+
+# CFLAGS += -DDEBUG
+
+.l.c:
+	flex -o$*.c $*.l
+
+commands.c: commands.l
+
+# DO NOT DELETE THIS LINE
+commands.o: commands.c res.h
+main.o: main.c res.h paths.h
+debug.o: debug.c res.h
+getinfo.o: getinfo.c res.h
+list.o: list.c paths.h res.h
+send.o: send.c res.h
+skip.o: skip.c res.h
+subr.o: subr.c res.h

@@ -1,0 +1,143 @@
+
+Some results from running Netio between a plain MS-DOS 6.22 host
+(host1) and a Windows-98 host (host2). Only TCP protocol was tested.
+Port used was 12345. 10 MBit/s LAN.
+
+host1: Pentium 200MHz, debug to RAM-disk, 3C509 EtherLink III,
+       3c5x9pd.com Packet-driver.
+
+host2: Pentium III 300 MHz (IBM 300 GL) running Windows 98,
+       3C590 EtherLink III (PCI).
+
+
+Win98-client -> Watt32-server tests:
+--------------------------------------
+
+debug enabled on server:
+                  run-1    run-2    run-3    run-4
+  1k packets:     55       72       162      173   k/sec
+  2k packets:     60       61       182      198   k/sec
+  4k packets:     58       53       218      240   k/sec
+  8k packets:     53       59        76      183   k/sec
+ 16k packets:     46       51       290      124   k/sec
+ 32k packets:     47       51         6 ?!   111   k/sec
+
+no debug on server:
+                  run-1    run-2    run-3    run-4
+  1k packets:     71       59       162      422   k/sec
+  2k packets:     63       63       182      454   k/sec
+  4k packets:     74       73       218      501   k/sec
+  8k packets:     77       75       265      580   k/sec
+ 16k packets:     40       50       291      584   k/sec
+ 32k packets:     74       52        23      474   k/sec
+
+
+
+Watt32-client -> Win98-server tests:
+-------------------------------------
+
+debug enabled on client:
+                  run-1    run-2    run-3    run-4
+  1k packets:     400      391      567      557   k/sec
+  2k packets:     386      416      574      562   k/sec
+  4k packets:     231      222      169      518   k/sec
+  8k packets:     148      218      278      305   k/sec
+ 16k packets:     249      231      310      280   k/sec
+ 32k packets:     231      224      297      248   k/sec
+
+no debug on client:
+                  run-1    run-2    run-3    run-4
+  1k packets:     246      343      906      853   k/sec
+  2k packets:     631      680      901      813   k/sec
+  4k packets:     205      264      905      814   k/sec
+  8k packets:     139      248      906      831   k/sec
+ 16k packets:     281      305      907      786   k/sec
+ 32k packets:     209      193      897      827   k/sec
+
+Notes:
+  run-1 and below done with Watt-32 ver 2.0 dev.rel.6
+  run-3 done with Watt-32 ver 2.1 (beta)
+  run-4 done with Watt-32 ver 2.1.dev.rel.5
+
+  debug-test where dumping only protocol headers (DEBUG.MODE = header)
+
+**********************************************************************
+
+100MBit/s LAN (with a switch between WinXP and DOS computer)
+
+All tests ran with MSS=1460 and TCP.RECV_WIN=16386 in Watt-32.
+dbug_init() was not called.
+
+MSDOS computer  (PC-1): AMD K6-2, 400 MHz with 3Com 3C905 PCI NIC
+Win-XP computer (PC-2): Intel Pentium 4, 2GHz with RealTek RTS8139 on-board NIC
+
+Watcom/DOS4GW version of netio was compiled with "-3r -s" 
+I.e. register calls and no stack checking.
+
+Results with v2.2 dev.rel. 6
+
+Win-XP -> MSDOS (djgpp)
+   1k packets:   8800 k/sec
+   2k packets:   8798 k/sec
+   4k packets:  10243 k/sec
+   8k packets:  10725 k/sec
+  16k packets:  11055 k/sec
+  32k packets:  11471 k/sec
+
+Win-XP -> MSDOS (Watcom)
+   1k packets:  10548 k/sec
+   2k packets:  10884 k/sec
+   4k packets:  11381 k/sec
+   8k packets:  11453 k/sec
+  16k packets:  11398 k/sec
+  32k packets:  11515 k/sec
+
+MSDOS (djgpp) -> Win-XP
+   1k packets:   3517 k/sec
+   2k packets:   4805 k/sec
+   4k packets:   6866 k/sec
+   8k packets:   7598 k/sec
+  16k packets:   7653 k/sec
+  32k packets:   7225 k/sec
+
+MSDOS (Watcom) -> Win-XP
+   1k packets:   3943 k/sec
+   2k packets:   5306 k/sec
+   4k packets:   7183 k/sec
+   8k packets:   7709 k/sec
+  16k packets:   7804 k/sec
+  32k packets:   7301 k/sec
+
+Win-XP -> DOS-box (djgpp) same machine
+   1k packets:     37 k/sec
+   2k packets:     67 k/sec
+   4k packets:     68 k/sec
+   8k packets:     69 k/sec
+  16k packets:     71 k/sec
+  32k packets:     76 k/sec
+
+Win-XP -> DOS-box (Watcom) same machine
+   1k packets:     38 k/sec
+   2k packets:     67 k/sec
+   4k packets:     68 k/sec
+   8k packets:     69 k/sec
+  16k packets:     71 k/sec
+  32k packets:     76 k/sec
+
+DOS-box (djgpp) -> Win-XP same machine
+   1k packets:    328 k/sec
+   2k packets:    315 k/sec
+   4k packets:    270 k/sec
+   8k packets:    268 k/sec
+  16k packets:    269 k/sec
+  32k packets:    269 k/sec
+
+DOS-box (Watcom) -> Win-XP same machine
+   1k packets:    281 k/sec
+   2k packets:    267 k/sec
+   4k packets:    269 k/sec
+   8k packets:    267 k/sec
+  16k packets:    269 k/sec
+  32k packets:    269 k/sec
+
+

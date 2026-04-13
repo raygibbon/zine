@@ -1,0 +1,70 @@
+** Changes from v0.92 to v0.93 **
+
+ * Made the sources compile using gcc 2.7+, Borland C and Metaware HighC
+ * reduced MAX_HEADER_LENGTH to 512 (DGROUP overflow in real-mode)
+ * removed all Unixism
+ * updated Makefile (requires Borland compatible make tool)
+ * used GNU indent on the sources
+
+** dos patches **
+ * attempt to use wattcp
+ * no setsockopt...commented it out...hope it still works
+ * no mmap...changed to use malloc/read/free ....
+ * got rid of SIGBUS and SIGCHLD handlers....
+ * no group/user stuff
+ * must have Server Name defined in boa.conf file
+ * changed some write/read to write_s/read_s so they can
+        actually use the sockets
+ * rearrange get_init to test for directory first...since with
+        djgpp open doesn't work on directories (apparently)
+ * make pathname_with_index 8.3 happy
+ * various other 8.3 fixes (boa.con, mime.typ, index.htm, etc)
+
+** Changes from v0.91 to v0.92 **
+
+ * Maintenance handover from Paul Phillips to Larry Doolittle
+ * Changed (char)NULL to '\0'
+ * Cleaned up signal handler prototypes in signals.c
+ * Modified handling of CGI environment variable PATH_TRANSLATED,
+ should now work the same as NCSA.
+ * More conservative buffer size in add_cgi_env()
+ * Build argv list for a CGI script according to spec
+ * Speedup process_header_line, eliminate potential memory leak
+ * Occasional spelling fixes and lint removal
+ * Added REMOTE_PORT env var for CGI scripts, to allow easy ident lookups
+ * Changed rfc822 time format
+ * Log timeouts and broken connections
+ * Fix mime suffix handling for filenames with multiple "."s
+ * Initialize conn->time_last, fixes bug with rapid-fire connections
+ * Performance tweak to req_write()
+ * Changed http_version from float to char[8]
+ * Rewrote on-the-fly directory generation; it works now
+ * Added user configurable dircache directory in boa.conf
+ * Fixed "simple" response bugs, including incorrect CGI handling
+ * Keepalive (HTTP/1.1 draft) support, mostly by Jon Nelson
+ * Close data_fd in 304 Not Modified flow of control
+ * Switch socket flags to non-blocking before cgi handoff
+ * Try to handle errno properly in the face of multiple errors
+ * Close fd's of all other transactions before cgi handoff
+ * Move real work for sighup and sigchld out of signal handler
+ * Fix free(req->cgi_env) in request.c
+ * Response message cleanup - better match to HTML-2.0 DTD
+ * Experimental Virtual Host code from Russ Nelson <nelson@crynwr.com>
+ * Expand buffer for escaped URI in init_get()
+ * SIGTERM triggers lame duck mode until all pending transactions complete
+ * Close and unlink temp file for POST in parent process
+
+** Changes from v0.90 to v0.91 **
+
+ * Cleaned up main while loop
+ * Optimized request line parsing
+ * Added state machine for header reads -- necessary to deal wtih
+ possibility of obtaining header data in multiple reads.  This
+ also allows interactive use of server.
+ * Added 500/501 return codes for various conditions
+
+** v0.90 **
+
+ * Initial release
+
+

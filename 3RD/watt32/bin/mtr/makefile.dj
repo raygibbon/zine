@@ -1,0 +1,44 @@
+#
+# GNU Makefile for `mtr' (djgpp) utility
+#
+
+.SUFFIXES: .exe
+
+#
+# Requires PCcurses 2.6. Change path below.
+#
+PDCURSES_HOME = /djgpp/contrib/pdcurses.26
+
+SOURCE = curses.c display.c dns.c getopt.c getopt1.c mtr.c net.c raw.c \
+         report.c select.c split.c
+
+OBJECTS = $(SOURCE:.c=.o)
+
+CC = gcc
+CFLAGS = -Wall -O2 -DWATT32 -I$(WATT_ROOT)/inc -I$(PDCURSES_HOME) -I.
+
+LFLAGS = -s $(WATT_ROOT)/lib/libwatt.a $(PDCURSES_HOME)/dos/pdcurses.a
+
+all: config.h dosmtr.exe
+
+config.h: config.w32
+	cp -f config.w32 config.h
+
+dosmtr.exe: $(OBJECTS)
+	$(CC) -o$@ $^ $(LFLAGS)
+
+clean:
+	rm -f dosmtr.exe config.h $(OBJECTS)
+
+curses.o:  curses.c config.h mtr-curs.h display.h net.h dns.h
+display.o: display.c config.h display.h mtr-curs.h mtr-gtk.h report.h \
+           select.h raw.h split.h
+getopt.o:  getopt.c getopt.h
+getopt1.o: getopt1.c getopt.h
+mtr.o:     mtr.c config.h mtr-curs.h display.h dns.h report.h net.h
+net.o:     net.c config.h net.h display.h
+raw.o:     raw.c raw.h net.h dns.h
+report.o:  report.c config.h report.h net.h
+select.o:  select.c config.h display.h dns.h net.h
+split.o:   split.c display.h dns.h net.h split.h config.h
+

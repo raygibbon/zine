@@ -1,0 +1,251 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "Build Zine",
+      "type": "shell",
+      "command": "${workspaceFolder}/scripts/build-zine.sh",
+      "args": [],
+      "options": {
+        "cwd": "${workspaceFolder}"
+      },
+      "group": {
+        "kind": "build",
+        "isDefault": true
+      },
+      "problemMatcher": []
+    },
+    {
+      "label": "Run Zine",
+      "type": "shell",
+      "dependsOn": "Build Zine",
+      "command": "flatpak",
+      "args": [
+        "run",
+        "com.dosbox_x.DOSBox-X",
+        "-conf",
+        "${env:HOME}/.config/dosbox-x/dosbox-x-2025.02.01.conf",
+        "-c",
+        "mount c ${workspaceFolder}/mnt",
+        "-c",
+        "set MTCPCFG=C:\\MTCP\\MTCP.CFG",
+        "-c",
+        "ne2000 0x60 3 0x300",
+        "-c",
+        "c:",
+        "-c",
+        "zine.exe",
+        "-c",
+        "pause"
+      ],
+      "problemMatcher": []
+    },
+    {
+      "label": "Build ZHTTP",
+      "type": "shell",
+      "dependsOn": "Build Watt32 Watcom Large",
+      "command": "${workspaceFolder}/scripts/build-zhttp.sh",
+      "args": [],
+      "options": {
+        "cwd": "${workspaceFolder}"
+      },
+      "problemMatcher": []
+    },
+    {
+      "label": "Build ZHTTP 1 Slot",
+      "type": "shell",
+      "dependsOn": "Build Watt32 Watcom Large",
+      "command": "${workspaceFolder}/scripts/build-zhttp.sh",
+      "args": [
+        "-dZHTTP_LISTEN_SLOTS=1"
+      ],
+      "options": {
+        "cwd": "${workspaceFolder}"
+      },
+      "problemMatcher": []
+    },
+    {
+      "label": "Build ZHTTP 3 Slots",
+      "type": "shell",
+      "dependsOn": "Build Watt32 Watcom Large",
+      "command": "${workspaceFolder}/scripts/build-zhttp.sh",
+      "args": [
+        "-dZHTTP_LISTEN_SLOTS=3"
+      ],
+      "options": {
+        "cwd": "${workspaceFolder}"
+      },
+      "problemMatcher": []
+    },
+    {
+      "label": "Build ZHTTP 8K Buffer",
+      "type": "shell",
+      "dependsOn": "Build Watt32 Watcom Large",
+      "command": "${workspaceFolder}/scripts/build-zhttp.sh",
+      "args": [
+        "-dZHTTP_FILE_BUFFER=8192"
+      ],
+      "options": {
+        "cwd": "${workspaceFolder}"
+      },
+      "problemMatcher": []
+    },
+    {
+      "label": "Build ZHTTP Fastwrite",
+      "type": "shell",
+      "dependsOn": "Build Watt32 Watcom Large",
+      "command": "${workspaceFolder}/scripts/build-zhttp.sh",
+      "args": [],
+      "options": {
+        "cwd": "${workspaceFolder}"
+      },
+      "problemMatcher": []
+    },
+    {
+      "label": "Build ZHTTP Timing",
+      "type": "shell",
+      "dependsOn": "Build Watt32 Watcom Large",
+      "command": "${workspaceFolder}/scripts/build-zhttp.sh",
+      "args": [
+        "-dZHTTP_TIMING_LOG=1"
+      ],
+      "options": {
+        "cwd": "${workspaceFolder}"
+      },
+      "problemMatcher": []
+    },
+    {
+      "label": "Configure Watt32 Watcom",
+      "type": "shell",
+      "command": "sh",
+      "args": [
+        "scripts/configure-watt32-watcom.sh"
+      ],
+      "options": {
+        "cwd": "${workspaceFolder}",
+        "env": {
+          "WATT_ROOT": "${env:HOME}/opt/watt32/src"
+        }
+      },
+      "problemMatcher": []
+    },
+    {
+      "label": "Build Watt32 Watcom Large",
+      "type": "shell",
+      "dependsOn": "Configure Watt32 Watcom",
+      "command": "${env:HOME}/opt/watcom/binl/wmake",
+      "args": [
+        "-f",
+        "watcom_l.mak",
+        "all"
+      ],
+      "options": {
+        "cwd": "${env:HOME}/opt/watt32/src/src",
+        "env": {
+          "WATT_ROOT": "${env:HOME}/opt/watt32/src",
+          "WATCOM": "${env:HOME}/opt/watcom",
+          "PATH": "${env:HOME}/opt/watcom/binl:${env:PATH}",
+          "EDPATH": "${env:HOME}/opt/watcom/eddat",
+          "INCLUDE": "${env:HOME}/opt/watcom/h",
+          "LIB": "${env:HOME}/opt/watcom/lib286",
+          "W32_BIN2C": "${env:HOME}/opt/watt32/src/util/linux/bin2c"
+        }
+      },
+      "problemMatcher": []
+    },
+    {
+      "label": "Build MYBLOG",
+      "type": "shell",
+      "dependsOn": "Build Zine",
+      "command": "flatpak",
+      "args": [
+        "run",
+        "com.dosbox_x.DOSBox-X",
+        "-conf",
+        "${env:HOME}/.config/dosbox-x/dosbox-x-2025.02.01.conf",
+        "-c",
+        "mount c ${workspaceFolder}/mnt",
+        "-c",
+        "c:",
+        "-c",
+        "zine.exe build MYBLOG",
+        "-c",
+        "pause"
+      ],
+      "problemMatcher": []
+    },
+    {
+      "label": "Serve MYBLOG",
+      "type": "shell",
+      "dependsOn": [
+        "Build Zine",
+        "Build ZHTTP"
+      ],
+      "command": "flatpak",
+      "args": [
+        "run",
+        "com.dosbox_x.DOSBox-X",
+        "-conf",
+        "${env:HOME}/.config/dosbox-x/dosbox-x-2025.02.01.conf",
+        "-c",
+        "mount c ${workspaceFolder}/mnt",
+        "-c",
+        "c:",
+        "-c",
+        "set WATTCP.CFG=C:\\",
+        "-c",
+        "ne2000 0x60 3 0x300",
+        "-c",
+        "zine.exe serve MYBLOG",
+        "-c",
+        "pause"
+      ],
+      "problemMatcher": []
+    },
+    {
+      "label": "Serve OUT with ZHTTP",
+      "type": "shell",
+      "dependsOn": "Build ZHTTP",
+      "command": "flatpak",
+      "args": [
+        "run",
+        "com.dosbox_x.DOSBox-X",
+        "-conf",
+        "${env:HOME}/.config/dosbox-x/dosbox-x-2025.02.01.conf",
+        "-c",
+        "mount c ${workspaceFolder}/mnt",
+        "-c",
+        "c:",
+        "-c",
+        "set WATTCP.CFG=C:\\",
+        "-c",
+        "ne2000 0x60 3 0x300",
+        "-c",
+        "zhttp.exe OUT 8080",
+        "-c",
+        "pause"
+      ],
+      "problemMatcher": []
+    },
+    {
+      "label": "DOS Shell (Debug)",
+      "type": "shell",
+      "command": "flatpak",
+      "args": [
+        "run",
+        "com.dosbox_x.DOSBox-X",
+        "-conf",
+        "${env:HOME}/.config/dosbox-x/dosbox-x-2025.02.01.conf",
+        "-c",
+        "mount c ${workspaceFolder}/mnt",
+        "-c",
+        "c:",
+        "-c",
+        "set WATTCP.CFG=C:\\",
+        "-c",
+        "ne2000 0x60 3 0x300"
+      ],
+      "problemMatcher": []
+    }
+  ]
+}

@@ -1,0 +1,179 @@
+1 ARCHIE   
+ARCHIE is a utility to query the Archie anonymous FTP databases using
+Prospero.  It will check the databases for entries about the files that 
+are available via anonymous FTP from sites around the world.
+
+Format:             $ ARCHIE [-option] <string>
+
+This will query an ARCHIE server and ask it to look for all known sites 
+that have a file named `string' in their FTP area.  ARCHIE will wait and 
+then print out any matches.
+
+2 Options
+ARCHIE is originally a Unix utility so its options make use of 
+the Unix `-option' and not the VMS `/qualifier' syntax.
+
+With the `-L' and `-N#' options you must enclose the option in
+double quotes (ie "-L" and "-N#") to prevent the server from
+translating them into lowercase options.
+
+3 -ecsr
+These are search-modifying options:
+
+     -e   Exact string match.  (This is the default.)
+     -c   Search substrings paying attention to upper and lower case.
+     -s   Search substrings ignoring the case of the letters.
+     -r   Search using a regular expression.
+ 
+`-c', `-s' and `-r' are mutually exclusive;  only the last one counts.  
+
+If you specify `-e' with any of them the server will first check for an 
+exact match, then fall back to the case-sensitive, case-insensitive, or  
+regular expression search.  This is so if there are matches that are 
+particularly obvious, it will use a minimal amount of search time.
+
+3 -h <hostname>
+Instruct ARCHIE to query another ARCHIE server with the name 
+`hostname', instead of its default server.
+
+ARCHIE is compiled with a specific default server host.  
+This default can be changed by defining the symbol ARCHIE_HOST 
+as one of the other available hosts.  The `-h' option will 
+override these defaults. 
+
+(Use option -L to get the list of available hosts.)
+
+3 -o <filename>
+To redirect the output of ARCHIE to a file (rather than use the
+standard output), give the `filename' it should store the results in.
+
+3 -l          
+Output results in a form suitable for parsing by programs.
+
+3 -m#
+Specifies the maximum number of hits (matches) to return. 
+The default is 95 hits.
+
+3 -t
+Sort the results in reverse date order.
+
+3 -L
+Lists the Archie servers known to the program when it was
+compiled, as well as the name of the default Archie server.  
+
+      (Note: You MUST put quotes around this argument 
+              or it will be converted to lowercase.)         
+
+3 -N[#]
+Sets the `niceness' of a query.  The default niceness is 0.
+Using `-N' without an argument sets it to 35765 (the maximum).
+If you use `-N' with an argument between 0 and 35765, it will 
+adjust itself accordingly.  
+
+      (Note: You MUST put quotes around this argument 
+              or it will be converted to lowercase.)         
+
+(See also the subtopic `Niceness')
+
+3 -V
+Provide some reassuring messages when a search is taking a long time.
+
+3 -v
+Print the version of the client.
+
+2 String
+This can be either the name of a file or a substring of a filename.
+
+If you use a substring, then you must use one of the search-modifying
+options `-c', `-r' or `-s'.  Otherwise ARCHIE will only respond with
+only those files that match exactly the substring!
+
+If the search string starts with a `-' you must precede it with 
+another `-'.  For example
+
+     $ archie  -s  - -old
+
+will search for all filenames that contain the string `-old'.
+
+2 Examples
+1.          $ archie emacs
+
+     This will find all anonymous FTP sites in the ARCHIE database
+     that have files named `emacs' somewhere in their FTP area.
+     (This particular query would probably return a lot of direc-
+     tories.)  
+
+2.          $ archie -c emacs
+
+     This will produce a list of every file that contains the
+     string `emacs' anywhere in the filename.
+
+3.   Regular expressions may also be used for searches:
+
+            $ archie -r '[xX][lL]isp'
+
+     If a string is enclosed in brackets [] ARCHIE will attempt to 
+     match any single character from the string.  In the above example
+     it will try and match either `x' or `X' plus either `l' or `L' 
+     followed by `isp'.  It is recommended that you enclose the whole
+     expression in single quotes to prevent the server misinterpreting it.
+
+2 Niceness
+Niceness is the (Unix) concept of `being nice' to other users by 
+lowering the priority of non-urgent jobs.
+
+You should use the `-N' option whenever you do not demand immediacy,  
+or when you are requesting things that could generate large responses.  
+
+Here is a list of what would be considered as `nice' values that
+accurately reflect the priority of a request to the server.
+
+          Normal              0
+          Nice                500
+          Nicer               1000
+          Very Nice           5000
+          Extremely Nice      10000
+          Nicest              32765
+
+The last priority, Nicest, would be used when a job should wait until  
+the queue is essentially empty before running. You should pick one of
+these values to use, possibly modifying it slightly depending on where 
+you think your priority should land.  For example, 32760 would mean wait  
+until the queue is empty, but jump ahead of other jobs that are `Nicest'.
+
+2 Bugs
+There are none; only a few unexpected features.
+
+2 VMS Notes
+Please note that there are some options (e.g., -a) that aren't very
+useful under VMS, so are not documented in this help file.
+
+To use the ARCHIE program, define it as a symbol to point to the
+ARCHIE.EXE image, or the arguments won't get processed properly:
+
+	$ ARCHIE :== $THE$DISK:[SOME.DIR]ARCHIE
+
+Any further enhancements for VMS for this client are welcome and
+encouraged.
+
+2 Background
+ARCHIE runs as a client and queries an Archie anonymous FTP database 
+looking for the specified search string, using the Prospero protocol.  
+This client is based on Prospero version Beta.4.2 and is provided to 
+encourage non-interactive use of the Archie servers (and subsequently 
+better performance on both sides).  
+
+The ARCHIE service was conceived and implemented by Alan Emtage
+(bajan@cs.mcgill.ca), Peter Deutsch (peterd@cs.mcgill.ca), and 
+Bill Heelan (wheelan@cs.mcgill.ca).  The entire Internet is in 
+their debt.
+
+The Prospero system was created by Clifford Neuman (bcn@isi.edu); 
+write to info-prospero@isi.edu for more information on the protocol 
+and its use.
+
+This stripped client was put together by Brendan Kehoe 
+(brendan@cygnus.com), with modifications by Clifford Neuman 
+and George Ferguson (ferguson@cs.rochester.edu).
+
+This help file was written by John Armstrong (armstrong@leva.leeds.ac.uk).

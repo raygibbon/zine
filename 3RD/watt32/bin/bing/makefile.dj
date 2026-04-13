@@ -1,0 +1,31 @@
+##
+## BING:
+##
+## This is yet another "pinger" program for Internet testing and Internet
+## fault isolation using ICMP echoes.    It was (re-)written at the
+## Information Sciences Institute of USC by Bob Braden, starting
+## from a basic pinger program written by:
+##
+##              Mike Muuss
+##              U. S. Army Ballistic Research Laboratory
+##              December, 1983
+##
+## Status -
+##      Public Domain.  Distribution Unlimited.
+##
+## Watt-32/djgpp version by Gisle Vanem <gvanem@yahoo.no>
+##
+
+STRIP_EXE = 0
+
+SRC = bing_mai.c bing_sta.c histogra.c
+
+DJGPP_EXE = bing.exe
+
+include ../djcommon.mak
+
+
+# DO NOT DELETE THIS LINE
+bing_mai.o: bing_mai.c
+bing_sta.o: bing_sta.c histogra.h
+histogra.o: histogra.c histogra.h

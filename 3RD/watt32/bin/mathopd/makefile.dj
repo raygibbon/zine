@@ -1,0 +1,28 @@
+#
+# GNU Makefile for MathOp 1.2+
+#
+# This is Mathopd, a fast, lightweight, non-forking HTTP server.
+#
+# originally created by Michiel Boland <boland@diva.nl>
+#
+# Adapted for Watt32 and djgpp by Gisle Vanem <gvanem@yahoo.no>
+#
+
+SRC = base64.c cgi.c config.c core.c dump.c imap.c main.c redirect.c \
+      request.c util.c
+
+DJGPP_EXE = mathopd.exe
+
+include ../djcommon.mak
+
+# DO NOT DELETE THIS LINE
+base64.o: base64.c mathopd.h
+cgi.o: cgi.c mathopd.h
+config.o: config.c mathopd.h
+core.o: core.c mathopd.h
+dump.o: dump.c mathopd.h
+imap.o: imap.c mathopd.h
+main.o: main.c mathopd.h
+redirect.o: redirect.c mathopd.h
+request.o: request.c mathopd.h
+util.o: util.c mathopd.h

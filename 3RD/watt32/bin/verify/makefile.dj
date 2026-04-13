@@ -1,0 +1,17 @@
+#
+#  GNU Makefile for Waterloo verify (djgpp)
+#
+
+SRC       = main.c conn.c mxrr.c pars.c smtp.c stat.c util.c
+DJGPP_EXE = vrfy32.exe
+
+include ../djcommon.mak
+
+# DO NOT DELETE THIS LINE
+main.o: main.c vrfy.h defs.h
+conn.o: conn.c vrfy.h defs.h
+mxrr.o: mxrr.c vrfy.h defs.h
+pars.o: pars.c vrfy.h defs.h
+smtp.o: smtp.c vrfy.h defs.h
+stat.o: stat.c vrfy.h defs.h
+util.o: util.c vrfy.h defs.h

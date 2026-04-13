@@ -1,0 +1,64 @@
+#
+# nmake Makefile for `mtr' (Watt32/Win32/MSVC) utility
+#
+
+DEBUG_MODE = 0
+
+#
+# Requires PCcurses 2.6+. Change path below.
+#
+PDCURSES_HOME = g:\MingW32\src\TUI\PDCurses-2.6
+
+CC      = cl
+CFLAGS  = -DWIN32 -nologo -W2 -Gy -DWATT32 -DWATT32_NO_GETOPT -DHAVE_CONFIG_H \
+          -I. -I$(WATT_ROOT)\inc -I$(PDCURSES_HOME) -I.
+
+
+!if $(DEBUG_MODE) == 1
+DEBUG   = _d
+CFLAGS  = $(CFLAGS) -MDd -Zi -EHsc -Os -D_DEBUG
+LDFLAGS = $(LDFLAGS) -debug -fixed:no
+!else
+DEBUG   =
+CFLAGS  = $(CFLAGS) -MD -Ot
+LDFLAGS = $(LDFLAGS) -release
+!endif
+
+SOURCE = curses.c display.c dns.c getopt.c getopt1.c mtr.c net.c raw.c \
+         report.c select.c split.c
+
+OBJECTS = $(SOURCE:.c=.obj)
+
+all: config.h mtr.exe
+
+config.h: config.w32
+	copy config.w32 config.h
+
+.c.obj:
+	$(CC) -c $(CFLAGS) $*.c
+
+mtr.exe: $(OBJECTS) $(WATT_ROOT)\lib\wattcpvc_imp$(DEBUG).lib
+	link @<<
+	  $(LDFLAGS) -map:$*.map -out:$*.exe
+	  $(OBJECTS) $(WATT_ROOT)\lib\wattcpvc_imp$(DEBUG).lib
+	  $(PDCURSES_HOME)\pdcurses.lib user32.lib
+<<
+
+clean:
+	rm -f $(OBJECTS) *.pdb *.ilk *.manifest config.h
+
+vclean: clean
+	rm -f mtr.map mtr.exe
+
+curses.obj:  curses.c config.h mtr-curs.h display.h net.h dns.h
+display.obj: display.c config.h display.h mtr-curs.h mtr-gtk.h report.h \
+             select.h raw.h split.h
+getopt.obj:  getopt.c getopt.h
+getopt1.obj: getopt1.c getopt.h
+mtr.obj:     mtr.c config.h mtr-curs.h display.h dns.h report.h net.h
+net.obj:     net.c config.h net.h display.h
+raw.obj:     raw.c raw.h net.h dns.h
+report.obj:  report.c config.h report.h net.h
+select.obj:  select.c config.h display.h dns.h net.h
+split.obj:   split.c display.h dns.h net.h split.h config.h
+

@@ -1,0 +1,131 @@
+
+
+fping(l)                                                 fping(l)
+
+
+NAME
+       fping - send ICMP ECHO_REQUEST packets to network hosts
+
+SYNOPSIS
+       fping [ options ] [ systems... ]
+
+
+DESCRIPTION
+       fping  is  a  like program which uses the Internet Control
+       Message Protocol (ICMP) echo request  to  determine  if  a
+       host  is up.  fping is different from ping in that you can
+       specify any number of hosts on the command line, or  spec-
+       ify  a file containing the lists of hosts to ping. Instead
+       of trying one host until it  timeouts  or  replies,  fping
+       will  send  out a ping packet and move on to the next host
+       in a round-robin fashion. If a host replies, it  is  noted
+       and  removed  from  the  list of hosts to check. If a host
+       does not respond within a certain time limit and/or  retry
+       limit it will be considered unreachable.
+
+       Unlike , fping is meant to be used in scripts and its out-
+       put is easy to parse.
+
+OPTIONS
+       -a   Show systems that are alive.
+
+       -d   Use DNS to lookup address of return ping packet. This
+            allows  you  to  give fping a list of IP addresses as
+            input and print hostnames in the output.
+
+       -e   Show elapsed (round-trip) time of packets
+
+       -f   Read list of system from a file.
+
+       -in  The minimum amount of time (in milliseconds)  between
+            sending a ping packet to any host (default is 25).
+
+       -q   Quiet.  Don't  show  per host results, just set final
+            exit status.
+
+       -rn  Retry limit (default 3). This is the number of  times
+            an  attempt  at  pinging  a  host  will  be made, not
+            including the first try.
+
+       -s   Dump final statistics.
+
+       -tn  Individual  host  timeout  in  milliseconds  (default
+            2500).  This  is  the  minimum number of milliseconds
+            between ping packets directed towards a given host.
+
+       -u   Show systems that are unreachable.  fping a  list  of
+            IP addresses as input and have the results printed as
+            hostnames.
+
+
+EXAMPLES
+       The following perl script will check a list of  hosts  and
+       send  mail if any are unreachable. It uses the open2 func-
+       tion which allows a program to be opened for  reading  and
+       writing.  fping does not start pinging the list of systems
+       until it reads EOF, which it gets after INPUT  is  closed.
+       Sure  the open2 usage is not need in this example, but its
+       a good open2 example none the less.
+
+       #!/usr/local/bin/perl
+       require 'open2.pl';
+
+       $MAILTO = "root";
+
+       $pid = &open2("OUTPUT","INPUT","/usr/local/bin/fping -u");
+
+       @check=("slapshot","foo","foobar");
+
+       foreach(@check) {  print INPUT "$_\n"; }
+       close(INPUT);
+       @output=<OUTPUT>;
+
+       if ($#output != -1) {
+         chop($date=`date`);
+         open(MAIL,"|mail -s 'unreachable systems' $MAILTO");
+         print MAIL "\nThe following systems are unreachable as of: $date\n\n";
+         print MAIL @output;
+         close MAIL;
+       }
+
+       Another good example is when you want to perform an action only on hosts
+       that are currently reachable.
+
+       #!/usr/local/bin/perl
+
+       $hosts_to_backup = `cat /etc/hosts.backup | fping -a`;
+
+       foreach $host (split(/\n/,$hosts_to_backup)) {
+         # do it
+       }
+
+
+AUTHOR
+       Roland J. Schemers III, Stanford University
+
+DIAGNOSTICS
+       Exit status is 0 if all the hosts are reachable, 1 if some
+       hosts  were  unreachable,  2  if any IP addresses were not
+       found, 3 for invalid command line arguments, and 4  for  a
+       system call failure.
+
+BUGS
+       Ha! If there were any I knew of I would have fixed them!
+
+
+RESTRICTIONS
+       If  certain  options are used (i.e, a low value for -i and
+       -t, and a high value for -r) it is possible to  flood  the
+       network.  This program must be installed as setuid root in
+       order to open up a raw socket, or must be run by root.  In
+       order  to  stop mere mortals from hosing the network (when
+       fping is installed setuid root) , normal users can't spec-
+       ify the following:
+
+        -i n   where n < 10  msec
+        -r n   where n > 20
+        -t n   where n < 250 msec
+
+
+SEE ALSO
+       netstat(1), ping(8), ifconfig(8c)

@@ -1,0 +1,183 @@
+ARCHIE(1)                USER COMMANDS                  ARCHIE(1)
+
+
+NAME
+     archie - query the  Archie  anonymous  FTP  databases  using
+     Prospero
+
+SYNOPSIS
+     archie [-cers] [-a] [-l] [-t] [-m hits]
+            [-N [level]] [-h hostname] [-o filename]
+            [-L] [-V] [-v] string
+
+DESCRIPTION
+     archie queries an archie anonymous FTP database looking  for
+     the  specified  string  using  the  Prospero protocol.  This
+     client is based on Prospero version Beta.4.2 and is provided
+     to  encourage non-interactive use of the Archie servers (and
+     subsequently better performance on both  sides).   This  man
+     page describes version 1.3 of the client.
+
+     The general method of use is of the form
+
+          % archie string
+
+     This will go to the archie server and ask it to look for all
+     known  systems  that have a file named `string' in their FTP
+     area.  archie will wait, and print out any matches.
+
+     For example,
+
+          % archie emacs
+
+     will find all anonymous FTP sites  in  the  archie  database
+     that  have  files  named  emacs somewhere in their FTP area.
+     (This particular query would probably return a lot of direc-
+     tories.)  If you want a list of every filename that contains
+     emacs anywhere in it, you'd use
+
+          % archie -c emacs
+
+     Regular expressions, such as
+
+          % archie -r '[xX][lL]isp'
+
+     may also be used for searches.  (See the manual of a reason-
+     ably good editor, like GNU Emacs or vi, for more information
+     on using regular expressions.)
+
+
+OPTIONS
+     The options currently available to this archie client are:
+
+     -c          Search substrings paying attention  to  upper  &
+                 lower case.
+     -e          Exact string match.  (This is the default.)
+     -r          Search using a regular expression.
+     -s          Search  substrings  ignoring  the  case  of  the
+                 letters.
+     -ofilename  If specified, place the results of the search in
+                 filename.
+     -a          Output results as Alex filenames.
+     -l          Output results in a form suitable for parsing by
+                 programs.
+     -t          Sort the results inverted by date.
+     -mhits      Specifies the maximum number of  hits  (matches)
+                 to return (default of 95).
+     -Nlevel     Sets the niceness of a query; by  default,  it's
+                 set  to 0.  Without an argument, ``-N'' defaults
+                 to 35765.   If  you  use  -N  with  an  argument
+                 between 0 and 35765, it'll adjust itself accord-
+                 ingly.  (Note: VMS users will have to put quotes
+                 around  this  argument, and -L, like "-N45"; VMS
+                 will otherwise convert it to lowercase.)
+     -h hostname Tells the client  to  query  the  Archie  server
+                 hostname.
+     -L          Lists the Archie servers known  to  the  program
+                 when it was compiled, as well as the name of the
+                 default Archie server.  For an up-to-date  list,
+                 write  to  ``archie@archie.mcgill.ca''  (or  any
+                 Archie  server)  with  the  single  command   of
+                 servers.
+     -V          With the verbose option, archie will  make  some
+                 comments  along  the way if a search is going to
+                 take some time, to pacify the user.
+
+     The three search-modifying arguments  (``-c'',  ``-r'',  and
+     ``-s'')  are  all  mutually  exclusive;  only  the  last one
+     counts.  If you specify -e with any of  ``-c'',  ``-r'',  or
+     ``-s'', the server will first check for an exact match, then
+     fall back to the case-sensitive, case-insensitive, or  regu-
+     lar expression search.  This is so if there are matches that
+     are particularly obvious, it will take a minimal  amount  of
+     time to satisfy your request.
+
+     If you list a single `-' by itself,  any  further  arguments
+     will  be  taken  as  part  of  the  search  string.  This is
+     intended to enable searching for strings that begin  with  a
+     `-'; for example:
+
+          % archie -s - -old
+
+     will search for all filenames that contain the string `-old'
+     in them.
+
+RESPONSE
+     Archie servers are set up to respond to a number of requests
+     in  a  queued fashion.  That is, smaller requests get served
+     much more quickly than do large requests.  As a result,  the
+     more  often  you query the Archie server, or the larger your
+     requests, the longer the queue will become, resulting  in  a
+     longer  waiting  period  for everyone's requests.  Please be
+     frugal when possible, for your benefit as well  as  for  the
+     other users.
+
+QUERY PRIORITY
+     Please use the  ``-N''  option  whenever  you  don't  demand
+     immediacy,  or when you're requesting things that could gen-
+     erate large responses.  Even when using the nice option, you
+     should  still  try  to  avoid  big jobs during busy periods.
+     Here is a list of what we consider to be  nice  values  that
+     accurately reflect the priority of a job to the server.
+
+          Normal              0
+          Nice                500
+          Nicer               1000
+          Very Nice           5000
+          Extremely Nice      10000
+          Nicest              32765
+
+     The last priority, Nicest, would be used when a  job  should
+     wait  until  the  queue is essentially empty before running.
+     You should pick one of these values to use, possibly modify-
+     ing  it  slightly depending on where you think your priority
+     should land.  For example, 32760 would mean wait  until  the
+     queue  is  empty,  but  jump  ahead  of other jobs that have
+     selected Nicest.
+
+     There are certain types of  things  that  we  suggest  using
+     Nicest  for,  irregardless.  In particular, any searches for
+     which you would have a hard time justifying the use of  any-
+     thing but extra resources.  (We all know what those searches
+     would be for.)
+
+ENVIRONMENT
+     ARCHIE_HOST
+             This will change the host archie will  consult  when
+             making  queries.   (The default value is what's been
+             compiled in.)  The ``-h'' option will override this.
+             If  you're  running  VMS,  create  a  symbol  called
+             ARCHIE_HOST.
+
+SEE ALSO
+     For more information on regular expressions, see the  manual
+     pages on:
+
+     regex(3), ed(1)
+
+     Also   read    the    file    archie/doc/whatis.archie    on
+     archie.mcgill.ca for a detailed paper on Archie as a whole.
+
+
+     Read the file README.ALEX distributed with this  client  for
+     more information on what Alex is and how you can take advan-
+     tage of it.
+
+AUTHORS
+     The archie service was conceived  and  implemented  by  Alan
+     Emtage       (bajan@cs.mcgill.ca),       Peter       Deutsch
+     (peterd@cs.mcgill.ca),        and        Bill         Heelan
+     (wheelan@cs.mcgill.ca).   The  entire  Internet  is in their
+     debt.
+
+     The  Prospero  system  was  created   by   Clifford   Neuman
+     (bcn@isi.edu);   write  to  info-prospero@isi.edu  for  more
+     information on the protocol and its use.
+
+     This stripped client  was  put  together  by  Brendan  Kehoe
+     (brendan@cygnus.com),  with modifications by Clifford Neuman
+     and George Ferguson (ferguson@cs.rochester.edu).
+
+BUGS
+     There are none; only a few unexpected features.
+

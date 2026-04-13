@@ -1,0 +1,348 @@
+------------------------------------------------------------------------
+Talk Version 1.3                                          05. April 1994
+------------------------------------------------------------------------
+
+This is a simple talk client/server for MS-DOS. Talk's main features
+are:
+
+o Talk from PC to Unix host or to another PC running talk
+o Wait for incoming invitations
+o Automatically reply to talk requests while you are absent
+o Two display modes, single screen and split screen
+o Define aliases for frequently used addresses
+o Log talk sessions to a file
+
+Talk is built upon the WATTCP library and runs directly over a packet
+driver. It is a standalone application and does not run simultaneously
+with most other tcp/ip software like NCSA, CUTCP, and Trumpet WinSock.
+It runs, reportedly, together with IPX (using IPXPKT).
+
+The program (executable and source code) is provided under the terms
+of the GNU General Public License. It may be used and distributed
+freely. There is absolutely NO WARRANTY. See the file COPYING for
+details.
+
+Talk is user-supported software. If you have any comments or
+suggestions for further improvements, feel free to contact me. See
+the `ACKNOWLEDGEMENTS' section below for a list of contributors to
+this release.
+
+    Michael Ringe
+    Institut fuer Theoretische Physik
+    RWTH Aachen, Germany
+    E-Mail: michael@thphys.physik.rwth-aachen.de
+
+
+------------------------------------------------------------------------
+		    CHANGES FROM PREVIOUS VERSIONS
+------------------------------------------------------------------------
+
+Version 1.3
+-----------
+o Fixed several minor Bugs
+o Support for 80x50 video mode
+o Added -q option
+o Allow terminal name on command line
+o Supports BSD-4.2 talk protocol
+o 'Upgrade' to BC 4.0
+o Added host name lookup
+o Added autocr mode
+
+Version 1.2
+-----------
+o Improved error and time out checks
+o Fixed debugging code
+o Allow environment variables in wattcp.cfg
+o Added auto answer mode
+o Added log file
+
+Version 1.1
+-----------
+o Added edit keys (erase char, erase word, kill line)
+o Added aliases
+o Added help screen
+o Display the current time in the status line
+o Allow different color sets in WATTCP.CFG for single window and
+  split screen mode
+o Alt-S toggles between single window and split screen mode
+
+Version 1.0
+-----------
+o Initial version
+
+
+------------------------------------------------------------------------
+			      INSTALLATION
+------------------------------------------------------------------------
+
+To run talk you need two files:
+
+    talk.exe   - The executable file
+    wattcp.cfg - The configuration file for the WATTCP library.
+
+Wattcp.cfg may reside in the current directory, in the same directory as
+talk.exe, or in the directory specified by the environment variable
+'WATTCP.CFG'. If you don't use any other WATTCP applications, edit the
+wattcp.cfg which comes with talk and fill in the necessary information.
+If you already have a wattcp.cfg, you should use that. In this case you
+may want to add some entries.
+
+Refer to the CONFIGURATION section below for more details about
+wattcp.cfg settings.
+
+
+------------------------------------------------------------------------
+			   USAGE (OVERVIEW)
+------------------------------------------------------------------------
+
+To talk to another user, enter
+
+	talk [-lo] <user>@<host> [<term>]
+
+<host> may be either a host name ('x.y.edu') or an Internet address
+('111.222.333.444'). If the user is logged in more than once, you may
+connect to a specific terminal using the <term> argument. There are
+two options:
+
+	-l    Switch on the log file
+	-o    Use the old (BSD 4.2) talk protocol
+
+
+To wait for incoming talk requests, invoke talk with
+
+	talk [-alq]
+
+Options:
+
+	-l    Switch on the log file
+	-a    Automatic answer mode
+	-q    Be quiet in answer mode
+
+
+------------------------------------------------------------------------
+			   USAGE (MORE DETAILS)
+------------------------------------------------------------------------
+
+The log file
+------------
+Talk can log the session to a log file. Logging is enabled by the -l
+option on the command line or by pressing Alt-L (the latter toggles the
+log file on and off). The default log file name is 'talk.log', but this
+may be changed in the configuration file (see CONFIGURATION below).
+
+
+Video and display modes
+-----------------------
+Talk supports 80x25, 80x43 EGA and 80x50 VGA video modes. In any of
+these video modes you may select between 'split screen' and 'single
+window' display. In split screen mode local and remote text is displayed
+in separate windows, as in the Unix talk. In single window mode all text
+is written into one window with different colors being used for local
+and remote text. During a talk session you may switch the display mode
+at any time by pressing Alt-S. The initial display mode can be selected
+in the configuration file (see below).
+
+In single window mode, you have to press the enter key frequently to
+avoid mixing up your and your party's text. The 'autocr' feature, which
+is activated by Alt-R automates this procedure. When autocr is active
+(a 'R' appears in the status line) a new line is inserted automatically
+to keep your and your party's text on seperate lines.
+
+
+Special keys during a talk session
+----------------------------------
+F1                   Display a help screen
+ESC                  Close the connection
+Alt-S                Switch between single window and split screen
+Alt-L                Toggle the log file
+Del, BS, Left        Delete the last character
+Ctrl-W, Ctrl-Left    Delete the last word
+Ctrl-U               Clear the current line
+
+Note that the edit keys may have strange effects in single window mode,
+because they do not distinguish between local and remote text.
+
+
+New and old talk protocol
+-------------------------
+Besides the 'standard' talk protocol, which was released with BSD 4.3,
+there is an older protocol, which appeared in BSD 4.2. The old protocol
+is still in use on many machines (most of them SUN's) and incompatible
+with its successor. Even worse, the old protocol is machine dependent,
+i.e., two computers running the old protocol may or may not be able to
+talk to each other.
+
+If you connect to another user, talk first tries to establish a
+connection using the standard protocol. If that fails, it tries the old
+protocol. On machines which only support the old protocol this will
+cause an error message ('Port unreachable') and a short delay. In such
+cases you may want to use the -o option. This option prevents talk from
+trying the standard protocol.
+
+
+Answer mode
+-----------
+Using the -a option makes talk operate as an answering machine. Talk
+will ask you for a message to present to any user who tries to talk to
+your PC. The message can be up to 10 lines long. A line containing a
+single dot in the first column ends the message. To use the default
+message, just press enter on the first line.
+
+In answer mode, the log file is automatically enabled, and talk does
+not exit after a connection is closed. Also, there is a time-out of
+2 minutes for inactive connections.
+
+To suppress the beep and screen output, use the -q option ('quiet').
+
+
+
+------------------------------------------------------------------------
+			      CONFIGURATION
+------------------------------------------------------------------------
+
+Talk recognizes the following entries in wattcp.cfg:
+
+talk.localuser="PC-User"
+	Sets your local username. If you talk to another user, he/she
+	will be notified with a message containig this name. This
+	setting has no effect if the talk was initiated by the remote
+	user, because talk will always assume the requested user id.
+
+talk.screenmode="split[,autocr]"
+	Sets the initial display mode. "split" selects split screen
+	mode, any other value selects single window mode. "autocr"
+	is optional and turns on the autocr feature (see 'Screen modes'
+	above).
+
+talk.colors=LLRRSSllrr[,LLRRSSllrr]
+	Screen colors. The value must consist of exactly 5 hex numbers
+	(2 digits each), specifying the screen attributes for local
+	window (LL), remote window (RR), status line (SS), local name
+	on status line (ll) and remote name on status line (rr).
+
+	You may specify a second color set, which must be in the same
+	format and separated by exactly one character from the first
+	set. In this case, the first set applies to single window mode,
+	while the second set is used in split screen mode.
+
+talk.alias="alias:user@host"
+	This defines an alias for user@host. With this definition,
+	'talk alias' becomes equivalent to 'talk user@host'. You may
+	specify an arbitrary number of aliases.
+
+talk.logfile="talk.log"
+	Specifies the name of the log file. Default is `talk.log'.
+
+talk.message="%s is not here. Try again later, or leave a message."
+	Sets the default message for auto answer (-a) mode. This option
+	can be repeated to allow multiple line messages (up to 10
+	lines). '%s' may ocur once on each line and will be replaced by
+	the local user name.
+
+Talk can read any of the above parameters from an environment variable.
+If the value specified in wattcp.cfg starts with a '$', the rest of the
+argument is interpreted as an environment variable name and the value is
+read from this variable. This may be useful when there is only one
+wattcp.cfg shared by many users. Note that the above mechanism applies
+ONLY to the settings listed above, not to the other definitions in
+wattcp.cfg. Note also that there is an include statement for wattcp.cfg
+which allows to include user-specific configuration files.
+
+
+------------------------------------------------------------------------
+				MESSAGES
+------------------------------------------------------------------------
+
+Here is a short explanation of some messages you may get from talk:
+
+Your party is not logged on
+	The person you want to talk to is currently not logged on, or
+	does not exist on the specified machine. Check if you spelled
+	the user name correctly.
+
+Your party is refusing messages
+	The person you want to talk to has disabled messages. To be able
+	to receive talk requests, messages must be enabled. On most Unix
+	systems this is done with the command 'mesg y'.
+
+Target machine does not recognize us
+	The talk daemon on the target machine was not able to map your
+	PC's IP address to a host name. Your PC is probably not
+	registered in the official nameserver for your domain.
+
+Target machine is too confused to talk with us
+	The remote talk daemon failed to process our request for some
+	unspecified reason. This error may also occur if the network
+	connection is very bad.
+
+ICMP: Port Unreachable
+	The target machine has disabled talk or it runs an old version
+	of the talk protocol. Use -o to avoid this message.
+
+No response from target host, giving up
+	The remote talk daemon does not respond to your request. This
+	may be caused by bad network connections.
+
+Error: Cannot open connection.
+	This is a either a network problem (try to connect to the same
+	host via ftp or telnet), or your PC is incorrectly configured
+	(check your wattcp.cfg settings).
+
+
+------------------------------------------------------------------------
+			KNOWN BUGS/RESTRICTIONS
+------------------------------------------------------------------------
+
+o Since the old talk protocol is hardware dependent, talk will not work
+  with some machines. I would like to fix this `bug', but there seems
+  no documentation available for the old protocol. If anybody has a
+  specification or something similar, I would like to receive a copy!
+
+o Talk is not a real talk daemon because it does not run in the
+  background. There should be a small TSR programm looking for
+  incoming invitations.
+
+o The remote host, if it is a Unix machine, must know about your PC's
+  name. The remote talkd will try to map your IP address to a domain
+  name and refuse to process your request if this fails. If you get the
+  message "Target machine does not recognize us", contact your local
+  network administrator to have your PC registered on an official name
+  server.
+
+o Talk is a standalone application and does not coexist with most other
+  networking software. There is no support for other protocol stacks
+  like Winsock or PC/TCP.
+
+o Should ring again if the remote user does not respond.
+
+o Invitations are not deleted.
+
+
+------------------------------------------------------------------------
+			     COMPILING
+------------------------------------------------------------------------
+
+In order to build talk from the source code you need the WATTCP library,
+which is available via anonymous ftp from dorm.rutgers.edu. Place talk.c
+into the 'apps' directory or into a separate directory so that
+#include "..\include\tcp.h" works.
+
+The distributed executable was compiled with Borland C++ 4.0 using the
+small memory model and a modified startup code. You can generate the
+modified startup code by removing the __ExceptInit call from c0.asm and
+building c0s.obj. With BC 4.0, this reduces the executable size by about
+20K.
+
+
+------------------------------------------------------------------------
+			    ACKNOWLEDEGMENTS
+------------------------------------------------------------------------
+
+Many of the improvements and additions in this release have been
+contributed or inspired by users of talk. I would like to thank all
+persons who sent me comments and suggestions:
+
+    Ross B. Inman
+    William L. Menninger
+    Pete Wood
+

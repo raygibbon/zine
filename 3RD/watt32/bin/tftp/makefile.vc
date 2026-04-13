@@ -1,0 +1,14 @@
+
+CFLAGS = -MDd -Yd -Ge -GZ -Zi -Os -D_DEBUG -DWATT32 -DWIN32 \
+         -DMAXHOSTNAMELEN=128 -nologo -I../../inc
+
+all: tftp_nt.exe
+
+tftp_nt.exe: main.obj tftp.obj tftpsubs.obj
+    link -debug main.obj tftp.obj tftpsubs.obj ../../lib/wattcpvc_imp_d.lib -out:tftp_nt.exe
+
+.c.obj:
+    cl -c $(CFLAGS) $<
+
+clean:
+    del /y tftp_nt.exe main.obj tftp.obj tftpsubs.obj

@@ -1,0 +1,116 @@
+
+DOS-ftp 1.1
+============
+
+This ftp-client is similar to the "standard" ftp-client found on
+most Unix and Windows boxes. The noticeable difference is that
+dos-ftp uses conio for printing to the screen. Colours may also
+be controlled in the config-file ftp.ini.
+
+History
+========
+
+v1.0 - Apr 2000, First release.
+
+v1.1 - May 2000, Fixed a bug in main.c where a commandline without a
+       slash ('\' or '/') would cause a crash or overwrite NULL-area.
+
+       The windows ('-w') option has been removed in favour of parameter
+       'recv_socksize' in ftp.ini.
+
+       Fixed a problem with status line; status line position is forced
+       to be equal screen height unless position is 1 (or 0 which disables
+       status line).
+
+       New keyword `use_comspec' (effective in djgpp version only) chooses
+       whether to search for shell commands in path (use_comspec = 0) or
+       let command processor (COMMAND.COM, $SHELL) do all work (use_comspec
+       = 1).
+
+       This is handy if you have e.g. `dir.exe' in your path but want to
+       use the normal `dir' command instead.  When "use_comspec = 0",
+       djgpp's `system()' function will execute "dir.exe" if found in path.
+
+v1.2 - Improved SIGINT handling; suppress SIGINT in shell commands. Allow
+       long connects to be interrupted cleanly.
+
+
+Installation
+=============
+
+If you don't have the Watt-32 tcp/ip library installed or doesn't
+want to built it that's okay.  Simply unpack the dosftp*.zip file
+to a temporary directory and move the following files to a directory
+on your PATH:
+
+  ftp.ini    ; configuration file
+  ftp.lng    ; language file (not really needed and terribly incomplete)
+  ftp.man    ; manual page for the "standard" ftp-client.
+  ftp.exe    ; the real-mode executable (built with Borland 4.0)
+  ftp32.exe  ; the prot-mode executable (built with djgpp 2.03)
+
+Note: ftp.exe and ftp32.exe have been compressed using UPX. If the djgpp
+      version (ftp32.exe) crashes, you wont be able to symify the stack-
+      trace output.
+
+If you like to compile dos-ftp yourself, make sure to unpack to a
+directory under Watt-32's ".\bin\" directory. E.g.:
+  md c:\net\watt\bin\ftp
+  pkunzip dosftp11.zip c:\net\watt\bin\ftp
+
+Compiling dos-ftp requires Watt-32 v2.1 or later. It can be found at
+http://www.bgnett.no/~giva. You need to built the tcp/ip library your-
+self.
+
+Two makefiles are provided. The one for djgpp is Makefile.dj and Makefile
+is for Borland, Metaware and Watcom. A Borland compatible conio-library
+for Metaware and Watcom is at my page:
+  http://www.bgnett.no/~giva/misc/mwcon13.zip
+
+
+Script commands
+===============
+
+A script is invoked with the '-s' command-line option. Script commands
+are either from a file, e.g:
+
+  ftp -s script
+
+or
+  ftp -s:script   (to be compatible with Window's ftp-client)
+
+or from stdin, e.g.:
+
+  echo open ftp.simtel.net | ftp -s-
+
+Script commands are normal commands as you would type them interactively.
+Use command "?" for a list of commands. Some commands are only available
+in a script-file and are prefixed with '@'. These are:
+
+  @wait :  Wait a period of time.
+           E.g. "@wait +10"      will pause the script 10 sec.
+                "@wait +2:05"    will pause the script 2 min 5 sec.
+                "@wait 14:05:00  will pause the script util 14:05.
+
+  @echo :  Simply echo the text. These embedded escape codes are parsed:
+           "\a"  -> sounds a beep.
+           "\f"  -> clears the screen.
+           "\n"  -> does a new line.
+
+           E.g. @echo "\n\fHello\aWorld"
+
+  @stop :  Will terminate the script and return to the command-prompt.
+
+
+Special arguments
+=================
+
+These are the arguments specific to DOS-ftp and not described in ftp.man:
+
+-P  use EPLF dir-list parsing.
+
+
+
+Gisle V. <giva@bgnett.no>
+Apr 2000
+

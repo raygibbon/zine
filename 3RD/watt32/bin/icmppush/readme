@@ -1,0 +1,104 @@
+README for ICMPush v2.2
+=======================
+
+"This program is distributed under the GNU GPL license. See the COPYING file 
+for more details."
+
+Ok, there's the ICMPush program, the first version was produced 4 (more or
+less) years ago and was called originally redirect.c (not the redirect.c
+sent long time ago to rootshell) and only supported ICMP redirect type.
+
+Now, the ICMP error types: Unreach, Parameter Problem, Redirect and Source
+Quench are allowed, and the ICMP information types: Timestamp, Address
+Mask Request, Information Request, Router Solicitation (Router Discovery),
+Router Advertisement (Router Discovery) and Echo Request are also allowed
+and can wait a timeout to print the replies received.
+
+Each one knows if it interest for you or not.
+:)
+
+Below there are the keys for the ICMP packet types accepted on the command
+line:
+
+Value   Extended Value    Meaning
+-----   --------------    -------
+-echo   --echo_req        Echo Request.
+-du     --dest_unreach    Destination Unreach.
+-info   --info_req        Information Request.
+-red    --redirect        Redirect.
+-mask   --mask_req        Address Mask Request.
+-param  --param_problem   Parameter Problem.
+-rts    --router_solicit  Router Solicitation (Router Discovery).
+-rta    --router_advert   Router Advertisement (Router Discovery).
+-sq     --src_quench      Source Quench.
+-tstamp --timestamp       Timestamp.
+-tx     --time_exc        Time Exceeded.
+
+This keys can be combined with multiple options like ICMP code (-c code),
+timeout (-to seconds), no resolve (-n), garbage bytes (-gbg bytes|max), etc.
+See the man page for examples with great detail.
+
+Below there are the values returned from the ICMPush program to the system
+and their meaning, you can use them within a shell-script:
+
+Value  Meaning
+-----  -------
+0      Program finished OK
+1      Wrong number of arguments
+2      Unknown ICMP protocol
+3      Can't build RAW sockets
+4      Incorrect ICMP packet type
+5      Wrong gateway
+6      Incorrect route destination
+7      Incorrect ICMP packet code
+8      Wrong original host
+9      Error while sending packet
+10     Protocol still not implemented
+11     Wrong spoof IP or hostname
+12     Can't allocate union data_hdr memory
+13     Wrong destination IP or hostname
+14     Unknown protocol
+16     Error while reading RAW socket
+17     Error while initializing SIGALRM signal handler
+18     The Echo Request data pattern len is too big
+19     Incorrect source port value
+20     Incorrect destination port value
+21     Incorrect timeout value
+22     Incorrect Echo ID value
+23     Incorrect sequence number
+24     Incorrect Echo data value
+25     IP_HDRINCL error
+26     Incorrect router address of a ICMP Advertisement packet
+27     Incorrect or missing garbage data bytes
+28     Incorrect pointer of ICMP Parameter Problem
+
+I attach also a nasty mini-script called try_reset that tries to reset
+existing telnet or rlogin connections, you can see the use of the
+values returned from the ICMPush program within a shell-script.
+But I advise you: its a bad script. :)
+
+The use of Router Solicitation (Router Discovery) has been finished and it
+seems to work ok. Tnx to Infovia Plus. ;)
+
+-----------------------------------------------------------------------
+IMPORTANT:
+I released this program for evaluation of TCP/IP stacks *ONLY*. Take it
+like a little tool to improve your system security, not for cracking,
+disturbing or flooding another systems. This can be a crime on certain
+countries.
+-----------------------------------------------------------------------
+
+I like to read your opinions, suggestions, bugs etc. about this program.
+
+My e-mail address is:
+
+  tcpbgp@softhome.net
+
+Feel free to contact.  :)
+
+Enjoy!
+
+Ooooooops! The last thing ... sorry for my bad english! :)
+
+
+Madrid, 1999. Slayer.

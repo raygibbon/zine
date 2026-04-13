@@ -1,0 +1,14 @@
+#
+# Makefile for WatTCP/djgpp SMTP server
+#
+
+SRC = smtpserv.c
+
+DJGPP_EXE = smtpsrv2.exe
+
+include ../djcommon.mak
+
+CFLAGS += -DDEBUG
+
+# DO NOT DELETE THIS LINE
+

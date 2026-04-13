@@ -1,0 +1,23 @@
+#
+# GNU Makefile for Watt-32 (djgpp) fping
+#
+
+STRIP_EXE = 0
+SRC       = fping.c
+DJGPP_EXE = fping32.exe
+
+include ../djcommon.mak
+
+#
+# Interval is the minimum amount of time between sending a ping packet to 
+# any host.
+#
+# Timeout  is the minimum amount of time between sending a ping packet to
+# a particular host.
+#
+# Retry is the number of ping packets to send to a host before giving up.
+#
+CFLAGS += -DDEFAULT_INTERVAL=25 -DDEFAULT_TIMEOUT=2500 -DDEFAULT_RETRY=3
+
+# DO NOT DELETE THIS LINE
+fping.o: fping.c

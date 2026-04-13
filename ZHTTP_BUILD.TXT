@@ -1,0 +1,101 @@
+ZHTTP.EXE experimental build notes
+==================================
+
+ZHTTP.EXE is intentionally separate from ZINE.EXE.
+
+ZINE.EXE:
+  - static site generator
+  - serve command builds the site and launches zhttp.exe
+
+ZHTTP.EXE:
+  - static-file preview server
+  - intended to link Watt-32 only into this executable
+  - kept separate so ZINE.EXE does not link Watt-32
+
+Proposed source layout:
+
+  src\zhttp\main.c
+  src\zhttp\http_parse.c
+  src\zhttp\http_reply.c
+  src\zhttp\serve_file.c
+  src\zhttp\mime.c
+  src\zhttp\net_watt32.c
+  src\shared\zpath.c
+  src\shared\zfile.c
+  src\shared\zlog.c
+
+Stub build shape. The host script builds from build\zhttp so object files do
+not collide with zine.exe object files or clutter src\:
+
+  scripts\build-zhttp.sh
+
+The real local build links Watt-32 and defines ZHTTP_USE_WATT32.
+
+Current local Watt-32 path:
+
+  $HOME/opt/watt32
+
+For zhttp.exe's 16-bit large-model build, the library we need is:
+
+  $HOME/opt/watt32/src/lib/wattcpwl.lib
+
+The VS Code `Build Watt32 Watcom Large` task builds this from the Linux host
+using the same OpenWatcom install as zine.exe.
+
+That should generate the large-model Watcom library:
+
+  $HOME/opt/watt32/src/lib/wattcpwl.lib
+
+The VS Code task uses `scripts/configure-watt32-watcom.sh` instead of
+Watt-32's `configur.sh` directly. This avoids a Linux helper argument parsing
+issue and enables the Watt-32 config switches needed for the BSD socket API:
+
+  USE_BSD_API
+  USE_BUFFERED_IO
+
+It also raises Watt-32's non-DOSX 16-bit local port cap from 5000 to 65535 so
+the default zhttp.exe port 8080 can bind.
+
+After WATTCPWL.LIB exists, the zhttp.exe build shape is:
+
+  scripts\build-zhttp.sh
+
+Current status:
+  - $HOME/opt/watt32/src/lib/wattcpwl.lib builds successfully
+  - zhttp.exe links successfully against Watt-32
+
+Performance test knobs:
+
+  ZHTTP_LISTEN_SLOTS
+    Default: 2
+    Try 1 or 3 to compare browser request burst handling.
+
+  ZHTTP_FILE_BUFFER
+    Default: 8192
+    Try 4096 or 2048 if a real-mode memory issue appears.
+
+  ZHTTP_USE_FASTWRITE
+    Default: 1
+    Uses Watt-32 sock_fastwrite() in the send loop so Ctrl-X can be checked
+    during larger transfers. Set to 0 to compare the safer sock_write() path.
+
+  ZHTTP_SEND_TIMEOUT_MS
+    Default: 15000
+    Timeout for fastwrite progress while sending a response chunk.
+
+  ZHTTP_TIMING_LOG
+    Default: 0
+    Set to 1 for short net/file timing lines while testing zhttp.exe.
+    Console output is slow in DOS, so keep this off for normal use.
+
+VS Code benchmark tasks:
+
+  Build ZHTTP
+  Build ZHTTP 1 Slot
+  Build ZHTTP 3 Slots
+  Build ZHTTP 8K Buffer
+  Build ZHTTP Fastwrite
+  Build ZHTTP Timing
+
+TODO:
+  - test in DOSBox-X with packet driver loaded, for example: NE2000 0x60 3 0x300

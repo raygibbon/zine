@@ -1,0 +1,8 @@
+
+SRC = wput.c ftp.c utils.c
+
+DJGPP_EXE = wput32.exe
+
+include ../djcommon.mak
+
+# DO NOT DELETE THIS LINE

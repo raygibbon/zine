@@ -1,0 +1,72 @@
+Commands:
+
+ load filename
+
+    Load an existing /etc/networks file into memory. The first line
+    of this file must represent the top of the address allocation tree
+    (this is arranged when the 'write' command writes out a tree).
+    The /etc/networks file format is extended to include a subnet size
+    in a comment.
+
+
+ write [filename]
+
+    After modifying a tree with 'init', 'alloc', 'grow', or 'free'
+    commands, you can rewrite the resulting allocation tree in
+    /etc/networks format with this command. If no filename is specified,
+    the same file that was loaded with the 'load' command is written.
+
+
+list
+
+    Lists the current state of the /etc/networks file that is in
+    memory to standard output.
+
+
+quit
+
+    Exit. If changes were made to the tree in memory, you are warned
+    if you haven't yet written them out.
+
+
+ init net mask
+
+    Initialize a new address space. Net is the IP address of the net,
+    Mask is the number of bits in the address which contain network
+    information. Example: 'init 128.174.0.0 16' starts work on a new
+    class B net at 128.174.0.0.
+
+
+ alloc name size [specific-request]
+
+    Allocate address space. Name is the textual name to be given to
+    the net in the /etc/networks file, size is the number of host
+    IP addresses you want the net to contain. If you want a specific
+    subnet, specify it in Specific-Request and that space will be
+    allocated if available, otherwise the RFC1219 algorithm is used
+    to find the optimal location for the new net.
+
+
+ blockalloc prefix size n
+
+    Not implemented.
+
+
+ grow net
+
+    If possible, increase the size of the net given by the IP address
+    in Net by one bit. If successful, the new size is given along with
+    the number of hosts the new net contains. Issue more 'grow' commands
+    if you want it larger yet. The 'grow' command may fail if the space
+    the net would have to grow into is already full, or if the net bit
+    to be subsumed into the host portion is a 1.
+
+
+ free net
+
+    Return the net given by the IP address in Net to the free pool.
+
+
+ stats
+
+    Not implemented.

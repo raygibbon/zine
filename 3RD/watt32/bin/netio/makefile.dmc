@@ -1,0 +1,24 @@
+#
+# MAKE Makefile for `netio' utility.
+# Digital Mars / X32VM
+#
+
+CFLAGS = -mx -g -ff -Jm -S -I$(DIGMARS)\include -I..\..\inc -DWATT32
+
+all: netio2.exe
+
+netio2.exe: netio.do
+    $(DIGMARS)\bin\link.exe @&&|
+      cx.obj netio.do, netio2.exe,,
+      ..\..\lib\wattcpdf.lib x32.lib /codeview /noignorecase
+      /stack:20000 /map:full
+|
+
+.c.do:
+    dmc -c $(CFLAGS) $*.c -o$*.do
+
+clean:
+    @del *.do
+    @del netio2.exe
+    @del netio2.map
+

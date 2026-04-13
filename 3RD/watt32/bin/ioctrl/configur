@@ -1,0 +1,401 @@
+
+DISCLAIMER:
+
+This is experimental software. I would really appreciate feedback, especially
+when using several clients at the same time, using scripts , etc....
+I'm not responsible for any damage that this software or controlled hardware
+might do to you, your computer , your family , your electrical installation
+, your power supply , etc, anything you name.
+
+
+1.0 THE SERVER
+
+1.0.1 Server options
+
+1.0.2 Commands accepted by the server
+
+1.1 Services file configuration
+
+1.2 Address file configuration
+
+1.3 Devices file configuration
+
+1.4 Password file
+
+
+2. THE CLIENT
+
+2.1 Using the client
+
+2.2 Using the client with a script
+
+2.3 What if i use more than 1 client at the same time?
+
+3.0 What i use this for?
+
+3.0.1 If you want to contact me, check this
+
+3.0.2 The system were i develop this software
+
+---------------------------------------------------------------------------
+WHAT IS THIS?
+
+This is a package that enables you to remotely control some hardware that
+you have built , or use , through some hardware ports ( parallel for
+example ) , and each output bit ( D0..D7 on the LPT ) controls a different
+device, like using a opto-coupler and a triac , or a transistor+relay,
+you name it!
+
+This is a package that contains 3 programs:
+	- a server
+	- a client
+	- a small utility to add users to the password file used by the
+	the server.
+
+This is experimental software. I plan to add a lot more features like:
+
+- input ports , not only output ports, to have sensors control robot arms, etc
+
+- a lot better scripting language for the client and interactivity with the
+server, ie, like exiting with a error value when the server sends a error
+message, reading input ports also , etc ...
+
+- anything that i cannot remember now
+
+- YOUR OWN IDEAS
+
+                  when i have the time for it...
+
+1.0 THE SERVER ------------------------------------------------------------
+
+ATTENTION: the server must be run as root, so it can access the hardware ports.
+Since it can receive network connections, and i don't have a lot of experience
+writing secure network servers, it might be a security risk for you.
+Help checking this would be very nice.
+The server is able to accept/refuse connections by host-name, configured by 
+a file, so the risks might be diminished, but be warned!
+
+
+1.0.1 The server accepts several options:
+
+-r         The Root directory where the server will run ( so he can find the
+files without using the complete pathname , when using other options that
+relate to files )
+
+-d         The Device configuration file.
+
+-a         The file that enables users to have Access to the server, trough
+           the use of login/password.
+	   
+-p         This is a file that is created each time a command changes a port
+           value, so when the server starts again or the system goes down,
+	   the server can put the ports on its previous state.
+
+-l         LOG file ( logs connections, refused connections, commands , etc )
+
+-w         Error log file ( logs some common errors: bind errors , file
+           access errors , etc )
+
+-f         File which has the addresses than can/can't access the server
+
+-e         The interface address that will be used for waiting for
+           connections,ie, the server will only accept connections from the
+           interface(s) that have this address. Normally this is 0.0.0.0, ie, 
+	   the server accepts connections on any interface
+
+-s         Service name ( the one at /etc/services ). By default it's io256
+
+-m         With this switch you can make the server accepts a maximum number
+           of simultaneous connections.
+	   
+-c         Shows the current configuration. Nice to use every-time you start
+           the server
+
+-v         Shows the program name , version , author , compile time/date and
+           GCC compiler version
+	   
+-h         Shows the complete help...for now is in Portuguese. When i
+           upgrade to glibc i will try to use the locales stuff for every
+           message.The messages that the server sends are all(?) in English.
+
+
+1.0.2 The client can send several commands to the server when connected:
+
+help - show commands
+
+list - show list of devices/function
+
+user - change user login
+
+password - change password
+
+command - execute command ( like 'command lights on'... see more on this
+          latter )
+
+show - show connected users . login, host-name, host ip
+
+ports - show ports and their current output values ( in hex , dec and binary )
+
+version - displays the server name , version , author , etc
+
+exit , quit - disconnect client from server , ie, close connection
+
+
+The server must be configured in several ways:
+
+
+1.1 SERVICES FILE CONFIGURATION --------------------------------------------
+
+First add a service name to /etc/services ( mine is like this ) were
+your are going to start the server:
+
+io256		5050/tcp		# IO256 support
+
+Select a different port ( 5050 ) if you want to.
+This should be done on every machine that will use the client,
+since it will also check for this service. If you think it should be
+better to use directly port numbers instead, don't hesitate to e-mail me.
+
+1.2 ADDRESS FILE CONFIGURATION --------------------------------------------
+
+( DEFAULT FILENAME: address.cfg
+  can be changed with the -f flag )
+  
+This is where the address of the machines stay, domains that you want to be
+able to or not to connect to the server. It can be something like this:
+
+localhost		# enable connections from localhost
+10.0.1.*		# enable connections from 10.0.1.0 / 255.255.255.0
+*.local.machines.org	# enable connections from domain local.machines.org
+!foo.bar.org		# disable connections from foo.bar.org
+!10.2.3.4		# disable connections from 10.2.3.4
+
+The *ORDER* in the file is IMPORTANT, as the first lines have priority in
+relation to the next lines , since if you have something like
+this:
+
+10.0.0.1	# enable connections from 10.0.0.1
+!10.*		# disable from 10.0.0.0 / 255.0.0.0
+
+the machine 10.0.0.1 will be able to connect but 10.2.4.1 won't.
+If you have like this:
+
+!10.*		# disable from 10.0.0.0 / 255.0.0.0
+10.0.0.1	# enable from 10.0.0.1 ( ignored, since it's after )
+
+any connection from a machine from 10.0.0.0/255.0.0.0 will be refused, 
+including from 10.0.0.1.
+
+1.3 DEVICES FILE CONFIGURATION --------------------------------------------
+
+( DEFAULT FILENAME: devices.cfg
+  Can be changed with the -d flag )
+  
+This is the file where the information about your hardware is. It consists
+of several lines which have the following format:
+
+
+DEVICE , COMMAND , HARDWARE PORT , BIT , BIT_VALUE , OPTIONAL FLAG
+
+
+Device - the name of the device that you want to control ( can be anything )
+
+Command - the command that execute this line ( can be anything )
+
+Hardware Port - the hardware port were you control the device ( decimal,
+octal or hex value, in C format... )
+
+Bit - the bit corresponding to the device. ATTENTION: You can use here values 
+      from 0 to 7, to represent the bits of the port, were 0 represents the
+      LSB and 7 the MSB
+      
+Bit_Value - it should be 0 or 1
+
+Optional Flag - this flag ( which can be anything ) if exists, say that if
+the server goes down (or started), when it's started again will use this 
+value,ie, the device will be on or off, which depends on the value of 
+bit_value.
+
+Here's an example :
+
+# Lights:
+lights on 0x378 0 1
+lights off 0x378 0 0 start-here
+
+If the server is started it will make the lights off ( since we have
+'start-here' as the flag ),ie, it will send to port 0x378 to bit 0 the value 0.
+If the server receives a command like 'lights on' it will send to port 0x378
+to bit 0 the value 1.
+If the server receives 'lights off' it will send to port 0x378 to bit 0 the
+value 0.
+I hope i made it clear to everyone :)
+
+1.4 PASSWORD FILE ---------------------------------------------------------
+
+( DEFAULT FILENAME: password.cfg
+  Can be changed with the -a flag )
+  
+Well, this file should be created with the 'useradd' utility that should
+have come with the server & client package.
+The format of the file is very simple:
+
+login:password[:optional]
+
+login - This is the name of the user , and can be anything
+password - this is a encrypted password , that's why you should use useradd
+to create it
+
+the rest ( which must be separated by a : ) can be anything you like.
+
+NOTE: the useradd makes what it says,ie, it will only add users and won't
+change passwords or login names. you can do that by erasing the line that
+you want to change and rerun useradd :)
+
+
+
+
+
+2.0 THE CLIENT ------------------------------------------------------------
+
+Well , you can use telnet or use my client. With it you can send commands to
+the server were you type directly from the keyboard or using a script. I
+will talk about this latter.
+
+2.0.1 The client accepts these options:
+
+
+-e           the address where you want to connect. by default ,ie, without
+             using this switch , it will connect to 0.0.0.0 , ie , 
+	     to the local machine.
+	     
+-s           the name of the service. by default io256
+
+-v           shows the program name, version , etc
+
+-h           the help ( in Portuguese :)
+
+2.1 Using the client ------------------------------------------------------
+
+The client accepts ( for now ) the following commands:
+
+help - shows the commands
+
+send [STRING] - send a string to the server
+
+sleep [SECONDS] - sleep for SECONDS seconds
+
+quit , exit - exit the client and close connection
+
+version - show client version
+
+
+Here is an example:
+
+Connected to localhost (127.0.0.1)
+send user slug
+IO256server>send password secret
+IO256server OK>send command lights on
+Done.
+IO256server OK>send command lights off
+Done.
+IO256server OK>quit
+Connection closed by client.
+
+This small example shows that:
+
+1- it will 'send' the string 'user slug' to the server.
+The server knows the 'user' command, which will change the login to the
+value 'slug'
+
+2- it will 'send' the string 'password secret' to the server.
+The server also knows that the 'password' command specifies the password for
+'slug'. It will check the password file, and if they match will change the
+prompt from 'IO256server>' to 'IO256server OK>' and you will be able to use
+more commands ( like show, ports, etc... make a 'send help' and see which
+ones exist )
+
+3- after this it will 'send' the string 'command lights on' to the server,
+which knows that 'command' command :-) means to turn the 'lights on'...
+if you use the example devices.cfg, it will send a Done. or Problem if the
+'device' or the function 'on' don't exist.
+
+4- the same as 4 , but lights off
+
+5-you quit the client. You could also use 'send quit'. This way the server
+closes the connection , and the client exists
+
+
+2.2 Using the client with a script ----------------------------------------
+
+Here's an example that will make exactly ( not exactly :) the same as seen
+on 2.1:
+
+#!/bin/sh
+
+cliente << EOF
+send user slug
+send password slug
+send command lights on
+sleep 10
+send command lights off
+send quit
+EOF
+
+This will turn the lights on, wait for 10 seconds, then turn the lights off.
+I hope i will have the time to make a better scripting language, to make
+this more useful to control robots arms and other kind of devices.
+
+2.3 Using more than 1 client ----------------------------------------------
+
+The server can handle with as many clients as you want. By default it won't
+accept more than 10 simultaneous connections, but you can change that with
+the -m flag, when you start the server.
+
+You might ask:
+But if one of the clients 'make lights on' and the other 'make lights off'
+
+Well, the commands will be executed like a FIFO , ie , the first one to be
+received will be the one to be executed. I'm planning on changing this on
+the future , like adding timeout between commands to the same device, access
+restrictions on the password file , etc...
+
+
+3.0 Me and this stuff -----------------------------------------------------
+
+At this time I use this with a 256 In/Out Home built card, to control the
+computer at my bedroom ( so i can awake listening to my favorite CD or MOD )
+to turn it on or off through a relay, using crontab. Actually it's a bit 
+more complex than this , cause it will send a rsh command to the computer ,
+etc etc...
+I also use this to control the use of my telephone, to i can use the phone
+line with voice and automatic mail/news retrieving by modem.
+
+I plan to use it to control the authenticated entrance to my 'home lab',
+opening the door when the correct code number is entered at wall keyboard,
+to control the lights when i enter the 'lab', using a thermo-sensor, those
+used in door openers, alarm , etc etc etc... i also plan, when i have the
+time, to control by radio a robot than could do me a good breakfast each
+morning, and take it to my bed, when I'm listening to the CD ;-)
+
+All this is controlled by a Linux AMD486DX100 system at my 'lab' running
+24h/24h ...
+
+Please drop me a note if you like/use/want more of this software, and if i
+have the time i will try to answer to your mail... I'm a poor student who
+needs to make lab reports, exams, home work , etc etc...
+
+3.0.1 You can contact me:
+
+slug@student.dee.uc.pt
+slug@dee.uc.pt
+
+CT1FOX @ 40m 80m 10m 11m , etc
+
+3.0.2 This software is developed on a 
+
+AMD 486DX100
+Linux 2.0.33
+GCC 2.7.2.3.f.2 + libc 5.4.38
+Jed 0.F98.4
+Make 3.76.1
+

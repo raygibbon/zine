@@ -1,0 +1,80 @@
+[ Version 1.4 ]
+
+ Enclosed you'll find a Prospero client for the archie service.  It'll
+let you query the archie databases without actually using an
+interactive process on the remote server's machine (e.g., archie.ans.net),
+resulting in a MUCH better response time.  It also helps lessen the
+load on the archie server itself.
+
+ What's Archie?  It's a system that will let you check a database containing
+thousands of entries for the files that're available at FTP sites around
+the world.
+
+ This is a third child of Clifford Neuman's Prospero project.  It's really
+the Archie client that's included in the prospero stuff, but I've taken out
+everything that's unnecessary for this client to work.  (Aka, you don't
+have to build all of Prospero to get the Archie client.)  Khun Yee Fung
+wrote an archie client in Perl, George Ferguson has written a client
+for use with XWindows, based in part upon this code.  Also, Scott
+Stark wrote a NeXT-Step client for the NeXT.
+
+ Also included in this release is a GNU Emacs Lisp front-end to the
+archie client.  Note that it requires the Ange FTP package to work
+properly.  You can retrieve it from archive.cis.ohio-state.edu in the
+directory /pub/gnu/emacs/elisp-archive/packages as ange-ftp.tar.Z.
+
+ Using the Archie Prospero interface in its true form will probably be of
+interest---check out the file `Prospero' for an example of its interface.
+If you find it intriguing, you should probably get the full prospero kit
+from the University of Washington on cs.washington.edu in pub/prospero.tar.Z.
+
+ Suffice to say, there are now a number of ways to query Archie without
+bogging a server down with your logins.
+
+ Check out the man page (or archie.doc, if you're using VMS or DOS)
+for instructions on how to use this archie client.  VMS users please
+note that you have to put quotes around args that are capital letters;
+for example,  `$ ARCHIE "-L"'  to list the available servers.
+
+ Please check to make sure you don't have "archie" aliased or modified
+in some way to do a telnet or rlogin (which you may've done before
+this command-line ability came into being).
+
+ If Archie consistently hangs (at different times of day with
+different queries), it's possible that your site has UDP traffic on
+ports > 1000 blocked, for security reasons.  Contact your local
+system administrator.
+
+
+ Write to archie-group@cc.mcgill.ca with questions about Archie itself.
+ Write to info-prospero@isi.edu about the Prospero protocol.
+ Write to brendan@cygnus.com with questions about this specific package.
+
+============================================================================
+
+Alex is a filesystem that lets users access files in FTP sites around
+the world just like they access local files.  The name Alex comes from 
+the ancient Library of Alexandria. Alexandria gathered information from 
+around the world into one easy to access location. Alex does an analogous 
+thing in a very modern way.
+
+Source to Alex is now available on alex.sp.cs.cmu.edu in the `src'
+subdirectory.
+
+usenix.wofs92.ps - paper on Alex as published in Usenix Workshop on File Systems 
+                   May of 1992.
+
+intro.ps         -  same as above paper but with updates
+
+
+nsf.poster.ps    -  6 slides used for a poster session
+
+
+Keywords:     Alexandria, Alex, technical papers, techreport
+Master copy:  /alex/edu/cmu/cs/sp/alex/doc/README
+
+
+   Vincent Cate
+   vac@cs.cmu.edu
+
+

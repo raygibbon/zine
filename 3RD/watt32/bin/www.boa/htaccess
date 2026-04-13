@@ -1,0 +1,16 @@
+AddDescription "1.3b3 NT binary" apache_1.3b3_win32.exe
+AddDescription "1.3b3 NT docs &amp; icons" apache_1.3b3_win32_ext.exe
+AddDescription "1.3b3 gzipped source" apache_1.3b3.tar.gz
+AddDescription "1.3b5 gzipped source" apache_1.3b5.tar.gz
+AddDescription "1.3b5 compressed source" apache_1.3b5.tar.Z
+AddDescription "1.2.5 compressed source" apache_1.2.5.tar.Z
+AddDescription "1.2.5 gzipped source" apache_1.2.5.tar.gz
+AddDescription "List of changes in 1.3" /export/pub/apache/dist/CHANGES
+AddDescription "List of changes in 1.2" /export/pub/apache/dist/CHANGES_1.2
+AddDescription "Developer PGP keys" /export/pub/apache/dist/KEYS
+AddDescription "PGP signature" *.asc
+AddDescription "Binary distributions" /export/pub/apache/dist/binaries
+AddDescription "Contributed software" /export/pub/apache/dist/contrib
+AddDescription "Old source &amp; binaries" /export/pub/apache/dist/old
+AddDescription "Official patches" /export/pub/apache/dist/patches
+IndexIgnore CVS

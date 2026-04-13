@@ -1,0 +1,25 @@
+#
+# GNU Makefile for ICMPush v2.2 (Watt32 + djgpp)
+#
+
+SRC = icmpush.c help.c version.c parser.c mtu.c
+
+DJGPP_EXE = icmp32.exe
+
+include ../djcommon.mak
+
+# Program Language.
+# If you need spanish uncomment the next variable, else other English.
+#
+#CFLAGS += -DSPANISH
+
+# We are little endian and pretend to be Linux
+#
+CFLAGS += -D_BIT_FIELDS_LTOH -DLINUX
+
+# DO NOT DELETE THIS LINE
+icmpush.o: icmpush.c portable.h compat.h misc.h packet.h err_msg.h
+help.o: help.c
+version.o: version.c
+parser.o: parser.c portable.h compat.h packet.h misc.h
+mtu.o: mtu.c portable.h mtu.h misc.h

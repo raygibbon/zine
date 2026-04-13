@@ -1,0 +1,24 @@
+wput 0.3.1
+
+1) make
+2) make install (as root to copy wput into /usr/local/bin) or copy
+   wput to any directory you want it to be.
+
+For DOS / Watt-32 users:
+
+  Put the files in a directory under $(WATT_ROOT)/bin.
+  To recompile:
+  1) Run 'make -f makefile.dj depend'
+  2) Run 'make -f makefile.dj'
+
+  Get Watt-32 at http://www.watt-32.net/
+
+  I did this port in hurry, so there may still be bugs.
+  The makefile.mw is for MinGW only.
+
+  G.Vanem <gvanem@yahoo.no>
+
+
+PS. Credits go to the original author <afei@jhu.edu>.
+    Whoever that is, Andy Feinberg?
+

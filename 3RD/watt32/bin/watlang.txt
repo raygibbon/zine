@@ -1,0 +1,871 @@
+#
+# Language translation file for Watt-32
+#
+# Character set:  ISO-Latin/1 (ISO 8859/1)
+# Date revised:   18 August 1997
+#
+# Yeah, I know. Not very updated :-(
+
+#
+# File ..\src\pcpkt.c
+#
+# line 161
+"Unknown driver error \0(0x--)"
+no: "Ukjent driver feil \0(0x--)"
+sv: "Okent fel i pkt-drvr \0(0x--)"
+de: "Unbekanter treiber fehler \0(0x--)"
+
+# line 162
+"Invalid handle number"
+no:
+sv:
+de:
+
+# line 163
+"No interfaces of specified class found"
+no:
+sv:
+de:
+
+# line 164
+"No interfaces of specified type found"
+no:
+sv:
+de:
+
+# line 165
+"No interfaces of specified number found"
+no:
+sv:
+de:
+
+# line 166
+"Bad packet type specified"
+no:
+sv:
+de:
+
+# line 167
+"This interface does not support multicast"
+no:
+sv:
+de:
+
+# line 168
+"This packet driver cannot terminate"
+no:
+sv:
+de:
+
+# line 169
+"An invalid receiver mode was specified"
+no:
+sv:
+de:
+
+# line 170
+"Operation failed because of insufficient space"
+no:
+sv:
+de:
+
+# line 171
+"Type previously accessed, and not released"
+no:
+sv:
+de:
+
+# line 172
+"The command was out of range, or not implemented"
+no:
+sv:
+de:
+
+# line 173
+"Cannot send packet (hardware error)"
+no:
+sv:
+de:
+
+# line 174
+"Cannot change hardware address"
+no:
+sv:
+de:
+
+# line 175
+"Hardware address has bad length/format"
+no:
+sv:
+de:
+
+# line 176
+"Could not reset interface"
+no:
+sv:
+de:
+
+# line 177
+"Extended driver needed"
+no:
+sv:
+de:
+
+# line 498
+"NO PACKET DRIVER FOUND"
+no: "INGEN PACKET DRIVER FUNNET"
+sv: "INGEN PACKET DRIVER FUNNET"
+de: "KEIN PACKET TREIBER GEFUNDEN"
+
+# line 504
+"Failed allocating PACKET DRIVER data."
+no:
+sv:
+de:
+
+# line 511
+"Real-mode PACKET DRIVER initialisation failed"
+no:
+sv:
+de:
+
+# File ..\src\udp_dom.c
+#
+# line 178
+"Nameserver ARP failed"
+no:
+sv:
+de:
+
+# line 459
+"Cannot resolve without IP"
+no:
+sv:
+de:
+
+# File ..\src\tftp.c
+#
+# line 144
+"tftp: Invalid packet"
+no:
+sv:
+de:
+
+# line 161
+"tftp: Invalid opcode"
+no:
+sv:
+de:
+
+# line 178
+"tftp: Timeout"
+no:
+sv:
+de:
+
+# line 204
+"tftp: ARP timeout"
+no:
+sv:
+de:
+
+# line 332
+"No TFTP-server"
+no:
+sv:
+de:
+
+# File ..\src\tcp_fsm.c
+#
+# line 266
+"Connection closed"
+no:
+sv:
+de:
+
+# File ..\src\sock_prn.c
+#
+# line 22
+"ERROR: sock_printf() overrun"
+no:
+sv:
+de:
+
+# line 30
+"ERROR: sock_printf() overrun"
+no:
+sv:
+de:
+
+#
+# File ..\src\sock_ini.c
+#
+# line 320
+"failed"
+no:
+sv:
+de:
+
+# line 330
+"failed"
+no:
+sv:
+de:
+
+# line 341
+"failed"
+no:
+sv:
+de:
+
+# line 349
+"Cannot set local ip-address"
+no:
+sv:
+de:
+
+# File ..\src\sock_dat.c
+#
+# line 35
+"UDP Socket"
+no:
+sv:
+de:
+
+# line 37
+"Not an active socket"
+no:
+sv:
+de:
+
+# File ..\src\pctcp.c
+#
+# line 145
+"%s (%d): user stack size error"
+no:
+sv:
+de:
+
+# line 485
+"UDP Close called"
+no:
+sv:
+de:
+
+# line 515
+"Connection closed normally"
+no:
+sv:
+de:
+
+# line 546
+"TCP Abort"
+no:
+sv:
+de:
+
+# line 662
+"Connection timed out - no data sent"
+no:
+sv:
+de:
+
+# line 673
+"Connection timed out - no activity"
+no:
+sv:
+de:
+
+# line 687
+"Timeout, aborting"
+no:
+sv:
+de:
+
+# line 992
+"Port unreachable"
+no:
+sv:
+de:
+
+# line 1048
+"ICMP closed connection"
+no:
+sv:
+de:
+
+# line 1224
+"udp-socket error in udp_handler()"
+no:
+sv:
+de:
+
+# line 1296
+"discarding..."
+no:
+sv:
+de:
+
+# line 1325
+"bad udp checksum"
+no:
+sv:
+de:
+
+# line 1405
+"bad tcp checksum"
+no:
+sv:
+de:
+
+# line 1531
+"tcp-socket error in tcp_handler()"
+no:
+sv:
+de:
+
+# line 1902
+"Tx Error"
+no:
+sv:
+de:
+
+# line 1967
+"Tx Error"
+no:
+sv:
+de:
+
+# line 2327
+"Host refused connection"
+no:
+sv:
+de:
+
+# line 2334
+"Open timed out"
+no:
+sv:
+de:
+
+# line 2382
+"Connection timed out"
+no:
+sv:
+de:
+
+# line 2427
+"Connection timed out"
+no:
+sv:
+de:
+
+# File ..\src\pcslip.c
+#
+# line 41
+"Modem not responding\7"
+no:
+sv:
+de:
+
+# line 103
+"SLIP dialing.."
+no:
+sv:
+de:
+
+# File ..\src\pcsed.c
+#
+# line 131
+"Only Pharlap DOS extender supported"
+no:
+sv:
+de:
+
+# line 138
+"Only Pharlap/DOS4GW extenders supported"
+no:
+sv:
+de:
+
+# File ..\src\pcrecv.c
+#
+# line 33
+"ERROR: udp recv data conflict"
+no:
+sv:
+de:
+
+# line 57
+"ERROR: sock_recv_daemon data err"
+no:
+sv:
+de:
+
+# line 70
+"ERROR: tcp recv data conflict"
+no:
+sv:
+de:
+
+# line 184
+"ERROR: sock_recv_init data err"
+no:
+sv:
+de:
+
+# line 233
+"ERROR: sock_recv_init data err"
+no:
+sv:
+de:
+
+# File ..\src\pcrarp.c
+#
+# line 54
+"Configuring through RARP..."
+no:
+sv:
+de:
+
+# File ..\src\pcping.c
+#
+# line 38
+"Cannot ping a network!"
+no:
+sv:
+de:
+
+# line 43
+"Cannot resolve host's hardware address"
+no:
+sv:
+de:
+
+# line 49
+"\n\rDEBUG: destination hardware :"
+no:
+sv:
+de:
+
+# File ..\src\pcintr.c
+#
+# line 70
+"Cannot allocate real-mode timer callback"
+no:
+sv:
+de:
+
+# File ..\src\pcicmp.c
+#
+# line 25
+"Echo Reply"
+no:
+sv:
+de:
+
+# line 26
+"Destination Unreachable"
+no:
+sv:
+de:
+
+# line 27
+"Source Quench"
+no:
+sv:
+de:
+
+# line 28
+"Redirect"
+no:
+sv:
+de:
+
+# line 29
+"Echo Request"
+no:
+sv:
+de:
+
+# line 30
+"Router Advert"
+no:
+sv:
+de:
+
+# line 31
+"Router Solic"
+no:
+sv:
+de:
+
+# line 32
+"TTL exceeded"
+no:
+sv:
+de:
+
+# line 33
+"Param Problem"
+no:
+sv:
+de:
+
+# line 34
+"Timestamp Message"
+no:
+sv:
+de:
+
+# line 35
+"Timestamp Reply"
+no:
+sv:
+de:
+
+# line 36
+"Info Request"
+no:
+sv:
+de:
+
+# line 37
+"Info Reply"
+no:
+sv:
+de:
+
+# line 38
+"Mask Request"
+no:
+sv:
+de:
+
+# line 39
+"Mask Reply"
+no:
+sv:
+de:
+
+# line 43
+"Network Unreachable"
+no:
+sv:
+de:
+
+# line 44
+"Host Unreachable"
+no:
+sv:
+de:
+
+# line 45
+"Protocol Unreachable"
+no:
+sv:
+de:
+
+# line 46
+"Port Unreachable"
+no:
+sv:
+de:
+
+# line 47
+"Fragmentation needed and DF set"
+no:
+sv:
+de:
+
+# line 48
+"Source Route Failed"
+no:
+sv:
+de:
+
+# line 49
+"Network unknown"
+no:
+sv:
+de:
+
+# line 50
+"Host unknown"
+no:
+sv:
+de:
+
+# line 51
+"Source host isolated"
+no:
+sv:
+de:
+
+# line 52
+"Net-access denied"
+no:
+sv:
+de:
+
+# line 53
+"Host-access denied"
+no:
+sv:
+de:
+
+# line 54
+"Bad TOS for net"
+no:
+sv:
+de:
+
+# line 55
+"Bad TOS for host"
+no:
+sv:
+de:
+
+# line 56
+"Admin prohibited"
+no:
+sv:
+de:
+
+# line 57
+"Host precedence violation"
+no:
+sv:
+de:
+
+# line 58
+"Precedence cutoff"
+no:
+sv:
+de:
+
+# line 62
+"Redirect for Network"
+no:
+sv:
+de:
+
+# line 63
+"Redirect for Host"
+no:
+sv:
+de:
+
+# line 64
+"Redirect for TOS and Network"
+no:
+sv:
+de:
+
+# line 65
+"Redirect for TOS and Host"
+no:
+sv:
+de:
+
+# line 69
+"TTL exceeded in transit"
+no:
+sv:
+de:
+
+# line 70
+"Frag ReAsm time exceeded"
+no:
+sv:
+de:
+
+# line 130
+"Bogus "
+no:
+sv:
+de:
+
+# line 165
+" (broadcast)"
+no:
+sv:
+de:
+
+# line 170
+" (network)"
+no:
+sv:
+de:
+
+# line 291
+"bad checksum"
+no:
+sv:
+de:
+
+# line 350
+"Source Quench"
+no:
+sv:
+de:
+
+# line 409
+"PING requested of us"
+no:
+sv:
+de:
+
+# line 433
+"PING reply sent"
+no:
+sv:
+de:
+
+# File ..\src\pcdhcp.c
+#
+# line 513
+"Reconfiguring through DHCP.."
+no:
+sv:
+de:
+
+# line 514
+"Configuring through DHCP..."
+no:
+sv:
+de:
+
+# line 749
+"IP is not free"
+no:
+sv:
+de:
+
+# line 781
+"Sending DHCP inform.."
+no:
+sv:
+de:
+
+# File ..\src\pcconfig.c
+#
+# line 87
+"Cannot set Ether-addr"
+no:
+sv:
+de:
+
+# line 96
+"Warning: Ether-addr already in use"
+no:
+sv:
+de:
+
+# line 279
+"\r\nUnable to open "
+no:
+sv:
+de:
+
+# line 353
+" not found"
+no:
+sv:
+de:
+
+# File ..\src\pcbootp.c
+#
+# line 65
+"Configuring through BOOTP.."
+no:
+sv:
+de:
+
+# line 75
+"\r\nUnable to resolve bootp server"
+no:
+sv:
+de:
+
+# File ..\src\netback.c
+#
+# line 17
+"Use wintr_init() / wintr_enable() instead"
+no:
+sv:
+de:
+
+# File ..\src\getserv.c
+#
+# line 61
+"Service-file too big!\7"
+no:
+sv:
+de:
+
+# File ..\src\getopt.c
+#
+# line 53
+"out of memory (getopt)\n"
+no:
+sv:
+de:
+
+# line 132
+"Invalid option; character code=0x%.2x\n"
+no:
+sv:
+de:
+
+# line 133
+"Invalid option `%c%c'\n"
+no:
+sv:
+de:
+
+# line 151
+"No argument for `%c%c' option\n"
+no:
+sv:
+de:
+
+# File ..\src\gethost2.c
+#
+# line 98
+"Hostfile too big!\7"
+no:
+sv:
+de:
+
+# File ..\src\gethost.c
+#
+# line 161
+"Hostfile too big!\7"
+no:
+sv:
+de:
+
+# File ..\src\fragment.c
+#
+# line 405
+"Bad frag-ofs: fo %lu, ip-prot %u (%s->%s)\r\n"
+no:
+sv:
+de:
+
+# File ..\src\crit.c
+#
+# line 43
+"Failed to allocate INT24 callback.\7"
+no:
+sv:
+de:
+
+# line 112
+"Failed to allocate INT24 callback.\7"
+no:
+sv:
+de:
+
+

@@ -1,0 +1,64 @@
+
+
+TFTPD(8)                                                 TFTPD(8)
+
+
+NAME
+       tftpd - Internet Trivial File Transfer Protocol server
+
+SYNOPSIS
+       tftpd [ -dn ] [ -b bootptab ] directory ...
+
+DESCRIPTION
+       Tftpd is a server which supports the Internet Trivial File
+       Transfer Protocol (RFC 783).  The TFTP server operates at
+       the port indicated in the `tftp' service description; see
+       services(5).  The server is normally started at bootup
+       time.
+
+       The use of tftp(1) does not require an account or password
+       on the remote system.  Due to the lack of authentication
+       information, tftpd will allow only publicly readable files
+       to be accessed.  Files containing the string ``/../'' are
+       not allowed.  Files may be written only if they already
+       exist and are publicly writable.  Note that this extends
+       the concept of ``public'' to include all users on all
+       hosts that can be reached through the network; this may
+       not be appropriate on all systems, and its implications
+       should be considered before enabling tftp service.  The
+       server should have the user ID with the lowest possible
+       privilege.
+
+       Access to files may be restricted by invoking tftpd with a
+       list of directories by including up to 20 pathnames as
+       arguments.  In this case access is restricted to files
+       whose names are prefixed by the one of the given directo-
+       ries.  The given directories are also treated as a search
+       path for relative filename requests.
+
+       Only clients listed in the bootptab are allowed access.
+
+       The options are:
+
+       -d     Raise the debugging  level.  This also keeps tftpd
+              from forking and generates some extra syslog(3)
+              messages.
+
+       -n     Suppresses negative acknowledgement of requests for
+              nonexistent relative filenames.
+
+       -b bootptab
+              Specifies an alternate bootptab file. The default
+              is /etc/bootptab.
+
+SEE ALSO
+       tftp(1)
+
+HISTORY
+       The tftpd command appeared in 4.2BSD.
+
+       This version is based on the 4.4BSD version which does
+       read-ahead.  It has been modified to handle client
+       requests in a single process.  For security reasons, it
+       does not allow clients to write or otherwise modify data
+       on the server.

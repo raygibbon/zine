@@ -1,0 +1,47 @@
+#
+# nmake Makefile for `vrfy' (Watt32/Win32/MSVC) utility
+#
+
+DEBUG_MODE = 0
+
+CC      = cl
+CFLAGS  = -nologo -DWIN32 -W2 -Gy -I. -I$(WATT_ROOT)\inc -DWATT32
+LDFLAGS = -nologo -debug -map -incremental:no
+
+!if $(DEBUG_MODE) == 1
+DEBUG   = _d
+CFLAGS  = $(CFLAGS) -MDd -Zi -Os -D_DEBUG
+LDFLAGS = $(LDFLAGS) -debug -fixed:no
+!else
+DEBUG   =
+CFLAGS  = $(CFLAGS) -MD -Ot
+LDFLAGS = $(LDFLAGS) -release
+!endif
+
+SOURCE  = conn.c main.c mxrr.c pars.c smtp.c stat.c util.c
+OBJECTS = $(SOURCE:.c=.obj)
+
+all: verify.exe mxget.exe
+
+.c.obj:
+	$(CC) -c $(CFLAGS) $*.c
+	@echo
+
+verify.exe: $(OBJECTS) $(WATT_ROOT)\lib\x86\wattcpvc_imp$(DEBUG).lib
+	link @<<
+	  $(LDFLAGS) -out:$*.exe
+	  $(OBJECTS) $(WATT_ROOT)\lib\x86\wattcpvc_imp$(DEBUG).lib
+<<
+
+mxget.exe: mxget.obj $(WATT_ROOT)\lib\x86\wattcpvc_imp$(DEBUG).lib
+	link @<<
+	  $(LDFLAGS) -out:$*.exe
+	  $(OBJECTS) $(WATT_ROOT)\lib\x86\wattcpvc_imp$(DEBUG).lib
+<<
+
+clean:
+	- del /Q $(OBJECTS) verify.pdb mxget.pdb
+
+vclean: clean
+	- del /Q verify.exe verify.map mxget.exe mxget.map
+

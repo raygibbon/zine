@@ -1,0 +1,16 @@
+#
+# GNU Makefile for Watt-32 (djgpp) finger client.
+#
+
+STRIP_EXE = 0
+
+SRC = finger.c net.c
+
+DJGPP_EXE = finger32.exe
+
+include ../djcommon.mak
+
+
+# DO NOT DELETE THIS LINE
+finger.o: finger.c
+net.o: net.c

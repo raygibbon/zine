@@ -1,0 +1,53 @@
+README file for Mathopd/1.2 (Patchlevel 8)
+
+This is Mathopd, a fast, lightweight, non-forking HTTP server for
+UN*X systems.
+
+Mathopd does not allocate any memory, once it has started up, and
+does not fork any processes (except for CGI scripts of course.)
+
+Although I have not done a full test, I believe that Mathopd is
+both HTTP/1.0 and HTTP/1.1 compliant. Mathopd does not support the
+more exotic features of HTTP, however. Instead, it focuses purely on
+*speed*. Of course, the two main features of HTTP/1.1, persistent
+connections and 'IP-less' virtual servers are supported.
+
+Please read the file COPYING first before you do anyhing else.
+
+To build the server, edit the Makefile and type make. The makefile
+is very small, therefore I do not see any need for a configure
+script at this time.
+
+Mathopd should compile without any errors or warnings.
+If you DO get errors or warnings, try fiddling with the
+makefile first. If you still cannot get the thing to compile
+or need to do some major tweaking, please send me a note.
+
+If you want to get started quickly, the file 'sample.cfg' contains a
+sample configuration. Note that for historic reasons, mathopd
+must be fed its configuration from standard input. That is, use
+something like 'mathopd < sample.cfg' to start the server.
+
+If you have problems finding out how things work, I am unable to
+offer you *ANY* support at present (I have a very busy schedule doing
+other Important Things.) Use the source, that's what it's for.
+
+HOWEVER, this does in NO WAY imply that you cannot send me
+bug reports, or suggestions, or other comments about Mathopd.
+On the contrary, I would be very happy if someone showed some
+interest in my work.
+
+Please join the Mathopd mailing list, if you have not already done so.
+The list is used for announcements of new releases and some very light
+discussion. :)
+
+The address to send subscription requests to is:
+
+	mathopd-request@diva.nl
+
+Put the word 'subscribe' in the body of your message.
+
+Enjoy!
+
+Michiel Boland <boland@diva.nl>
+24 July 1999

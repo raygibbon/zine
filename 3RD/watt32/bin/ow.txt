@@ -1,0 +1,402 @@
+Parsing `e:\net\ppp\wattcp.cfg' (pass 1)
+device \\.\SwsVpkt1
+link-details:
+_get_machine_name(): "SNURRE", rc 0
+idna.c(165): iconv_init: codepage 1252
+Parsing `e:\net\ppp\wattcp.cfg' (pass 2)
+e:\net\ppp\wattcp.cfg (11): unhandled key/value: "WINPKT.DEVICE = \Device\NPF_{8D3A23A7-9C6C-408B-A23B-6736F9E56510}"
+e:\net\ppp\wattcp.cfg (16): unhandled key/value: "WINPKT.DEVICE = \\.\SwsVpkt1"
+e:\net\ppp\wattcp.cfg (39): unhandled key/value: "WINPKT.DUMPFILE = f:\winpkt_dump.txt"
+e:\net\ppp\wattcp.cfg (40): unhandled key/value: "WINPKT.RXMODE = 0x80"
+e:\net\ppp\wattcp.cfg (41): unhandled key/value: "WINPKT.RXBUFS = 50"
+e:\net\ppp\wattcp.cfg (42): unhandled key/value: "WINPKT.HIGHPRIO = 1"
+e:\net\ppp\wattcp.cfg (89): unhandled key/value: "PPPOE.TRACE = 1"
+e:\net\ppp\wattcp.cfg (90): unhandled key/value: "PPPOE.ENABLE = 0"
+e:\net\ppp\wattcp.cfg (91): unhandled key/value: "PPPOE.SERVICENAME = bull"
+e:\net\ppp\wattcp.cfg (92): unhandled key/value: "PPPOE.TIMEOUT = 1"
+e:\net\ppp\wattcp.cfg (93): unhandled key/value: "PPPOE.RETRIES = 3"
+e:\net\ppp\wattcp.cfg (94): unhandled key/value: "PPPOE.LCP_ECHO = 0"
+e:\net\ppp\wattcp.cfg (95): unhandled key/value: "PPPOE.USER = foo"
+e:\net\ppp\wattcp.cfg (96): unhandled key/value: "PPPOE.PASSWD = bar"
+e:\net\ppp\wattcp.cfg (112): unhandled key/value: "USE_RDTSC = 1"
+e:\net\ppp\wattcp.cfg (120): unhandled key/value: "PKT.TXRETRIES = 4"
+e:\net\ppp\wattcp.cfg (121): unhandled key/value: "PKT.TXWAIT = 2"
+e:\net\ppp\wattcp.cfg (122): unhandled key/value: "PKT.RXMODE = 6"
+e:\net\ppp\wattcp.cfg (123): unhandled key/value: "PKT.TXMODE = 0"
+e:\net\ppp\wattcp.cfg (124): unhandled key/value: "PKT.NEAR_PTR = 0"
+e:\net\ppp\wattcp.cfg (125): unhandled key/value: "PKT.RESET = 0"
+Parsing `e:\net\watt\bin\rpc.cfg' (pass 2)
+e:\net\watt\bin\rpc.cfg (6): unhandled key/value: "RPC.PROGRAMS = e:\net\watt\bin\rpc"
+e:\net\watt\bin\rpc.cfg (7): unhandled key/value: "RPC.ROOTKEY = e:\net\watt\bin\rootkey.rpc"
+e:\net\watt\bin\rpc.cfg (8): unhandled key/value: "RPC.KEYSTORE = e:\net\watt\bin\keystore.rpc"
+e:\net\watt\bin\rpc.cfg (9): unhandled key/value: "RPC.MESSENGER = e:\net\watt\bin\keyenvoy.exe"
+e:\net\watt\bin\rpc.cfg (10): unhandled key/value: "RPC.LOCAL_PM = 1"
+e:\net\watt\bin\rpc.cfg (11): unhandled key/value: "RPC.TIME_PORT = 37"
+Parsing `e:\net\ppp\smb.cfg' (pass 2)
+e:\net\ppp\smb.cfg (4): unhandled key/value: "SMB.DOMAIN = broadpark"
+e:\net\ppp\smb.cfg (5): unhandled key/value: "SMB.CALLED = PCGV"
+e:\net\ppp\smb.cfg (6): unhandled key/value: "SMB.CALLING = dos-pc"
+e:\net\ppp\smb.cfg (7): unhandled key/value: "SMB.PORT = 139"
+e:\net\ppp\smb.cfg (8): unhandled key/value: "SMB.TIMEOUT = 0"
+e:\net\ppp\smb.cfg (9): unhandled key/value: "SMB.SHARE = Backup$"
+e:\net\ppp\smb.cfg (10): unhandled key/value: "SMB.USERNAME = guest"
+e:\net\ppp\smb.cfg (11): unhandled key/value: "SMB.PASSWORD = hemmelig"
+e:\net\ppp\smb.cfg (12): unhandled key/value: "SMB.OSNAME = MSDOS"
+e:\net\ppp\smb.cfg (13): unhandled key/value: "SMB.LMTYPE = LANMAN2.1"
+e:\net\ppp\smb.cfg (14): unhandled key/value: "SMB.DEBUG = 9"
+Parsing `e:\net\ppp\dynip.cfg' (pass 2)
+e:\net\ppp\wattcp.cfg (204): unhandled key/value: "SNMP.MIBFILE = e:\net\watt\snmp\mib.txt"
+e:\net\ppp\wattcp.cfg (205): unhandled key/value: "SNMP.MIB2FILE = e:\net\watt\snmp\mib-v2.txt"
+e:\net\ppp\wattcp.cfg (215): unhandled key/value: "TALK.LOCALUSER = giva"
+e:\net\ppp\wattcp.cfg (216): unhandled key/value: "TALK.SCREENMODE = autocr,split"
+e:\net\ppp\wattcp.cfg (217): unhandled key/value: "TALK.COLORS = 1E,1A,71,71,71"
+e:\net\ppp\wattcp.cfg (218): unhandled key/value: "TALK.ALIAS = jj:jj@nera101.nera.no"
+e:\net\ppp\wattcp.cfg (219): unhandled key/value: "TALK.ALIAS = sn:root@hasle.sn.no"
+e:\net\ppp\wattcp.cfg (220): unhandled key/value: "TALK.ALIAS = bf:bjoff@bryggen.bgnett.no"
+e:\net\ppp\wattcp.cfg (221): unhandled key/value: "TALK.LOGFILE = e:\net\watt\bin\talk\talk.log"
+e:\net\ppp\wattcp.cfg (222): unhandled key/value: "TALK.MESSAGE = %s is busy. Try again later.\n"
+e:\net\ppp\wattcp.cfg (228): unhandled key/value: "SNUZ.TMPDIR = F:\TEMP"
+e:\net\ppp\wattcp.cfg (229): unhandled key/value: "SNUZ.RC = e:\net\watt\bin\news\snuz.rc"
+e:\net\ppp\wattcp.cfg (230): unhandled key/value: "SNUZ.ACTIVE = e:\net\watt\bin\news\active"
+e:\net\ppp\wattcp.cfg (231): unhandled key/value: "SNUZ.HOST = news.bgnett.no"
+e:\net\ppp\wattcp.cfg (232): unhandled key/value: "SNUZ.FROM = giva@bgnett.no"
+e:\net\ppp\wattcp.cfg (233): unhandled key/value: "SNUZ.EDITOR = c:\util\tse\qed\q.exe"
+e:\net\ppp\wattcp.cfg (234): unhandled key/value: "SNUZ.SMTP = popmail send %H %D %f"
+e:\net\ppp\wattcp.cfg (240): unhandled key/value: "SMBPD.WORKGROUP = my-work-group"
+e:\net\ppp\wattcp.cfg (241): unhandled key/value: "SMBPD.PRINTER1NAME = my-printer-at-lpt1"
+e:\net\ppp\wattcp.cfg (242): unhandled key/value: "SMBPD.PRINTER2NAME = my-printer-at-lpt2"
+e:\net\ppp\wattcp.cfg (243): unhandled key/value: "SMBPD.PRINTER3NAME = my-printer-at-lpt3"
+e:\net\ppp\wattcp.cfg (250): unhandled key/value: "SMTP.SUBDIR = e:\net\watt\bin\smtpd\mail\"
+e:\net\ppp\wattcp.cfg (251): unhandled key/value: "SMTP.SESSIONS = 20"
+bsddbug.c (172): dbg_file `f:\wattcp.sk', handle 10, errno 2
+get_ether_entry(): ip_name '10.0.0.11'
+get_ether_entry(): ip_name '10.0.0.12'
+get_ether_entry(): ip_name '10.0.0.13'
+get_ether_entry(): ip_name '10.0.0.14'
+get_ether_entry(): ip_name '10.0.0.15'
+get_ether_entry(): ip_name '10.0.0.7'
+get_ether_entry(): ip_name 'donald'
+get_ether_entry(): ip_name 'printer'
+get_ether_entry(): ip_name 'should'
+DeviceIoControl(): ok 0, ret 0, tmp 0, err 1/0x1 Feil funksjon
+file drivers\swsVpkt.sys, ver-size 1492
+sub-block '\StringFileInfo\000004b0\FileVersion' -> '1.0.5.1'
+Information from GetIfTable():
+	Number of MIB entries: 4
+	InterfaceName: 
+	Description: MS TCP Loopback interface
+		MTU: 1520
+		Speed: 10,000,000
+		Bytes in: 237,745, 5540 unicasts, 0 non-unicasts, 0 discarded
+		Bytes out: 237,745
+		Status: LAN okay
+	InterfaceName: 
+	Description: Realtek PCIe GBE Family Controller
+		MTU: 4082
+		Speed: 10,000,000
+		Bytes in: 75,692,277, 112274 unicasts, 2381 non-unicasts, 0 discarded
+		Bytes out: 12,219,364
+		Status: LAN okay
+	InterfaceName: 
+	Description: NETGEAR WG111v2 54Mbps Wireless USB 2.0 Adapter #2
+		MTU: 1500
+		Speed: 54,000,000
+		Bytes in: 231,576, 1 unicasts, 1840 non-unicasts, 0 discarded
+		Bytes out: 924
+		Status: LAN okay
+	InterfaceName: 
+	Description: WAN (PPP/SLIP) Interface
+		MTU: 1400
+		Speed: 10,000,000
+		Bytes in: 1,460,020, 8983 unicasts, 0 non-unicasts, 0 discarded
+		Bytes out: 2,420,419
+		Status: WAN connected
+Information from GetAdaptersAddresses():
+	Adapter name: {37FC13D9-2F52-47CA-AB64-32B2B434C749}
+		Unicast Addresses: 10.0.0.5, fe80::218:4dff:fe00:de76%6
+		Anycast Addresses: <none>
+		Multicast Addresses: 224.0.0.1, ff01::1%6, ff02::1%6, ff02::1:ff00:de76%6
+		DNS Servers: fec0:0:0:ffff::1%1
+			     fec0:0:0:ffff::2%1
+			     fec0:0:0:ffff::3%1
+			     217.13.4.24
+			     217.13.7.140
+		DNS Suffix: <none>
+		Description: NETGEAR WG111v2 54Mbps Wireless USB 2.0 Adapter #2
+		Friendly name: Trådløs nettverkstilkobling
+		Physical address: 00:18:4D:00:DE:76
+		Flags: <None>
+		MTU: 1500
+		IfType: Ethernet (6)
+		OperStatus: Up (1)
+		Ipv6IfIndex (IPv6 interface): 6
+		ZoneIndices (hex): 6 6 6 1 1 1 1 1 1 1 1 1 1 1 0 0 
+		# IP Adapter Prefix entries: 2
+
+	Adapter name: {8D3A23A7-9C6C-408B-A23B-6736F9E56510}
+		Unicast Addresses: 10.0.0.6, fe80::22cf:30ff:fe90:5699%4
+		Anycast Addresses: <none>
+		Multicast Addresses: 224.0.0.1, ff01::1%4, ff02::1%4, ff02::1:ff90:5699%4
+		DNS Servers: fec0:0:0:ffff::1%1
+			     fec0:0:0:ffff::2%1
+			     fec0:0:0:ffff::3%1
+			     217.13.4.140
+			     217.13.4.24
+		DNS Suffix: <none>
+		Description: Realtek PCIe GBE Family Controller
+		Friendly name: Bredbånd forbindelse
+		Physical address: 20:CF:30:90:56:99
+		Flags: <None>
+		MTU: 4082
+		IfType: Ethernet (6)
+		OperStatus: Up (1)
+		Ipv6IfIndex (IPv6 interface): 4
+		ZoneIndices (hex): 4 4 4 1 1 1 1 1 1 1 1 1 1 1 0 0 
+		# IP Adapter Prefix entries: 2
+
+	Adapter name: {75451EE7-5145-471A-BAF5-124BE8439D10}
+		Unicast Addresses: 173.195.0.177
+		Anycast Addresses: <none>
+		Multicast Addresses: 224.0.0.1
+		DNS Servers: fec0:0:0:ffff::1%1
+			     fec0:0:0:ffff::2%1
+			     fec0:0:0:ffff::3%1
+			     98.158.112.60
+			     216.131.94.5
+		DNS Suffix: cia.us.gov
+		Description: WAN (PPP/SLIP) Interface
+		Friendly name: Strong VPN
+		Physical address: 00:53:45:00:00:00
+		Flags: <None>
+		MTU: 1400
+		IfType: Point-to-Point (23)
+		OperStatus: Up (1)
+		Ipv6IfIndex (IPv6 interface): 0
+		ZoneIndices (hex): c0005 c0005 c0005 c0005 1 1 1 1 1 1 1 1 1 1 0 0 
+		# IP Adapter Prefix entries: 1
+
+	Adapter name: MS TCP Loopback interface
+		Unicast Addresses: 127.0.0.1
+		Anycast Addresses: <none>
+		Multicast Addresses: 224.0.0.1
+		DNS Servers: <none>
+		DNS Suffix: <none>
+		Description: MS TCP Loopback interface
+		Friendly name: MS TCP Loopback interface
+		Flags: Dynamic DNS enabled
+		MTU: 1520
+		IfType: Loopback (24)
+		OperStatus: Up (1)
+		Ipv6IfIndex (IPv6 interface): 0
+		ZoneIndices (hex): 1 1 1 1 1 1 1 1 1 1 1 1 1 1 0 0 
+		No IP Adapter Prefix entries
+
+	Adapter name: {7F56352E-EF2F-49F4-844C-BA1FA0105667}
+		Unicast Addresses: fe80::ffff:ffff:fffd%5
+		Anycast Addresses: <none>
+		Multicast Addresses: ff01::1%5, ff02::1%5
+		DNS Servers: <none>
+		DNS Suffix: <none>
+		Description: Teredo Tunneling Pseudo-Interface
+		Friendly name: Teredo Tunneling Pseudo-Interface
+		Physical address: FF:FF:FF:FF:FF:FF:FF:FF
+		Flags: Dynamic DNS enabled
+		MTU: 1280
+		IfType: Tunnel (131)
+		OperStatus: Down (2)
+		Ipv6IfIndex (IPv6 interface): 5
+		ZoneIndices (hex): 5 5 5 1 1 1 1 1 1 1 1 1 1 1 0 0 
+		# IP Adapter Prefix entries: 1
+
+	Adapter name: {A995346E-9F3E-2EDB-47D1-9CC7BA01CD73}
+		Unicast Addresses: <none>
+		Anycast Addresses: <none>
+		Multicast Addresses: <none>
+		DNS Servers: <none>
+		DNS Suffix: <none>
+		Description: 6to4 Pseudo-Interface
+		Friendly name: 6to4 Pseudo-Interface
+		Physical address: 20:CF:30:90
+		Flags: Dynamic DNS enabled
+		MTU: 1280
+		IfType: Tunnel (131)
+		OperStatus: Up (1)
+		Ipv6IfIndex (IPv6 interface): 3
+		ZoneIndices (hex): 3 3 3 1 1 1 1 1 1 1 1 1 1 1 0 0 
+		No IP Adapter Prefix entries
+
+	Adapter name: {48FCE3FC-EC30-E50E-F1A7-71172AEEE3AE}
+		Unicast Addresses: <none>
+		Anycast Addresses: <none>
+		Multicast Addresses: <none>
+		DNS Servers: <none>
+		DNS Suffix: <none>
+		Description: Automatic Tunneling Pseudo-Interface
+		Friendly name: Automatic Tunneling Pseudo-Interface
+		Physical address: 00:00:00:00
+		Flags: Dynamic DNS enabled
+		MTU: 1280
+		IfType: Tunnel (131)
+		OperStatus: Up (1)
+		Ipv6IfIndex (IPv6 interface): 2
+		ZoneIndices (hex): 2 2 2 1 1 1 1 1 1 1 1 1 1 1 0 0 
+		No IP Adapter Prefix entries
+
+	Adapter name: {6BD113CC-5EC2-7638-B953-0B889DA72014}
+		Unicast Addresses: ::1, fe80::1%1
+		Anycast Addresses: <none>
+		Multicast Addresses: <none>
+		DNS Servers: <none>
+		DNS Suffix: <none>
+		Description: Loopback Pseudo-Interface
+		Friendly name: Loopback Pseudo-Interface
+		Flags: Dynamic DNS enabled
+		MTU: 1500
+		IfType: Loopback (24)
+		OperStatus: Up (1)
+		Ipv6IfIndex (IPv6 interface): 1
+		ZoneIndices (hex): 1 1 1 1 1 1 1 1 1 1 1 1 1 1 0 0 
+		# IP Adapter Prefix entries: 1
+
+Information from RasEnumConnections():
+	Statistics for connection "Strong VPN":
+		Bytes Xmited			2442635
+		Bytes Received			1379460
+		Frames Xmited			4388
+		Frames Received			8996
+		CRC Error			0
+		Timeout Error			0
+		Alignment Error			0
+		Hardware Overrun Error		0
+		Framing Error			0
+		Buffer Overrun Error		0
+		Compression Ratio [In]		5 %
+		Compression Ratio [Out]		2 %
+		Baud Rate [bps]			10000000
+		Connection Duration		02:41:48.454
+Information from RasGetProjectionInfo():
+		Client IP-address		173.195.0.177
+		Server IP-address		173.195.0.129
+		PPP-negotiation error		0
+		Client options			0
+		Server options			0
+		Client compression		MPPC
+		Server compression		MPPC
+		CCP client options		Compression/No encryption, MPPE stateless
+		CCP server options		Compression/No encryption, MPPE stateless
+Information from WlanEnumInterfaces():
+		WlanOpenHandle(): hClient 1, dwCurVersion 1
+		Index:		 0
+		Description:	 NETGEAR WG111v2 54Mbps Wireless USB 2.0 Adapter #2
+		GUID:		 {37FC13D9-2F52-47CA-AB64-32B2B434C749}
+		State:		 Connected
+		Information from WlanQueryInterface():
+			Interface state: Temporary profile
+			Connection mode: Not ready
+		Information from WlanGetAvailableNetworkList():
+			Profile Name[0]:	dlink
+			SSID:			dlink
+			BSS Network type:	Infrastructure (1)
+			Number of BSSIDs:	1
+			Connectable:		Yes
+			# PHY types supported:	1
+			Signal Quality:		90 (RSSI: -55 dBm)
+			Security Enabled:	Yes
+			Def AuthAlgorithm:	RSNA with PSK
+			Def CipherAlgorithm:	CCMP
+			Flags:			0x00000003 - Currently connected - Has profile
+			Profile Name[1]:	
+			SSID:			dlink
+			BSS Network type:	Infrastructure (1)
+			Number of BSSIDs:	1
+			Connectable:		Yes
+			# PHY types supported:	1
+			Signal Quality:		90 (RSSI: -55 dBm)
+			Security Enabled:	Yes
+			Def AuthAlgorithm:	RSNA with PSK
+			Def CipherAlgorithm:	CCMP
+			Flags:			0x00000000
+			Profile Name[2]:	
+			SSID:			Butt
+			BSS Network type:	Infrastructure (1)
+			Number of BSSIDs:	1
+			Connectable:		Yes
+			# PHY types supported:	1
+			Signal Quality:		70 (RSSI: -65 dBm)
+			Security Enabled:	Yes
+			Def AuthAlgorithm:	RSNA with PSK
+			Def CipherAlgorithm:	CCMP
+			Flags:			0x00000000
+			Profile Name[3]:	
+			SSID:			proffene
+			BSS Network type:	Infrastructure (1)
+			Number of BSSIDs:	1
+			Connectable:		Yes
+			# PHY types supported:	1
+			Signal Quality:		54 (RSSI: -73 dBm)
+			Security Enabled:	Yes
+			Def AuthAlgorithm:	RSNA with PSK
+			Def CipherAlgorithm:	CCMP
+			Flags:			0x00000000
+			Profile Name[4]:	
+			SSID:			gunnar
+			BSS Network type:	Infrastructure (1)
+			Number of BSSIDs:	1
+			Connectable:		Yes
+			# PHY types supported:	1
+			Signal Quality:		78 (RSSI: -61 dBm)
+			Security Enabled:	Yes
+			Def AuthAlgorithm:	802.11 Open
+			Def CipherAlgoReading configuration file `e:\net\ppp\wattcp.cfg'
+
+WinPcap Name     : \\.\SwsVpkt1
+                 : Realtek 10/100/1000 Ethernet NIC
+                 : NPF.SYS 1.0.5.1, NDIS ?, Class Ethernet, RX mode 0
+MAC-address      : 20:CF:30:90:56:99
+
+IP Address       : 10.0.0.7
+Network Mask     : 255.255.255.0
+
+Gateways         : GATEWAY'S IP     SUBNET           SUBNET MASK
+                 : 10.0.0.1         DEFAULT          DEFAULT        
+
+ARP Cache        : IP Address       MAC Address        Type    Timeout
+                 : 10.0.0.11        01:02:03:04:05:06  fixed   N/A
+                 : 10.0.0.12        02:03:04:05:06:07  fixed   N/A
+                 : 10.0.0.13        03:04:05:06:07:08  fixed   N/A
+                 : 10.0.0.14        04:05:06:07:08:09  fixed   N/A
+                 : 10.0.0.15        05:06:07:08:09:0A  fixed   N/A
+                 : 10.0.0.7         00:18:4D:00:DE:76  fixed   N/A
+                 : 10.0.0.2         E0:CA:94:3D:74:F0  fixed   N/A
+                 : 10.0.0.4         88:87:17:17:5A:3E  fixed   N/A
+
+Host name        : pcgv.broadpark.no
+Domain name      : broadpark.no
+Nameservers      : 217.13.4.24  Timeout 10s
+                 : 217.13.7.140  Timeout 10s
+
+IPv6-address     : FF:EE:DD::1:2
+6-to-4 gateway   : 0.0.0.0
+
+Max Seg Size,MSS : 1460 bytes
+Max Transmit,MTU : 1500 bytes
+
+TCP timers       : Sock delay 15s, Inactivity 0s, Keep-alive 120s/30s
+                 : Open 1000ms, Close 1000ms, RST time 0ms
+                 : RTO base 5ms, RTO add 10ms, Retrans 10ms
+
+_tcp_Socket size : 4460 bytes
+_udp_Socket size : 1736 bytes
+
+HOSTS file       : e:\net\ppp\hosts                           70 entries
+HOSTS6 file      : e:\net\ppp\hosts6                           7 entries
+SERVICES file    : e:\net\watt\bin\services                  114 entries
+PROTOCOL file    : e:\net\watt\bin\protocol                   63 entries
+NETWORKS file    : e:\net\watt\bin\networks                    4 entries
+ETHERS file      : e:\net\ppp\ethers                           9 entries
+
+Version info     : Watt-32 (2.2.11 Win32), GNU-C 4.6.1 (Pent), MingW 3.20, Nov  2 2011
+Capabilities     : /debug/mcast/bind/BSDsock/BSDfatal/bootp/dhcp/rarp/lang/frag/stat/loopback/tftp/echo/IPv6/dead-gw/gzip/TCP-MD5/DynIP/profiler/SCTP
+rithm:	WEP
+			Flags:			0x00000000
+pkt_release(): adapter 000B7990

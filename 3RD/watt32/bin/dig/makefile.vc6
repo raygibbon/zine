@@ -1,0 +1,52 @@
+#
+# nmake Makefile for `dig' (Watt32/Win32/MSVC) utility
+#
+
+DEBUG_MODE = 0
+
+CC      = cl
+CFLAGS  = -DWIN32 -nologo -W2 -Gy -I. -I$(WATT_ROOT)\inc -DWATT32
+
+!if $(DEBUG_MODE) == 1
+DEBUG   = _d
+CFLAGS  = $(CFLAGS) -MDd -Zi -Os -D_DEBUG
+LDFLAGS = $(LDFLAGS) -debug -fixed:no
+!else
+DEBUG   =
+CFLAGS  = $(CFLAGS) -MD -Ot
+LDFLAGS = $(LDFLAGS) -release
+!endif
+
+SOURCE  = dig.c ../nslookup/list.c ../nslookup/send.c \
+          ../nslookup/subr.c ../nslookup/debug.c
+OBJECTS = dig.obj list.obj send.obj subr.obj debug.obj
+
+all: dig.exe
+
+dig.exe: $(OBJECTS) $(WATT_ROOT)\lib\wattcpvc_imp$(DEBUG).lib
+	link @<<
+	  $(LDFLAGS) -map:$*.map -out:$*.exe
+	  $(OBJECTS) $(WATT_ROOT)\lib\wattcpvc_imp$(DEBUG).lib
+<<
+
+dig.obj: dig.c
+	$(CC) -c $(CFLAGS) dig.c
+
+list.obj: ..\nslookup\list.c
+	$(CC) -c $(CFLAGS) ..\nslookup\list.c
+
+send.obj: ..\nslookup\send.c
+	$(CC) -c $(CFLAGS) ..\nslookup\send.c
+
+subr.obj: ..\nslookup\subr.c
+	$(CC) -c $(CFLAGS) ..\nslookup\subr.c
+
+debug.obj: ..\nslookup\debug.c
+	$(CC) -c $(CFLAGS) ..\nslookup\debug.c
+
+clean:
+	rm -f $(OBJECTS) *.pdb
+
+vclean: clean
+	rm -f dig.exe dig.map
+

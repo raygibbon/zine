@@ -1,0 +1,21 @@
+##
+## FTPSRV:
+##
+## FTP Server for WatTCP-32
+## Implements a single session base ftp server
+##
+##	L. De Cock * Luc.DeCock@planetinternet.be
+##	March, 2000
+##
+
+STRIP_EXE= 1
+
+SRC = ftpsrv.c
+
+DJGPP_EXE = ftpsrv32.exe
+
+include ../djcommon.mak
+
+
+# DO NOT DELETE THIS LINE
+ftpsrv.o: ftpsrv.c ftpsrv.h

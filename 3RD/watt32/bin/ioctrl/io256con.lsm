@@ -1,0 +1,17 @@
+Begin3
+Title:		IO256control
+Version: 	1.0
+Entered-date: 	23 April 1998
+Description:	Hardware Devices controller & network server package. Accepts
+Description:    connections by clients and enables you to remotely control
+Description:    your home built hardware.
+Keywords:	circuits robotics
+Author: 	slug@student.dee.uc.pt ( Nuno Sucena Almeida )
+Maintained-by:	slug@student.dee.uc.pt ( Nuno Sucena Almeida )
+Primary-site:	sunsite.unc.edu /pub/Linux/apps/circuits
+		22kB IO256control-1.0.src.tar.gz
+		620  IO256control-1.0.lsm
+Alternate-site: http://student.dee.uc.pt/~slug/
+Platforms:	linux x86
+Copying-policy:	Free
+End

@@ -1,0 +1,15 @@
+#
+# Makefile for Watt-32/djgpp SMTP client
+#
+
+SRC = getopt.c main.c smtpclie.c version.c
+
+DJGPP_EXE = smtpcli.exe
+
+include ../djcommon.mak
+
+# DO NOT DELETE THIS LINE
+getopt.o: getopt.c getopt.h
+main.o: main.c
+smtpclie.o: smtpclie.c config.h
+version.o: version.c

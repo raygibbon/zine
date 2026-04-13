@@ -1,0 +1,431 @@
+.\" Man page for ICMPush (c) Slayer
+.\" ===============================
+.\"
+.\" You may distribute under the terms of the GNU General Public
+.\" License as specified in the LICENSE file that comes with the
+.\" ICMPush v2.2 distribution.
+.\"
+.\" Man page author:
+.\"                                      wait_man <wait_man@apostols.org>
+.\" Date:
+.\"                                           Mon Feb 8 01:16:09 CET 1999
+.\" Translate from the Spanish to English by:
+.\"                                   BINARIA <binaria@totalcoredump.org>  
+.\"
+.TH "ICMPUSH" "8" "February 22, 1999" "icmpush v2.2"
+.SH "NAME"
+icmpush \- ICMP packet builder
+
+.SH "SYNOPSIS"
+.B icmpush
+.I  type  [options]  host
+
+.SH "DESCRIPTION"
+.B icmpush
+is a tool that builds ICMP packets fully customized from command line.
+
+It supports the following ICMP error types: 
+\fIRedirect\fP, \fISource Quench\fP, \fITime Exceeded\fP, \fIDestination Unreach\fP
+and \fIParameter Problem\fP.
+
+And the following ICMP information types:
+\fIAddress Mask Request\fP, \fITimestamp\fP, \fIInformation Request\fP,
+\fIEcho Request\fP, \fIRouter Solicitation\fP and \fIRouter Advertisement\fP.
+
+Is not of our concern to give a fully description of how ICMP protocol works,
+but the more knowledgement we have we can fully understand its management, use 
+and posibilities of this tool.
+
+The quantity of arguments needed can appear excessive but his own author
+reminds that some imperative data must be given through a command line for a 
+fully adjustment to the protocol format on a ICMP packet construction.
+
+A long number of examples is given at the \fIEXAMPLES\fP section of this page that shows a real 
+use of this program.
+
+.SH "OPTIONS"
+.IP "\fB\-h\fP, \fB--help\fP"
+Help.
+.IP "\fB\-V\fP, \fB--version\fP"
+Program version.
+.IP "\fB\-v\fP, \fB--verbose\fP"
+Informative mode.
+.IP "\fB\-vv\fP, \fB--more_verbose\fP"
+More informative. Useful when debugging.
+.PP
+The ICMP type \fItype\fP can be any of the following below: 
+.IP "\fB\-du\fP, \fB--dest_unreach\fP"
+Destination Unreach. IP packet couldn't be given. 
+This ICMP type is \fIerror\fP.
+.IP "\fB\-sq\fP, \fB--src_quench\fP"
+Source Quench. IP packet is not given do a congestion on the net.
+This ICMP type is \fIerror\fP.
+.IP "\fB\-red\fP, \fB--redirect\fP"
+Redirect. Request to forward IP packets through another router.
+This ICMP type is \fIerror\fP.
+.IP "\fB\-echo\fP, \fB--echo_request\fP"
+Echo Request. Request sent to a host to receive an echo reply.
+This ICMP type is \fIinformation\fP.
+.IP "\fB\-rta\fP, \fB--router_advert\fP \fIaddress\fP[\fI/preference\fP]"
+Router Advertisement. Router trasmits one or more routers with address
+\fIaddress\fP and preference \fIpreference\fP.
+If this is ommited, default preference 0 is given.
+This ICMP type is \fIinformation\fP.
+.IP "\fB\-rts\fP, \fB--router_solicit\fP"
+Router Solicitation. Host requeriment for a message of one or more routers.
+Like the previous, is a part of the messages exchange Router Discovery and
+this ICMP type is \fIinformation\fP.
+.IP "\fB\-tx\fP, \fB--time_exc\fP"
+Time Exceeded. Time Exceeded for an IP packet. 
+This ICMP type is \fIerror\fP.
+.IP "\fB\-param\fP, \fB--param_problem\fP"
+Parameter Problem. Erroneous value on a variable of IP header. 
+This ICMP type is \fIerror\fP.
+.IP "\fB\-tstamp\fP, \fB--timestamp\fP"
+Timestamp. Host request to receive the time of another host. 
+This ICMP type is \fIinformation\fP.
+.IP "\fB\-info\fP, \fB--info_req\fP"
+Information Request. Host request to receive an Info Reply from another host. 
+This ICMP type is \fIinformation\fP.
+.IP "\fB\-mask\fP, \fB--mask_req\fP"
+Address Mask Request. Used to find out a host network mask.
+This ICMP type is \fIinformation\fP.
+.PP
+The \fIoptions\fP can be any of the following:
+.IP "\fB\-sp\fP, \fB--spoof\fP \fIaddress\fP"
+IP address to be used as the source of the ICMP packet.
+.IP "\fB\-to\fP, \fB--timeout\fP \fIsecs\fP"
+Timeout in seconds to read the answers. Only valid on ICMPs of
+\fIinformation\fP type but the Router Advertisement type (\fB-rta\fP).
+Default is 5 seconds. If 0 is given answers can not be read.
+.IP "\fB\-n\fP, \fB--no_resolve\fP"
+Don't use name resolution.
+.IP "\fB\-lt\fP, \fB--lifetime\fP \fIsecs\fP"
+Lifetime in seconds of the router announcement. Only valid with
+Router Advertisement (\fI-rta\fP) type. 1800 seconds on default (30').
+.IP "\fB\-gw\fP, \fB--gateway\fP \fIaddress\fP"
+Route gateway address on an ICMP Redirect (\fB-red\fP).
+On default will be the spoof address (\fB-sp\fP), if it has been specified, 
+or the outgoing IP address if it has not been specified.
+.IP "\fB\-dest\fP, \fB--route_dest\fP \fIaddress\fP"
+Route destination address on an ICMP Redirect (\fB-red\fP). This is a
+required option when sending an ICMP Redirect.
+.IP "\fB\-orig\fP, \fB--orig_host\fP \fIaddress\fP"
+Original host within the IP header sent in the 64 bits data field of an ICMP \fIerror\fP.
+On default will be the same as the IP of the host that sends the ICMP packet.
+.IP "\fB\-psrc\fP, \fB--port_src\fP \fIport\fP"
+Source port (tcp or udp) within the IP header sent in the 64 bits data field
+of an ICMP \fIerror\fP. 0 on default.
+.IP "\fB\-pdst\fP, \fB--port_dest\fP \fIport\fP"
+Destination port (tcp or udp) within the IP header sent in the 64 bits data
+field of an ICMP \fIerror\fP. 0 on default.
+.IP "\fB\-prot\fP, \fB--protocol\fP \fIicmp\fP|\fItcp\fP|\fIudp\fP"
+Protocol to be used within the IP header sent in the 64 bits data field of an
+ICMP \fIerror\fP. Must be one of the three listed above. Tcp on default.
+.IP "\fB\-id\fP, \fB--echo_id\fP \fIidentificator\fP"
+Echo identificator within the IP header sent in the 64 bits data field of an ICMP \fIerror\fP 
+when the IP header protocol of the 64 bits data field (\fB-prot\fP) is icmp. 0 on default.
+.IP "\fB\-seq\fP, \fB--echo_seq\fP \fIsequence\fP"
+Echo sequence number within the IP header sent in the 64 bits data field of an
+ICMP \fIerror\fP when the IP header protocol of the 64 bits data field (\fB-prot\fP)
+is icmp. 0 on default.
+.IP "\fB\-pat\fP, \fB--pattern\fP \fIpattern\fP"
+Data pattern to send on an Echo Request (\fB-echo\fP).
+.IP "\fB\-gbg\fP, \fB--garbage\fP \fIbytes\fP|\fImax\fP"
+Number of garbage bytes that will be sent on any ICMP packet. With \fImax\fP
+the maximum possible will be sent.
+.IP "\fB\-ptr\fP, \fB--pointer\fP \fIbyte\fP"
+Pointer to erroneus byte \fIbyte\fP on an ICMP packet showing a parameter problem.
+Valid only on Parameter Problem type (\fB-param\fP).
+.IP "\fB\-c\fP, \fB--code\fP \fIcode\fP|\fInum\fP|\fImax\fP"
+ICMP code to send. Code \fIcode\fP valid for Destination Unreach (\fB-du\fP), 
+Redirect (\fB-red\fP) and Time Exceeded (\fB-tx\fP) types.
+
+
+Numerical code can be specified for the ICMP types that doesn't have (Echo
+Request, Information Request, Address Mask Request, Router Solicitation,
+Router Advertisement, Source Quench, Parameter Problem and Timestamp).
+
+Using \fImax\fP an ICMP code bigger than the admited ones will be sent.
+
+Next \fIICMP CODES\fP section enumerates the valid \fIcode\fP types.
+
+.SH "ICMP CODES"
+Valid \fIcodes\fP used with Destination Unreach, Redirect y Time Exceeded types are,
+.IP "- Used with \fBDestination Unreach\fP type (\fB-du\fP):" 
+.PP
+\fInet-unreach\fP (Net Unreachable) The destination net is unreacheable.
+
+\fIhost-unreach\fP (Host Unreachable) The destination host is unreacheable.
+
+\fIprot-unreach\fP (Protocol Unreachable) desired protocol is unreacheable to destination host.
+
+\fIport-unreach\fP (Port Unreachable) desired port is unreacheable to destination host.
+
+\fIfrag-needed\fP (Fragmentation Needed and Don't Fragment was Set) Shows that IP packet had
+to be fragmented because of its size but the sender did not allowed it because of DF
+(DON'T FRAGMENT) flag.
+
+\fIsroute-fail\fP (Source Route Failed) could'nt follow the route indicated on IP packet.
+
+\fInet-unknown\fP (Destination Network Unknown) Destination network is unknown.
+
+\fIhost-unknown\fP (Destination Host Unknown) Destination host unknown but network is.
+
+\fIhost-isolated\fP (Source Host Isolated) Can't reach destination host.
+
+\fInet-ano\fP (Communication with Destination Network is Administratively
+Prohibited) access network is denied through firewall or similar on receiver side.
+
+\fIhost-ano\fP (Communication with Destination Host is Administratively
+Prohibited) access host is denied through firewall or similar on receiver side.
+
+\fInet-unr-tos\fP (Destination Network Unreachable for Type of Service)
+indicates on destination network that the Type Of Service (TOS) applied for is not allowed.
+
+\fIhost-unr-tos\fP (Destination Host Unreachable for Type of Service) shows that destination
+host is unreachable with applied TOS.
+
+\fIcom-admin-prohib\fP (Communication Administratively Prohibited) a router can't forward a 
+packet because of administrative filter.
+
+\fIhost-precedence-viol\fP (Host Precedence Violation) IP packet procedence is not allowed.
+
+\fIprecedence-cutoff\fP (Precedence cutoff in effect) a smaller IP packet precedence has tried to
+be sent over the minimous impossed by network's manager.
+
+.IP "- To be used with \fBRedirect\fP type (\fB-red\fP):"
+.PP
+\fInet\fP (Redirect Datagram for the Network) shows that destination is a network.
+
+\fIhost\fP (Redirect Datagram for the Host) shows that destination is a host.
+
+\fIserv-net\fP (Redirect Datagram for the Type Of Service and Network) destination is a type of service
+and network.
+
+\fIserv-host\fP (Redirect Datagram for the Type Of Service and Host) destination is a type of service
+and host.
+.PP
+and
+.IP "- to be used with \fB\Time Exceeded\fP type (\fB-tx\fP):"
+.PP
+\fIttl\fP (Time to Live exceeded in Transit) time is over on an IP's header packet.
+
+\fIfrag\fP (Fragment Reassembly Time Exceeded) could not put IP's packet fragment together again.
+
+.SH "RETURN CODES"
+\fBicmpush\fP can be easily used within shell scripts. 
+Program returns the following data to the shell:
+
+
+.ti
+Value  Meaning
+.ti
+-----  -----------
+.ti
+0      Finished program OK.
+.ti
+1      Incorrect argument number.
+.ti
+2      Unkown ICMP protocol.
+.ti
+3      Cannot create RAW socket type.
+.ti
+4      Erroneous ICMP packet.
+.ti
+5      Erroneous gateway.
+.ti
+6      Erroneous destination route.
+.ti
+7      Erroneous ICMP packet code.
+.ti
+8      Erroneous source host.
+.ti
+9      Error sending packet.
+.ti
+10     Protocol still not implemented.
+.ti
+11     Erroneous IP address or spoof host incorrect.
+.ti
+12     Could not save memory for the data_hdr union.
+.ti
+13     Erroneous IP address or packet destination host.
+.ti
+14     Unkown protocol.
+.ti
+16     Error reading RAW socket.
+.ti
+17     Error initializing signal handler SIGALARM.
+.ti
+18     Echo Request packet data too big.
+.ti
+19     Source port incorrect.
+.ti
+20     Destination port incorrect.
+.ti
+21     Incorrect timeout value.
+.ti
+22     Incorrect Echo ID.
+.ti
+23     Incorrect sequence number.
+.ti
+24     Erroneous Echo data.
+.ti
+25     IP_HDRINCL error.
+.ti
+26     Erroneous router address in Router Advertisement.    
+.ti
+27     Incorrect garbage bytes number.
+.ti
+28     Incorrect ICMP pointer Parameter Problem.
+
+
+.SH "EXAMPLES"
+
+- In response to a packet send with TCP source port 100 and destination on port 90,
+we want to send and ICMP Redirect to asshole.es to modify its routing table with the following
+data: 10.12.12.12 as a gateway to the host death.es masking the packet source
+as if it was sent from infect.comx host:
+  
+\fBicmpush -red -sp\fP \fIinfect.comx\fP \fB-gw\fP \fI10.12.12.12\fP
+\fB-dest\fP \fIdeath.es\fP \fB-c\fP \fIhost\fP \fB-prot\fP \fItcp\fP
+\fB-psrc\fP \fI100\fP \fB-pdst\fP \fI90 asshole.es\fP
+
+- In response to an ICMP packet Echo Request sent with Echo Request id 100 and
+Echo Request sequence number 90, we want to send an ICMP Redirect to the host
+hemorroids.es to modify its routing table with the following data: the host
+pizza.death as a gateway to the host death.es, masking the packet source as if
+iit was sent from infect.comx host. 
+
+\fBicmpush -red -sp\fP \fIinfect.comx\fP \fB-gw\fP \fIpizza.death\fP
+\fB-dest\fP \fIdeath.es\fP \fB-c\fP \fIhost\fP \fB-prot\fP \fIicmp\fP
+\fB-id\fP \fI100\fP \fB-seq\fP \fI90 hemorroids.es\fP
+
+
+- We want to send an ICMP packet Destination Unreach to the host 10.2.3.4
+saying that our TCP port number 20 connected with his TCP port 2100, is unreachable.
+We mask ourselves as host 10.1.1.1:
+
+\fBicmpush -du -sp\fP \fI10.1.1.1\fP \fB-c\fP \fIport-unreach\fP \fB-prot\fP
+\fItcp\fP \fB-psrc\fP \fI2100\fP \fB-pdst\fP \fI20 10.2.3.4\fP
+
+
+- We want to send an ICMP packet Destination Unreach to host 10.2.3.4
+saying that the host inferno.hell and its TCP port 69, connected with his
+port TCP 666 in unreacheable. We mask ourselves as gateway router.comx:
+
+\fBicmpush -du -sp\fP \fIrouter.comx\fP \fB-c\fP \fIhost-unreach\fP
+\fB-prot\fP \fItcp\fP \fB-psrc\fP \fI666\fP \fB-pdst\fP \fI69\fP
+\fB-orig\fP \fIinferno.hell 10.2.3.4\fP
+
+
+- We want to send a packet ICMP Source Quench to host ldg02.hell in
+response to a packet destinated to host ldg00 with UDP protocol, source
+port 100 and destination port 200. We mask ourselves as gateway 10.10.10.1:
+
+\fBicmpush -sq -sp\fP \fI10.10.10.1\fP \fB-prot\fP \fIudp\fP \fB-psrc\fP
+\fI100\fP \fB-pdst\fP \fI200\fP \fB-orig\fP \fIldg00 ldg02.hell\fP
+
+
+- We want to send an ICMP packet Time Exceeded to host ldg02.hell in
+response to a packet destinated to host ldg00 with UDP protocol, source 
+port 100 and destination port 200. We mask as gateway ldg04.hell:
+
+\fBicmpush -tx -sp\fP \fIldg04.hell\fP \fB-c\fP \fIfrag\fP \fB-prot\fP
+\fIudp\fP \fB-psrc\fP \fI100\fP \fB-pdst\fP \fI200\fP \fB-orig\fP
+\fIldg00 ldg02.hell\fP
+
+
+- We want to send an ICMP packet Address Mask Request and wait 10 seconds to
+see the replies. We mask the packet with source address of 10.2.3.4 and we send it to
+the address 10.0.1.255:
+
+\fBicmpush -mask -sp\fP \fI10.2.3.4\fP \fB-to\fP \fI10 10.0.1.255\fP
+
+
+- We want to send an ICMP packet Timestamp to host sepultura.hell.
+We mask the packet as if it were send from host 10.2.3.1. We use the default
+timeout (5 seconds):
+
+\fBicmpush -tstamp --spoof\fP \fI10.2.3.1 sepultura.hell\fP
+
+
+- We want to send an ICMP packet Information Request to host voucher.hell.
+The source address will be our own IP address, and the timeout will be 20 seconds:
+
+\fBicmpush -info -to\fP \fI20 voucher.hell\fP
+
+
+- We want to send an ICMP packet Router Solicitation to host lazy.hell. The
+source address will be our own IP address and the timeout will be 20 seconds:
+
+\fBicmpush -rts --timeout\fP \fI20 lazy.hell\fP
+
+
+- We want to send an ICMP packet Echo Request to host lazy.hell with the data
+pattern 'MyNameIsGump'. The source address will be our own IP address and the
+timeout to read the data will be 2 seconds:
+
+\fBicmpush -echo -data\fP \fIMyNameIsGump\fP \fB-to\fP \fI2 lazy.hell\fP
+
+
+- We want to send ICMP packet Echo Request to 10.12.0.255 with the following data pattern:
+'D E A T H' (blanks included). We will mask the source address as 192.168.0.255, 
+and we do not want to read the answers:
+
+\fBicmpush -echo -sp\fP \fI192.168.0.255\fP \fB-data\fP \fI'D E A T H'\fP
+\fB-to\fP \fI0 192.168.0.255\fP
+
+
+- We want to send an ICMP packet Destination Unreach to host destination.death but sending it
+with an ICMP code bigger to the legal ones adding also 60K of garbage data:
+
+\fBicmpush -du -c\fP \fImax\fP \fB-gbg\fP \fI60000 destination.death\fP
+
+
+- We want to send an ICMP Router Advertisement to host death.es, saying that the routers
+to use are: router1.xtc with preference 20, router2.xtc with preference 50 and router3.xtc
+with default preference (0). We mask ourselves as fatherouter.xtc
+
+\fBicmpush -rta\fP \fIrouter1.xtc/20\fP \fB-rta\fP \fIrouter2.xtc/50\fP
+\fB-rta\fP \fIrouter3.xtc\fP \fB-sp\fP \fIfatherouter.xtc death.es\fP 
+
+
+- We send an ICMP Parameter Problem to host misery.es saying that the packet sent
+from the host hick.org with udp protocol, source port 13 and destination port 53,
+has an error on the IP header byte 13. We will also add all garbage bytes as possible:
+
+\fBicmpush -sp\fP \fIhick.org\fP \fB-param -ptr\fP \fI13\fP \fB-prot\fP
+\fIudp\fP \fB-psrc\fP \fI13\fP \fB-pdest\fP \fI53\fP \fB-gbg\fP \fImax\fP
+\fImisery.es\fP
+
+
+- We want to send an ICMP packet Timestamp to host www.hicks.org with code 38
+instead of code (0) as usual:
+
+\fBicmpush -tstamp -c 38 \fIwww.hicks.org\fP
+
+
+.SH SEE ALSO
+Postel, John, "Internet Control Message Protocol - DARPA Internet
+Program Protocol Specification", \fIRFC 792\fP, USC/Information Sciences
+Institute, September 1981.
+
+Mogul, Jeffrey and John Postel, "Internet Standard Subnetting Procedure",
+\fIRFC 950\fP, Stanford, USC/Information Sciences Institute, August 1985.
+
+Braden, Robert, "Requeriments for Internet Hosts - Communication Layers",
+\fIRFC 1122\fP, USC/Information Sciences Institute, October 1989.
+
+Deering, Stephen, "ICMP Router Discovery Messages", \fIRFC 1256\fP, Xerox
+PARC, September 1991.
+
+Baker, Fred, "Requeriments for IP Version 4 Routers", \fIRFC 1812\fP, Cisco
+Systems, June 1995.
+
+The \fILinux source code\fP, everything referent to network code and to ICMP protocol.
+
+.SH AUTHOR
+Slayer <tcpbgp@softhome.net>
+
+

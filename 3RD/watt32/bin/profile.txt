@@ -1,0 +1,69 @@
+Some profiling results of "ping -s 10.0.0.1" with various
+32-bit programs:
+
+Profiling E:\NET\WATT\BIN\PING.EXE, Apr 30 03:13:24    Watcom / CauseWay
+profiling dummy               0.000 msec (176 clocks)
+CPU-speed 1989MHz, overhead 92556 clocks
+profiling pkt_send            0.015 msec (30644 clocks)
+profiling pkt_send            0.013 msec (25356 clocks)
+profiling pkt_send            0.013 msec (25472 clocks)
+profiling pkt_send            0.013 msec (25520 clocks)
+profiling pkt_send            0.013 msec (25296 clocks)
+profiling pkt_send            0.013 msec (25184 clocks)
+profiling pkt_send            0.013 msec (25096 clocks)
+profiling pkt_send            0.013 msec (25180 clocks)
+profiling pkt_send            0.013 msec (25400 clocks)
+profiling pkt_send            0.013 msec (25084 clocks)
+profiling pkt_send            0.013 msec (25052 clocks)
+
+Profiling E:\NET\WATT\BIN\PING.EXE, Apr 30 03:18:03    Watcom / DOS32A
+profiling dummy               0.000 msec (184 clocks)
+CPU-speed 1989MHz, overhead 74012 clocks
+profiling pkt_send            0.010 msec (20428 clocks)
+profiling pkt_send            0.008 msec (16596 clocks)
+profiling pkt_send            0.009 msec (16944 clocks)
+profiling pkt_send            0.008 msec (16648 clocks)
+profiling pkt_send            0.008 msec (16352 clocks)
+profiling pkt_send            0.008 msec (16420 clocks)
+profiling pkt_send            0.008 msec (16252 clocks)
+profiling pkt_send            0.008 msec (16476 clocks)
+profiling pkt_send            0.008 msec (16560 clocks)
+profiling pkt_send            0.008 msec (16224 clocks)
+profiling pkt_send            0.008 msec (16388 clocks)
+
+Profiling E:\NET\WATT\BIN\PING.EXE, Apr 30 03:21:22    Watcom / DOS4GW
+profiling dummy               0.000 msec (180 clocks)
+CPU-speed 1989MHz, overhead 71092 clocks
+profiling pkt_send            0.010 msec (19832 clocks)
+profiling pkt_send            0.008 msec (16576 clocks)
+profiling pkt_send            0.008 msec (16424 clocks)
+profiling pkt_send            0.008 msec (16476 clocks)
+profiling pkt_send            0.008 msec (16344 clocks)
+profiling pkt_send            0.008 msec (16340 clocks)
+profiling pkt_send            0.008 msec (16392 clocks)
+profiling pkt_send            0.008 msec (16312 clocks)
+profiling pkt_send            0.008 msec (16196 clocks)
+profiling pkt_send            0.008 msec (16328 clocks)
+
+Profiling e:/net/watt/bin/ping.exe, Apr 30 03:25:10    gcc 3.2 / djgpp
+profiling dummy               0.000 msec (140 clocks)
+CPU-speed 1989MHz, overhead 57828 clocks
+profiling pkt_send            0.018 msec (36724 clocks)
+profiling pkt_send            0.060 msec (118632 clocks)
+profiling pkt_send            0.016 msec (31288 clocks)
+profiling pkt_send            0.016 msec (31460 clocks)
+profiling pkt_send            0.059 msec (117736 clocks)
+profiling pkt_send            0.059 msec (118096 clocks)
+profiling pkt_send            0.059 msec (117944 clocks)
+profiling pkt_send            0.059 msec (117716 clocks)
+profiling pkt_send            0.059 msec (117788 clocks)
+profiling pkt_send            0.059 msec (117976 clocks)
+
+High-C 3.61 / PharLap
+Borland 4.5 / PowerPak
+
+Notes:
+ DOS4GW type extender doesn't copy Tx-buffer to DOS-memory.
+ Hence the superiour result. Note the great spread in timings
+ for the djgpp version.
+

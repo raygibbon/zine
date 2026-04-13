@@ -1,0 +1,16 @@
+#
+# GNU Makefile for WatTCP syslog daemon (djgpp)
+#
+# Ken Yap <ken@nlc.net.au>
+#
+
+SRC       = syslogd.c pidfile.c snprintf.c ntp.c
+DJGPP_EXE = syslog32.exe
+
+include ../djcommon.mak
+
+# DO NOT DELETE THIS LINE
+syslogd.o: syslogd.c pidfile.h version.h portable.h
+pidfile.o: pidfile.c portable.h
+snprintf.o: snprintf.c
+ntp.o: ntp.c portable.h ntp.h

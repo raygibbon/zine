@@ -1,0 +1,39 @@
+#
+# nmake Makefile for `archie' (Watt32/Win32/MSVC) utility
+#
+
+DEBUG_MODE = 1
+
+CC      = cl
+CFLAGS  = -DWIN32 -nologo -W2 -Gy -I. -I$(WATT_ROOT)\inc -DWATT32
+
+!if $(DEBUG_MODE) == 1
+DEBUG   = _d
+CFLAGS  = $(CFLAGS) -MDd -Zi -Os -D_DEBUG
+LDFLAGS = $(LDFLAGS) -debug -fixed:no
+!else
+DEBUG   =
+CFLAGS  = $(CFLAGS) -MD -Ot
+LDFLAGS = $(LDFLAGS) -release
+!endif
+
+SOURCE  = alloc.c archie.c dirsend.c get_vdir.c perrno.c query.c regex.c support.c
+OBJECTS = $(SOURCE:.c=.obj)
+
+all: archie.exe
+
+.c.obj:
+	$(CC) -c $(CFLAGS) $*.c
+
+archie.exe: $(OBJECTS) $(WATT_ROOT)\lib\wattcpvc_imp$(DEBUG).lib
+	link @<<
+	  $(LDFLAGS) -map:$*.map -out:$*.exe
+	  $(OBJECTS) $(WATT_ROOT)\lib\wattcpvc_imp$(DEBUG).lib
+<<
+
+clean:
+	rm -f $(OBJECTS) *.pdb
+
+vclean: clean
+	rm -f archie.exe archie.map
+

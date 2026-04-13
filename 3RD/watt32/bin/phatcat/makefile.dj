@@ -1,0 +1,25 @@
+#DFLAGS = -DDEBUG -DSYSLOG -g
+DFLAGS = -DSYSLOG
+
+WATT32_ROOT = $(subst \,/,$(WATT_ROOT))
+WATTLIB     = $(WATT32_ROOT)/lib/libwatt.a
+
+CFLAGS = -Wall -O2 $(DFLAGS) -I$(WATT32_ROOT)/inc -DMAXHOSTNAMELEN=64 \
+         -Wshadow -Wstrict-prototypes
+
+CC  = gcc
+ALL = phatcat.exe
+
+all:    phatcat.exe
+
+phatcat.exe: phatcat.c secrete/secrete.a
+	$(CC) $(CFLAGS) -o $@ $^ $(WATTLIB)
+
+secrete/secrete.a:
+	$(MAKE) -C secrete
+
+clean:
+	rm -f $(ALL) *.o
+	$(MAKE) -C secrete clean
+
+

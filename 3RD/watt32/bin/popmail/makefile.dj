@@ -1,0 +1,17 @@
+#
+#  GNU Makefile for Watt-32 PopMail (djgpp)
+#
+
+SRC       = popmail.c pop.c smtp.c md5.c charset.c
+DJGPP_EXE = popmail.exe
+
+MAKE_MAP = 1
+
+include ../djcommon.mak
+
+# DO NOT DELETE THIS LINE
+popmail.o: popmail.c popsmtp.h
+pop.o: pop.c md5.h charset.h popsmtp.h
+smtp.o: smtp.c popsmtp.h
+md5.o: md5.c md5.h
+charset.o: charset.c popsmtp.h charset.h

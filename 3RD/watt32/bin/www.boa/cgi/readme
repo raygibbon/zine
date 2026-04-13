@@ -1,0 +1,31 @@
+This distribution of the C source code
+for Common Gateway Interface on WWW
+includes the following files:
+
+Makefile  --- you know what it means if you can C
+              Note (1) This Makefile only works in Unix, 
+                   (2) For Windows 95 and NT in Visual C++, command
+                          cl form.c util.c 
+                       will create executable program form.exe
+README     --- this file
+www.h      --- www specific include file
+env.c      --- report values of all environment variables
+form.c     --- report input from FORM in html file
+form1.c    --- report input from FORM in plain text
+util.c     --- functions used in form.c and form1.c
+count.c    --- count number of visitors to a Web page
+imagemap.c --- modified from NCSA's  cgi-bin/src 
+change-passwd.c--- modified from NCSA's  cgi-bin/src 
+
+
+An updated version of the source code is located at
+http://iel.ucdavis.edu/code/cgi/ .
+A C interpreter for execution of these CGI programs
+is available free at http://iel.ucdavis.edu/CH/ .
+The interpreter can be readily used in your Web server.
+
+
+Dr. Harry H. Cheng, Associate Professor
+Director, Integration Engineering Laboratory
+University of California, Davis
+hhcheng@ucdavis.edu

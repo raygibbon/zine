@@ -1,0 +1,38 @@
+@(#) $Header: INSTALL,v 1.3 97/01/28 18:19:34 leres Exp $ (LBL)
+
+To build tftpd, first customize any paths in Makefile.in, then run
+./configure (a shell script).  "configure" will determine your system
+attributes and generate an appropriate Makefile from Makefile.in.  Next
+run "make", and if everything goes well, su and run "make install".
+
+This software is only known to compile and run under SunOS 4.1.4
+and Solaris 5.4. However it should run in other environments
+will only minor changes.
+
+For security reasons, this daemon does not allow clients to write or
+otherwise modify data on the server.
+
+FILES
+-----
+CHANGES		- description of differences between releases
+INSTALL		- this file
+Makefile.in	- compilation rules (configure input file)
+README		- high level information
+VERSION		- version of this release
+bootptab.c	- bootp configuration file routines
+bootptab.h	- bootp configuration prototypes
+configure	- configuration script (run this first)
+configure.guess	- configure support
+configure.sub	- configure support
+daemon.c	- emulation of the BSD library routine
+getdtablesize.c	- emulation of the BSD library routine
+install-sh	- optional installation script
+lbl/gnuc.h	- gcc specific prototypes and defines
+lbl/os-sunos4.h	- SunOS 4 specific prototypes and defines
+lbl/os-sunos5.h	- SunOS 5 specific prototypes and defines
+strerror.c	- missing from some systems
+tftpd.c		- trivial file transfer daemon
+tftpsubs.c	- readahead routines
+tftpsubs.h	- readahead struct and prototype definitions
+utils.c		- random utility routines
+utils.h		- random utility prototypes

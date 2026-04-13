@@ -1,0 +1,12 @@
+#
+#  GNU Makefile for Watt-32 (djgpp) Host
+#
+
+SRC       = host.c send.c
+DJGPP_EXE = host32.exe
+
+include ../djcommon.mak
+
+# DO NOT DELETE THIS LINE
+host.o: host.c port.h conf.h type.h exit.h rrec.h defs.h
+send.o: send.c port.h conf.h

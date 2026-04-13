@@ -1,0 +1,54 @@
+This is README of nttcp-1.4:
+
+This program is a much more convenient version of the ttcp program.
+It uses inetd (or simulates its behaviour) to start off the remote
+side program which will send/receive data. Both sides measure the time
+and number of bytes transfered. The local side will print the measures.
+The format of the output can be specified on the commandline.
+==> More info can be found in the manpage nttcp.1 -- especially in the
+    section INSTALLATION.
+
+For a first try you may simply call: make. 
+If this does not work, look for an option setting suitable for your
+operating system / compiler. Set this from the commandline or from
+the Makefile (I prefer to set ARCH, OPT, DBG from the commandline).
+If nothing works, let me know. You may tell me also if it
+works!
+
+					Elmar Bartel,  1997-06-26.
+					Elmar.Bartel@in.tum.de
+
+________________________________________________________________________
+What's new since 1.3:
+   . multicast support:
+     Just put more destination hosts on the commandline.
+     Multicast is only available on systems, that support multicast
+     in their IP implementation:
+	 Solaris 5.*,
+	 IRIX [56].*,
+	 HPUX10/HPUX11
+	 OSF/1
+	 FreeBSD if compiled with MROUTING
+   . Two environment variables NTTCP_LOC_OPT and NTTCP_REM_OPT
+     to override builtin default values. 
+   . remarks to SECURITY in man page
+   . reset uid if we are executing as root
+
+   			Elmar Bartel, 1998-10-06.
+
+________________________________________________________________________
+What's new since 1.2:
+  -g switch to configure the gap time between UDP packets
+   . some clarifying comments in the source and man page
+
+   			Elmar Bartel, 1997-06-26.
+			bartel@informatik.tu-muenchen.de
+			bartel@informatik.tu-muenchen.de
+
+________________________________________________________________________
+What's new since 1.1:
+
+  -S switch to initialize the pattern generator
+  -p switch to use another port to listen to
+  -i switch simulate inetd behaviour.
+  -R switch to caclulate the getpid()-calls per second

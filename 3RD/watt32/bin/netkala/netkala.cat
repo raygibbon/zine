@@ -1,0 +1,123 @@
+
+
+
+netkala(6)              Linux Users Manual             netkala(6)
+
+
+NAME
+       netkala  - play the game kalahari with somebody via inter-
+       net
+
+SYNOPSIS
+       netkala HOST_IP|HOST_NAME  [-l_port  LOCAL_PORT]  [-r_port
+       REMOTE_PORT] [-help] [-rules]
+
+DESCRIPTION
+       Netkala Netkala is a game for two players. To my knowledge
+       it comes from Afrika, where it was  played  in  sand  with
+       marbles  or Kaori shells as pawns (pieces). It is a simple
+       and short game.  One rather needs to be clever than  lucky
+       to  win.  It has a similar character as 'draughts' (Ameri-
+       can 'checker', German 'Dame') or the German kind of  'mor-
+       ris'  (called  'Muehle').  The rules of the game are shown
+       further down in this text.
+
+       Both players have to start netkala with either  the  host-
+       name  (HOST_NAME)  or  the  host IP (HOST_IP) of the other
+       player as  first  argument.   A  socket  based  connection
+       between  the  two  machines  will be established, and upon
+       success the curses based game dialog will appear.
+
+       In case you don't know your IP address, use ifconfig(8) to
+       find  it  out.   nslookup(8)  might  be useful to find the
+       appropriate host name for a given IP number.
+
+       If not other specified port 8880 will be used on both ends
+       of  the  connection.  In case of troubles, or if one wants
+       to play kalahari on a single machine between two  xterm's,
+       the  port number can be changed by use of the command line
+       option -r_port or -l_port.  It should be clear,  that  the
+       remote port of one machine/player (-r_port) must be set as
+       local port on the other players machine  via  -l_port  and
+       vis a versa.
+
+       How to play netkala:
+
+       Each  player  sits  in front of a row of five holes (indi-
+       cated by small 'o' and the appropriate color/line  style),
+       and  has  a  big  whole to his right (indicated by capital
+       'O'):
+
+                   Player 1
+                 o  o  o  o  o
+              O                 O
+                 o  o  o  o  o
+                   Player 2
+
+       At the beginning of the game all the small ('o') holes are
+       filled  with three pieces each.  The aim of the game is to
+       collect as many pieces in his big hole.
+
+       An arbitrary player starts (usually  the  one,  that  dies
+       earlier).   He can choose one of his small holes and move.
+       He does this by picking all the  pieces  of  the  hole  he
+       choose,  and  distributing  them  over  all  the following
+       holes.
+
+       To understand what I mean by following holes you  have  to
+       think  of  all  the  holes forming an accidently flattened
+       circle.  Moreover we define  the  direction  of  the  game
+       opposite  to  the  direction of conventional clocks (swiss
+       quality clocks).  By distributing it is  meant,  that  the
+       player  leaves  exactly one piece in each of the following
+       holes. No matter whether its his or his  opponents  whole.
+       And no matter whether its a small or a big whole.
+
+       Usually  the players play one after each other and nothing
+       embarrassing will happen. To avoid, that kalahari  becomes
+       too boring, there are three extra rules:
+
+
+       Rule 1 If  the  last  piece in a move goes into one of the
+              big side holes (capital 'O'), the same player plays
+              again.
+
+       Rule 2 If the last piece in a move goes into a small hole,
+              that is empty, the player can take all pieces  from
+              the  small  hole  opposite to it, and put them into
+              his big hole (no matter, whether  the  pieces  come
+              from one of his, or his opponents small holes).
+
+       Rule 3 At  the  time  one  of  the players hasn't a single
+              piece in one of his small  holes  left,  the  other
+              player  can collect all the pieces that are left in
+              his small holes and put them  into  his  big  hole.
+              The number of pieces in the big holes are compared.
+              The one who was able to  collect  more  wins.   The
+              game is finished.
+
+OPTIONS
+       -help  Shows a short help text.
+
+       -rules Displays the rules of the game.
+
+       -r_port port number
+              Changes  the  remote port for the socket based con-
+              nection from its default value (8880) to  the  give
+              port number.
+
+       -l_port port number
+              Changes the local port for the socket based connec-
+              tion from its default value (8880) to the give port
+              number.
+
+
+AUTHOR
+       Theo  Wilhelm  (theo.wilhelm@uibk.ac.at), Hermann Schwaer-
+       zler (hermann.schwaezler@uibk.ac.at)
+
+SEE ALSO
+       In well sorted game shops, where  they  sell  nice  wooden
+       kalahari game boards.
+
+       ifconfig(8), nslookup(8)

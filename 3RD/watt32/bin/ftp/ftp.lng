@@ -1,0 +1,620 @@
+#
+# Language translation file for DOS ftp 1.1
+#
+# The format of this file is as follows:
+#
+# "english reference string"
+# no: "norwegian translation"
+# sv: "swedish translation"
+# ..
+#
+# "next english reference string"
+# ..
+#
+# Translations must be written using the native codepage. e.g. Norwegian must
+# be written in CP850. No translation is performed.
+#
+# A string may continue on next line, e.g. "a very long" \
+#                                          "string."
+# A string may contain standard ESC-codes: \a,\b,\t,\f,\e,\r and \n
+#   slash \\, quote \", hex-codes (e.g. \x1A), octal-codes (e.g. \077)
+#   and decimal codes (e.g. \245)
+#
+#
+#  Possible language codes are according to ISO 3166.
+#  Ref. ftp://ftp.informatik.uni-erlangen.de/pub/doc/ISO/
+#  Only a limited set of codes are compiled into DOS ftp.
+#
+#  aa Afar          ba Bashkir           ca Catalan
+#  ab Abkhazian     be Byelorussian      co Corsican
+#  af Afrikaans     bg Bulgarian         cs Czech
+#  am Amharic       bh Bihari            cy Welsh
+#  ar Arabic        bi Bislama
+#  as Assamese      bn Bengali; Bangla   da Danish
+#  ay Aymara        bo Tibetan           de German
+#  az Azerbaijani   br Breton            dz Bhutani
+#
+#  el Greek         fa Persian           ga Irish
+#  en English       fi Finnish           gd Scots Gaelic
+#  eo Esperanto     fj Fiji              gl Galician
+#  es Spanish       fo Faroese           gn Guarani
+#  et Estonian      fr French            gu Gujarati
+#  eu Basque        fy Frisian
+#
+#  ha Hausa         ia Interlingua       ja Japanese
+#  he Hebrew        id Indonesian        jw Javanese
+#  hi Hindi         ie Interlingue
+#  hr Croatian      ik Inupiak
+#  hu Hungarian     is Icelandic
+#  hy Armenian      it Italian           iu Inuktitut
+#
+#  ka Georgian                           mg Malagasy
+#  kk Kazakh        la Latin             mi Maori
+#  kl Greenlandic   ln Lingala           mk Macedonian
+#  km Cambodian     lo Laothian          ml Malayalam
+#  kn Kannada       lt Lithuanian        mn Mongolian
+#  ko Korean        lv Latvian, Lettish  mo Moldavian
+#  ks Kashmiri                           mr Marathi
+#  ku Kurdish                            ms Malay
+#  ky Kirghiz                            mt Maltese
+#                                        my Burmese
+#  na Nauru         oc Occitan
+#  ne Nepali        om (Afan) Oromo      pa Punjabi
+#  nl Dutch         or Oriya             pl Polish
+#  no Norwegian                          ps Pashto, Pushto
+#                                        pt Portuguese
+#  qu Quechua
+#
+#  rm Rhaeto-Romance  sa Sanskrit        ta Tamil
+#  rn Kirundi         sd Sindhi          te Telugu
+#  ro Romanian        sg Sangro          tg Tajik
+#  ru Russian         sh Serbo-Croatian  th Thai
+#  rw Kinyarwanda     si Sinhalese       ti Tigrinya
+#                     sk Slovak          tk Turkmen
+#  ug Uighur          sl Slovenian       tl Tagalog
+#  uk Ukrainian       sm Samoan          tn Setswana
+#  ur Urdu            sn Shona           to Tonga
+#  uz Uzbek           so Somali          tr Turkish
+#                     sq Albanian        ts Tsonga
+#  vi Vietnamese      sr Serbian         tt Tatar
+#  vo Volapuk         ss Siswati         tw Twi
+#                     st Sesotho
+#  wo Wolof           su Sundanese
+#                     sv Swedish
+#  xh Xhosa           sw Swahili
+#
+#  yi Yiddish (formerly ji)
+#  yo Yoruba
+#
+#  za Zhuang
+#  zh Chinese
+#  zu Zulu
+#
+
+
+"Usage: ftp [-] [-?idvntcCpPw] [-s script] [-$ macro] [host [port] | url]"
+no: "Bruk: ftp [-] [-?idvntcCpPw] [-s skript] [-$ makro] [maskin [port] | url]"
+sv: "Bruk: ftp [-] [-?idvntcCpPw] [-s skripta] [-$ makro] [maskin [port] | url]"
+
+"%s\nWattcp kernel: %s\n\n"
+no: "%s\nWattcp kjerne: %s\n\n"
+sv: "%s\nWattcp kj„rne: %s\n\n"
+
+"options: -   run commands from stdin"
+no: "opsjoner: -   kj›r kommandoer fra stdin"
+sv: "optioner: -   kj”r kommandon fr†n stdin"
+
+"         -i  non-interactive prompts for mget/mput"
+no: "         -i  ikke-bekreftende mget/mput"
+sv: "         -i  icke-interaktiv mget/mput"
+
+"         -d  enable debugging"
+no: "         -d  sl† p† debug modus"
+sv: "         -d  sl† p† debug modus"
+
+"         -v  turn off verbose information"
+no: "         -v  sl† av fjern responser"
+sv: "         -v  sl† av fj„rn responser"
+
+"         -n  don't use autologin information"
+no: "         -n  ikke bruk auto-loginn informasjon"
+sv: "         -n  nytta inte auto-loginn information"
+
+"         -t  enable packet tracing"
+no: "         -t  sl† p† pakke trace"
+sv: "         -t  sl† p† pakke trace"
+
+"         -c  inhibit the SYST command"
+no: "         -c  hindre bruk av SYST kommando"
+sv: "         -c  hindra bruk av SYST kommandot"
+
+"         -C  send SYST after connect"
+no: "         -C  send SYST kommand etter oppkobling"
+sv: "         -C  skicka SYST kommandot „fter oppkopling"
+
+"         -p  sets passive mode"
+no: "         -p  sett passive modus"
+sv: "         -p  s„tta passiv modus"
+
+"         -s  run the commands from script-file"
+no: "         -s  kj›r kommando fra skript-fil"
+sv: "         -s  kj”r kommando fr†n skript-fil"
+
+"         -$  run macro after login (default $init)"
+no: "         -$  kj›r makro etter loginn (normalt $init)"
+sv: "         -$  kj”r makro „fter loginn (normalt „r $init)"
+
+"Cannot open scriptfile `%s'\n"
+no: "Kan ikke †pne skriptfil `%s'\n"
+sv: "Kan inte ”pna skriptfil `%s'\n"
+
+"`%s' macro not found\n"
+no: "finner ikke makro `%s'\n"
+sv: "finner inte makrot `%s'\n"
+
+"Empty command!!??\r\n"
+no: "Tom kommando!!??\r\n"
+sv: "Tom kommandot!!??\r\n"
+
+"`%s' not implemented\r\n"
+no: "`%s' ikke implementert\r\n"
+sv: "`%s' inte implementerad\r\n"
+
+"Not connected\r\n"
+no: "Ikke oppkoblet\r\n"
+sv: "Inte uppkoplat\r\n"
+
+"Missing argument\r\n"
+no: "Manglende argument\r\n"
+sv: "Manglande argument\r\n"
+
+"Usage: %s\r\n"
+no: "Bruk: %s\r\n"
+sv: "Nytta: %s\r\n"
+
+"?Invalid command\r\n"
+no: "?Ugyldig kommando\r\n"
+sv: "?Ogildit kommandot\r\n"
+
+"legal proxy commands:\r\n"
+no: "lovlige proxy kommandoer:\r\n"
+sv: "lagliga proxy kommandot:\r\n"
+
+"(* = not implemented)\r\n"
+no: "(* = ikke implementert)\r\n"
+sv: "(* = inte implementerad)\r\n"
+
+"(Not implemented)"
+no: "(Ikke implementert)"
+no: "(Inte implementerad)"
+
+"No such command\r\n"
+no: "Ingen slik kommando\r\n"
+sv: "Inga s†dan kommando\r\n"
+
+"%s started"
+no: "%s startet"
+sv: "%s startad"
+
+"%s stopped"
+no: "%s stoppet"
+sv: "%s stoppad"
+
+"\r\nHost closed\r\n"
+no: "\r\nMaskin lukket\r\n"
+sv: "\r\nMaskin lukkat\r\n"
+
+"\r\nError: %s\r\n"
+no: "\r\nFeil: %s\r\n"
+
+"Error: %s\r\n"
+no: "Feil: %s\r\n"
+
+"ctrl-sock failed; %s"
+no: "kontroll-sock feil; %s"
+
+"Resolving `%s'.."
+no: "S›ker `%s'.."
+
+"Connecting to %s on port %u"
+no: "Kobler opp til %s p† port %u"
+
+"Unknown host"
+no: "Ukjent maskin"
+
+"Unknown host\r\n"
+no: "Ukjent maskin\r\n"
+
+"Connected\r\n"
+no: "Oppkoblet\r\n"
+
+"Connection failed"
+no: "Oppkobling feilet"
+
+"Connection failed\r\n"
+no: "Oppkobling feilet\r\n"
+
+"Already connected to `%s'\r\n"
+no: "Allerede koblet til `%s'\r\n"
+
+"Login as `%s' failed on `%s'\r\n"
+no: "Bruker `%s' feilet i oppkobling til `%s'\r\n"
+
+"Missing hostname\r\n"
+no: "Manglende maskin navn\r\n"
+
+"Path `%s' not found\r\n"
+no: "Finner ikke stien `%s'\r\n"
+
+"Service not available, remote server has closed connection"
+no: "Fjern maskin har lukket forbindelsen"
+
+"Service not available, remote server has closed connection\r\n"
+no: "Fjern maskin har lukket forbindelsen\r\n"
+
+"\r\nClosing.."
+no: "\r\nLukker.."
+
+"data-sock listening on port %u"
+no: "data-sock lytter p† port %u"
+
+"data connection failed; %s\r\n"
+no: "data forbindelse feilet; %s\r\n"
+
+"SYST command inhibited\r\n"
+no: "SYST kommando inaktiv\r\n"
+
+"BINARY mode, %s"
+no: "BIN’R modus, %s"
+
+"ASCII mode, %s"
+no: "ASCII modus, %s"
+
+"TENEX mode, %s"
+no: "TENEX modus, %s"
+
+"Using %s mode to transfer files.\r\n"
+no: "Benytter %s modus for fil overf›ring.\r\n"
+
+"ASCII"
+no: "ASCII"
+
+"EBCDIC"
+no: "EBCDIC"
+
+"Image"
+no: "Image"
+
+"Local"
+no: "Lokal"
+
+"Tenex"
+no: "Tenex"
+
+"%s: Unknown mode.\r\n"
+no: "%s: Ukjent modus.\r\n"
+
+"ok"
+no: "ok"
+
+"failed"
+no: "feilet"
+
+"RMD command not recognized, trying XRMD\r\n"
+no: "ikke st›tte for RMD kommando, pr›ver XRMD\r\n"
+
+"Usage: rename oldname newname\r\n"
+no: "Bruk: rename fil-navn nytt-navn\r\n"
+
+"Local directory now %s\r\n"
+no: "Lokal katalog er %s\r\n"
+
+"File %s sent, remote name %s"
+no: "Fil %s overf›rt, fjern navn %s"
+
+"File %s sent, remote name %s appended"
+no: "Fil %s overf›rt, fjern fil %s lagt til"
+
+"File %s received, local name %s"
+no: "Fil %s mottatt, lokal fil %s"
+
+"File %s received, local name %s appended"
+no: "Fil %s mottatt, lokal fil %s lagt til"
+
+"restart: offset not specified\r\n"
+no: "omstart: avvik ikke spesifisert\r\n"
+
+"restarting at %lu. execute get, put or append to initiate transfer\r\n"
+no: "omstarter ved %lu. kj›r hent, send eller leggtil for † starte overf›ring\r\n"
+
+"Hash mark printing on (%d bytes/hash mark)\r\n"
+no: "`#' merke p† (%d byte per merke)\r\n"
+
+
+"Hash mark printing off\r\n"
+
+"Debugging %s (debug=%d).\r\n"
+
+"Passive mode %s.\r\n"
+
+"Store unique %s.\r\n"
+
+"Receive unique %s.\r\n"
+
+"Use of PORT cmds %s.\r\n"
+
+"Bell mode %s.\r\n"
+
+"Verbose mode %s.\r\n"
+
+"Interactive mode %s.\r\n"
+
+"Globbing %s.\r\n"
+
+"Packet tracing %s.\r\n"
+
+"We only support file structure, sorry.\r\n"
+
+"We only support non-print format, sorry.\r\n"
+
+"We only support stream mode, sorry.\r\n"
+
+"shell command: `%s'"
+
+"Connected to `%s'.%s\r\n"
+
+" (not logged in)"
+
+"Not connected.\r\n"
+
+"Mode: %s; Type: %s; Form: %s; Structure: %s\r\n"
+
+"stream"
+
+"non-print"
+
+"file"
+
+"Verbosv: %s; Bell: %s; Prompting: %s; Globbing: %s\r\n"
+
+"Store unique: %s; Receive unique: %s\r\n"
+
+"Hash mark printing: %s; Use of PORT cmds: %s; Debugging %d\r\n"
+
+"DOS-memory free: %lukB. Disk %c: free: %lukB\r\n"
+
+"%lu bytes %s in %.2g secs (%.2g kb/sec)\r\n"
+
+"ABORT command"
+
+"Can't find list of remote files, oops\r\n"
+
+"Can't build list of remote files, oops\r\n"
+
+"Can't get list of local files, oops\r\n"
+
+"No match `%s'\r\n"
+
+"Assertion \"%s\" failed!"
+
+"Fatal: %s\r\n"
+
+"SIGINT caught. Shutting down"
+
+"Script %s\r\n"
+
+"aborted"
+
+"done"
+
+"Ctrl-socket: "
+
+"ip/port: "
+
+"NONE\r\n"
+
+"\r\nData-socket: "
+
+"Local name truncated to `%s'\r\n"
+
+"Cannot create `%s'. Check file attributes\r\n"
+
+"File `%s' exists. Overwrite (y/n)? :"
+
+"(y/n)"
+no: "(j/n)"
+
+"Cannot open local file `%s'\r\n"
+no: "Kan ikke †pne lokal fil `%s'\r\n"
+
+"Local file `%s' not found\r\n"
+no: "Finner ikke lokal fil `%s'\r\n"
+
+"`%s' not found\r\n"
+no: "Finner ikke `%s'\r\n"
+
+"Cannot append to `%s'. Check file attributes\r\n"
+no: "Kan ikke legge til `%s'. Sjekk file attributter\r\n"
+
+"on"
+no: "p†"
+
+"off"
+no: "av"
+
+"Bad COMSPEC variable\r\n"
+no: "Feil i COMSPEC variabel\r\n"
+
+#
+# List of all command names
+#
+
+"debug"
+"mget"
+"pwd"
+"status"
+"dir"
+"mkdir"
+"quit"
+"struct"
+"disconnect"
+"mls"
+"quote"
+"system"
+"account"
+no: "konto"
+
+
+"form"
+"mode"
+"recv"
+"sunique"
+"authent"
+"get"
+"modtime"
+"reget"
+"tenex"
+"append"
+"tick"
+"glob"
+"mput"
+"ascii"
+"rstatus"
+"binary"
+"trace"
+"hash"
+"bell"
+"newer"
+"rhelp"
+
+"bye"
+no: "hadet"
+
+
+"case"
+"type"
+"help"
+"nmap"
+"rename"
+"cdup"
+"user"
+"idle"
+"nlist"
+"reset"
+"cd"
+"umask"
+"image"
+"ntrans"
+"restart"
+"chmod"
+"verbose"
+"lcd"
+"open"
+"rmdir"
+"close"
+"ls"
+"prompt"
+"runique"
+"macdef"
+"cr"
+"proxy"
+"send"
+"mdelete"
+"sendport"
+"cls"
+"site"
+"sock"
+"delete"
+"mdir"
+"put"
+"size"
+"pasv"
+"pass"
+"dos"
+
+#
+# Help text on all commands
+#
+
+"send account command to remote server"
+no: "send konto kommando til fjern maskin"
+
+
+"append to a remote file"
+"authenticates client before login"
+"set ascii transfer type"
+"beep when command completed"
+"set binary transfer type"
+"toggle mget upper/lower case id mapping"
+"change remote working directory"
+"change remote working directory to parent directory"
+"change file permissions of remote file; chmod mode file"
+"connect to remote tftp"
+"toggle carriage return stripping on ascii gets"
+"delete remote file"
+"toggle/set debugging mode"
+"list contents of remote directory"
+"terminate ftp session"
+"execute macro"
+"set file transfer format"
+"toggle metacharacter expansion of local file names"
+"toggle printing `#' for each buffer transferred"
+"print local help information"
+"get (set) idle timer on remote side"
+"change local working directory"
+"list contents of remote directory"
+"define a macro"
+"delete multiple files"
+"list contents of multiple remote directories"
+"get multiple files"
+"make directory on the remote machine"
+"list contents of multiple remote directories"
+"show last modification time of remote file"
+"set file transfer mode"
+"send multiple files"
+"get file if remote file is newer than local file "
+"nlist contents of remote directory"
+"set templates for default file name mapping"
+"set translation table for default file name mapping"
+"enter passive transfer mode"
+"toggle use of PORT cmd for each data connection"
+"force interactive prompting on multiple commands"
+"issue command on alternate connection"
+"print working directory on remote machine"
+"terminate ftp session and exit"
+"exit to DOS without waiting to close session"
+"send arbitrary ftp command"
+"receive file"
+"get file restarting at end of local file"
+"get help from remote server"
+"rename file"
+"restart file transfer at bytecount"
+"remove directory on the remote machine"
+"show status of remote machine"
+"toggle store unique for local files"
+"clear queued command replies"
+"send one file"
+"send site specific command to remote server\r\nTry \"rhelp site\" or \"site help\" for more information"
+"escape to the shell"
+"show size of remote file"
+"show current status"
+"set file transfer structure"
+"toggle store unique on remote machine"
+"show remote system type"
+"set tenex file transfer type"
+"toggle printing byte counter during transfers"
+"toggle packet tracing"
+"set file transfer type"
+"get (set) umask on remote side"
+"send new user information"
+"toggle verbose mode"
+
+"send password information"
+no: "sender bruker passord"
+
+"clears the screen"
+no: "sletter skjermen"
+
+"dump socket data for ctrl/data connections"
+no: "dumper socket data for kontrol/data forbindelser"
+

@@ -1,0 +1,26 @@
+INSTALL for ICMPush v2.2
+========================
+
+Before all, login as root and ...
+
+1.- Compilation:
+    Take a look into the Makefile and after:
+
+            make linuz or make solaris
+
+    If you get the message "undefined reference to __inet_aton" you have
+    the library that comes with bind 8.1.2.
+    To link correctly you must put the complete path to the library
+    in the LIBBINDDIR Makefile variable.
+
+2.- Installation:
+    By default the program installs itself into /usr/local/bin, you can
+    change it with the Makefile variable INST_DIR. The man page installs
+    into /usr/local/man/man8, you can change it with the Makefile
+    variable MAN_DIR.
+    
+            make install
+    
+
+
+Byez.

@@ -1,0 +1,15 @@
+#
+# GNU Makefile for netcat (djgpp) program
+#
+# Ken Yap <ken@nlc.net.au>
+#
+
+SRC       = netcat.c
+DJGPP_EXE = netcat32.exe
+
+include ../djcommon.mak
+
+CFLAGS += -DMSDOS -DGAPING_SECURITY_HOLE -DTELNET #-DDEBUG
+
+# DO NOT DELETE THIS LINE
+netcat.o: netcat.c generic.h

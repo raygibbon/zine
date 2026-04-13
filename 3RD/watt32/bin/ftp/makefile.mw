@@ -1,0 +1,61 @@
+#
+# GNU Makefile for `DOS-ftp' (Watt32/Win32/MingW version).
+#
+# MwConio for Win32 is required. Available at
+# http://www.bgnett.no/~giva/misc/mwcon14.zip.
+# Change MWCONIO_ROOT below.
+#
+
+.SUFFIXES: .exe
+
+MWCONIO_ROOT = d:/prog/mw/conio
+
+OBJECTS = lang_scn.o ftp.o main.o util.o command.o config.o url.o \
+          macro.o screen.o bsd_glob.o cgets.o crc.o parse.o
+
+CC      = gcc
+CFLAGS  = -Wall -W -O2 -I. -I../../inc -I$(MWCONIO_ROOT)
+LDFLAGS = -s
+
+all: wftp.exe
+
+wftp.exe: $(OBJECTS) ../../lib/libwatt32.dll.a $(MWCONIO_ROOT)/libmwconio.a
+	$(CC) $(LDFLAGS) -o $*.exe $^
+
+cgets.exe: cgets.c ftp.h cgets.h
+	$(CC) -DTEST $(CFLAGS) cgets.c -o cgets.exe $(MWCONIO_ROOT)/libmwconio.a
+
+clean:
+	rm -f $(OBJECTS) wftp.* cgets.exe
+
+lang_scn.c: lang_scn.l
+	flex -o$*.c $*.l
+
+lang_scn.o: lang_scn.c ftp.h fortify.h ufortify.h screen.h macro.h \
+  config.h cgets.h util.h crc.h
+ftp.o: ftp.c parse.h ftp.h fortify.h ufortify.h screen.h macro.h config.h \
+  cgets.h util.h
+main.o: main.c ftp.h fortify.h ufortify.h screen.h macro.h config.h \
+  cgets.h util.h
+util.o: util.c ftp.h fortify.h ufortify.h screen.h macro.h config.h \
+  cgets.h util.h
+command.o: command.c ftp.h fortify.h ufortify.h screen.h macro.h config.h \
+  cgets.h util.h
+config.o: config.c ftp.h fortify.h ufortify.h screen.h macro.h config.h \
+  cgets.h util.h
+url.o: url.c ftp.h fortify.h ufortify.h screen.h macro.h config.h cgets.h \
+  util.h
+macro.o: macro.c ftp.h fortify.h ufortify.h screen.h macro.h config.h \
+  cgets.h util.h
+screen.o: screen.c ftp.h fortify.h ufortify.h screen.h macro.h config.h \
+  cgets.h util.h
+cgets.o: cgets.c ftp.h fortify.h ufortify.h screen.h macro.h config.h \
+  cgets.h util.h
+int29.o: int29.c ftp.h fortify.h ufortify.h screen.h macro.h config.h \
+  cgets.h util.h
+crc.o: crc.c ftp.h fortify.h ufortify.h screen.h macro.h config.h cgets.h \
+  util.h crc.h
+dosname.o: dosname.c ftp.h fortify.h ufortify.h screen.h macro.h config.h \
+  cgets.h util.h
+bsd_glob.o: bsd_glob.c
+parse.o: parse.c parse.h

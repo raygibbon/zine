@@ -1,0 +1,73 @@
+This is a replacement for syslogd, the system logger. We use it on our 
+central logging host but use the stock syslogd on all other hosts with 
+a simple "*.*  @loghost" action. 
+
+Perhaps the biggest change over other syslogd implementations is the
+configuration file. I borrowed the config file style from the Internet 
+Software Consortium's dhcpd and bind. This style is more verbose and
+takes up lots of more lines than the "old" syslog.conf style. I really 
+like the per-program actions that newer BSD syslogd's have, but I
+dislike the config file syntax for them.
+
+Here is a brief list of the "improvements" in this syslogd
+implementation.  There are quite a few implementations that do a
+number of these "improvements" but not everybody does them all.
+
+  o It removes all of the enforced limitations on the number of
+    actions that a lot of commercial syslogd implementations have
+
+  o All of the facilities that I know about are supported: kern user
+    mail daemon auth syslog lpr news uucp bsdcron authpriv ftp ntp
+    sysvcron local0 local1 local2 local3 local4 local5 local6 local7
+    (Note that at least Solaris uses facility 15 for cron and most BSD 
+    systems and Linux use facility 9 for cron, so we get two of
+    them. Sigh.) 
+
+  o Messages can be logged to files with the facility and priority
+    logged. This can be used to log the priority in the "standard"
+    numeric form <54> or in a "symbolic" [lpr.info] form.
+
+  o The notify action is no longer supported. I think this is a
+    feature, but I'm not sure everybody will agree with me. We use the
+    forwarding action with a user space port number.
+
+  o ACL lists can be defined based on domain names ("*.domain.com")
+    networks ("127.0.0.0/8" or "128.0.0.1/24") or host names
+    ("host.domain.com")
+
+  o Hosts that syslogd will receive messages can be limited to those
+    matching an ACL
+
+  o Hosts that syslogd will forward messages for can be limited to
+    those matching an ACL
+
+  o The hostname logged for inet messages can be rewritten as a simple 
+    host name or as stripping off all or part of a domain name based
+    on ACLs. 
+
+  o Actions may be based on the facility, priority, and/or the program 
+    name.
+
+  o When forwarding messages to another host you can optionally
+    specify the port number and if you wish the hostname from where
+    the message was received to be forward too.
+
+  o You can use the "break" action to abort processing of the current
+    facility group.
+
+You can get the latest release from ftp://ftp.aero.und.edu/pub/syslogd
+
+-----------------------------------------------------------------------
+
+Changes for Watt-32 and djgpp (MSDOS) by Gisle Vanem <giva@bgnett.no>
+
+All changes are inside "#if defined(__WATT32__)" or "#if defined(__DJGPP__)"
+This shouldn't hurt for other Unix targets.
+
+Use makefile.dj to compile:
+  make -f makefile.dj
+
+
+Notes: You need GNU Flex if you modify "conf-lex.l".
+       You need GNU Bison if you modify "conf-parse.y".
+

@@ -1,0 +1,42 @@
+secrete v0.2pre1
+by thokky (thok@myrealbox.com)
+
+secrete is small and compact crypto library offering bunch of easy to use
+crypto functions for C programmers. right now secrete has only two algorithms
+implemented , RC4 and Blowfish (ecb-mode) , but more algorithms and modes will
+be added in the future. secrete is still in very early stages, it probably contains bugs
+and especially rc4 functions aren't very fast. this will be changed soon.
+
+
+RC4 functions:
+
+void rc4_keyinit(rc4s *session , unsigned char *key , int keylen);
+
+rc4_keyinit() initializes new rc4 session. encryption key is passed as 
+unsigned char *key and length of key as int.
+
+void rc4(rc4s *session , unsigned char *in , unsigned char *out , unsigned int inlen);
+
+rc4() generates pseudo-random byte streams and xors 'unsigned char *in' with it,
+putting result to 'unsigned char *out'. int inlen is length of stream. this same
+function is used to both encryption and decryption.
+
+
+BLOWFISH functions:
+
+void bf_keyinit(bfs *session , unsigned char *key , unsigned int keylen);
+
+bf_keyinit() initiliazes new blowfish session & key. key is array of unsigned
+char's. int keylen is obsiviously length of key in bytes. 
+
+
+int bf_ecb(int mode , bfs *session , unsigned char *in , unsigned char *out);
+
+bf_ecb() encrypts/decrypts data with blowfish in ECB mode. only 8 bytes of 'unsigned
+char *in' is operated, rest is ignored. 'int mode' can be either ENC or DEC ,
+ENC  for encryption and DEC for decryption. result is placed to *out.
+bf_ecb() returns 0 if everything went fine, -1 if invalid mode or something screwed.
+
+
+
+

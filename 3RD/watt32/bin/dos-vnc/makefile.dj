@@ -1,0 +1,65 @@
+#
+# DOS-VNC Makefile for Watt-32. Target supported:
+# djgpp 2.02+ and Allegro 3.1+
+#
+# This makefile assumes you did "make install" in the
+# Allegro base directory.
+#
+
+.SUFFIXES: .exe
+
+SRC = dosvnc.c dosui.c args.c rfbproto.c sockets.c \
+      d3des.c  vncauth.c keyboard.c #misc.c listen.c
+
+OBJS = $(SRC:.c=.o)
+
+INCLUDE  = -I. -I../../inc
+WATTLIB  = ../../lib/libwatt.a
+DEFINES  = -DXK_MISCELLANY
+MM_SPECS = $(subst \,/,$(TMPDIR))/specs
+
+PROGS  = vncview.exe key.exe menu.exe
+
+CC     = gcc.exe
+CFLAGS = -O2 -mcpu=i486 $(INCLUDE) $(DEFINES)
+LFLAGS = #-s
+
+all:    $(PROGS)
+
+vncview.exe: $(OBJS)
+	$(CC) $(LFLAGS) -o $@ $^ $(WATTLIB) -lalleg
+
+key.exe: keytest.o keyboard.o
+	$(CC) $(LFLAGS) -o $@ $^ -lalleg
+
+menu.exe: menutest.o keyboard.o
+	$(CC) $(LFLAGS) -o $@ $^ -lalleg
+
+clean:
+	rm -f keytest.o menutest.o $(OBJS) $(PROGS) Makefile.bak
+
+depend:
+	@echo Generating dependencies..
+	cp Makefile.dj Makefile.bak
+	@echo "*cpp: %(cpp_cpu) %{posix:-D_POSIX_SOURCE} -remap" > $(MM_SPECS)
+	sed -e "/^# DO NOT DELETE THIS LINE/,$$d" < Makefile.bak > Makefile.dj
+	echo "# DO NOT DELETE THIS LINE"                        >> Makefile.dj
+	$(CC) -specs=$(MM_SPECS) -MM -DDJGPP $(CFLAGS) $(SRC)   >> Makefile.dj
+	rm -f $(MM_SPECS)
+
+# DO NOT DELETE THIS LINE
+dosvnc.o: dosvnc.c ../../inc/tcp.h ../../inc/sys/wtypes.h \
+  ../../inc/sys/wtime.h ../../inc/sys/swap.h vncview.h vnc-type.h \
+  rfbproto.h
+dosui.o: dosui.c vncview.h vnc-type.h rfbproto.h xkeys.h
+args.o: args.c vncview.h vnc-type.h rfbproto.h
+rfbproto.o: rfbproto.c vncview.h vnc-type.h rfbproto.h vncauth.h
+sockets.o: sockets.c ../../inc/sys/socket.h ../../inc/sys/werrno.h \
+  ../../inc/sys/djgpp.err ../../inc/sys/cdefs.h ../../inc/sys/wtypes.h \
+  ../../inc/sys/wtime.h ../../inc/netinet/in.h ../../inc/sys/param.h \
+  ../../inc/sys/swap.h ../../inc/sys/packon.h ../../inc/sys/packoff.h \
+  ../../inc/sys/ioctl.h ../../inc/netinet/tcp.h ../../inc/netdb.h \
+  ../../inc/tcp.h vncview.h vnc-type.h rfbproto.h
+d3des.o: d3des.c d3des.h
+vncauth.o: vncauth.c vncauth.h d3des.h
+keyboard.o: keyboard.c

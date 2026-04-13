@@ -1,0 +1,50 @@
+NETIO - Network Benchmark, Version 1.13
+(C) 1997-2001 Kai Uwe Rommel
+
+This is a network benchmark for DOS, OS/2 2.x, Windows NT/2000 and Unix.
+It measures the net throughput of a network via NetBIOS and/or TCP/IP
+protocols (Unix and DOS only support TCP/IP) using various different
+packet sizes.
+
+One instance has to run on one machine as a server process, another 
+instance is used on another machine to perform the benchmark. When 
+executed without arguments, the program will explain its usage.
+
+Full source code is included. For compilation, IBM VisualAge C++
+for OS/2 or Windows is required, gcc can be used under Unix.
+DJGPP 2.02 with gcc is used for the Watt-32 (DOS) version.
+
+A few executable files are included. The author can only build
+OS/2 and Windows NT/2000. The other executable files are contributions
+from other people who ported the benchmark to their platform. However,
+those executables may be out of date now (based on earlier versions).
+
+This program/these programs can be used freely for private or
+educational purposes. If you want to use them for commercial purposes,
+please contact the author. You may redistribute this software only if
+all files from my original distribution are included unchanged. You may
+only add readable documentation files, such as a BBS signature, and only
+if they are marked prominently as additions. If you want to include any
+part of the orignal distribution with other software, please contact the
+author before.
+
+There is no warranty. Use this software on your own risk. Due to the
+complexity and variety of today's hardware and software which may be
+used to run these programs, I am not responsible for any damage or loss
+of data or hardware failures or other damage caused by correct or
+incorrect use of this software. It was tested very well and is expected
+to work correctly, but nobody can actually guarantee this under any
+circumstances. And because this software is essentially free (even if
+you register, you don't pay for using this software but for the service
+of getting upgrades), you get what you pay for ...
+
+Notes for DOS/Watt-32:
+Watt-32 is used as the TCP/IP library. It's available at
+http://www.bgnett.no/~giva/.
+
+
+Author:      Kai Uwe Rommel
+             Muenchen, Germany
+
+E-mail:      rommel@ars.de (preferred)
+	     rommel@leo.org

@@ -1,0 +1,16 @@
+#
+# GNU Makefile for Talk (djgpp)
+#
+
+SRC       = talk.c message.c util.c screen.c
+DJGPP_EXE = talk32.exe
+
+include ../djcommon.mak
+
+CFLAGS += -DDEBUG #-DNONET
+
+# DO NOT DELETE THIS LINE
+talk.o: talk.c talk.h
+message.o: message.c talk.h
+util.o: util.c talk.h
+screen.o: screen.c talk.h

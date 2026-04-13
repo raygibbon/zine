@@ -1,0 +1,12 @@
+#
+# djgpp Makefile for WatFTP client.
+#
+
+SRC = watftp8.c
+
+DJGPP_EXE = wftp32.exe
+
+include ../djcommon.mak
+
+# DO NOT DELETE THIS LINE
+watftp8.o: watftp8.c ../../inc/tcp.h

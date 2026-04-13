@@ -1,0 +1,96 @@
+This is a port of the server part of the IO256control package for Linux
+by Nuno Sucena Almeida to PCs, using the WATTCP IP stack. It's a program
+that you run on a standalone PC that allows you to control I/O ports
+remotely through a telnet connection. Typically those I/O ports would
+control external devices.
+
+Disclaimer: This program can control external devices. I am not
+responsible for any effects, unintended or not, of controlling those
+devices. This program is provided as is and you use this program at your
+own risk.
+
+It was compiled with Turbo-C 2.0 and linked using 3.1 runtime
+libraries (because WATTCP was compiled using the 3.1 compiler). The
+WATTCP library used is included.  You can find WATTCP at
+http://dark.uwaterloo.ca/wattcp.html
+
+I have included the readmes files (names chopped down to 8.3) from the
+package: readme, configur and io256con.lsm, so that you can work out how
+to run it or to locate the original package. The executable is called
+servidor.exe (Portuguese for server).
+
+To run this version you need a packet driver for your Ethernet card.
+You can find packet drivers at http://www.simtel.net/simtel.net/ and
+search for pktdrvr in the MSDOS collection. You can get help for the
+packet driver you are using by running it with no arguments.  For example,
+for a NE1000 card, you typically run it as:
+
+	ne1000 0x60 5 0x300
+
+where the first argument is the software interrupt vector, the second
+the IRQ and the third the I/O address the card is set to. This command
+would normally be put in autoexec.bat.
+
+Next, edit wattcp.cfg to suit your network. The only parameters that are
+critical are MY_IP, and NAMESERVER if you want IP address to hostname
+resolution (see below about NAMESERVER).
+
+Then edit address.cfg to control what machine can contact the server
+and put a valid account in password.cfg.
+
+Then, just run the program
+
+	servidor
+
+A description of the available options is in the configur file.
+
+You can then contact the server from another host from machine
+with
+
+	telnet host 5050
+
+where host is the name corresponding to the IP address you have chosen
+or the IP address.
+
+Please, please, if you make any improvements to any source file except
+sock.c (which I wrote), send them back to Nuno so that he can improve
+the package. (Reading inputs would be nice, hint, hint.) And remember
+to make it portable because it's meant to compile on Linux (and possibly
+other Unix systems).
+
+You could put this with a packet driver on a floppy on a PC (even an XT)
+with an Ethernet card and a parallel port and control things over the
+network. If you have an AT, you could even boot the AT over the network
+using Etherboot and omit the floppy (http://www.slug.org.au/etherboot/).
+
+**** My port has some differences compared to the original by Nuno:
+
+Only the server has been ported. You can use the client on Linux or just
+telnet to communicate with the server. The server does not consult any
+services file to find the port to listen on. By default the port is 5050
+but it can be changed from the command line.
+
+When you display the configuration with -c, the address will show as
+0.0.0.0 because at that point the network stack hasn't been initialised
+and it hasn't got an IP address yet.
+
+The server does not put itself in the background in DOS. Background,
+what background?
+
+The password scheme is not crypt but just base64 encoding, as used on the
+Web. Yes, it's hopelessly weak.  Anyway you are sending passwords in the
+clear over the network in the crypt scheme anyway. (For more security,
+a public key cryptosystem should be used. No, I'm not planning on adding
+this in.)  Don't use the useradd program supplied in the original package
+since that uses Unix crypt. I have supplied a small program, mkpasswd,
+to output the password line required given the user name, the password
+in clear and the full name. The password in the sample password.cfg
+is letmein
+
+Name resolution will only work if you have defined a NAMESERVER in
+wattcp.cfg and it is running. If you don't define a name server, only
+IP addresses are used in displays and authentication.
+
+	Ken Yap
+	ken_yap@hotmail.com
+	May 1998

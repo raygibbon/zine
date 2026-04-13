@@ -1,0 +1,36 @@
+USE_WATT32 ?= 0
+
+CC      = gcc
+CFLAGS  = -m32 -O2 -g -Wall -Wno-unused-variable -D_WIN32
+LDFLAGS = -m32 -s
+
+SOURCE  = wput.c ftp.c utils.c getopt.c
+
+ifeq ($(USE_WATT32),1)
+  EXE     = wput32.exe
+  CFLAGS += -DWATT32 -I../../inc \
+            -DWATT32_STATIC
+  LIBS    = ../../lib/libwatt32.a
+else
+  EXE  = wput-nt.exe
+  LIBS = -lws2_32
+endif
+
+OBJS = $(SOURCE:.c=.o)
+
+all: $(EXE)
+
+$(EXE): $(OBJS)
+	$(CC) $(LDFLAGS) -o $@ $^ $(LIBS)
+
+clean:
+	rm -f $(OBJS)
+
+vclean realclean: clean
+	rm -f $(EXE)
+
+depend:
+	$(CC) -MM $(CFLAGS) $(SOURCE) > depend.mw
+
+-include depend.mw
+

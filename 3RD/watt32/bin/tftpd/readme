@@ -1,0 +1,32 @@
+@(#) $Header: README,v 1.1 95/02/09 20:52:05 leres Exp $ (LBL)
+
+TFTPD 1.0
+Lawrence Berkeley Laboratory
+Network Research Group
+tftpd@ee.lbl.gov
+ftp://ftp.ee.lbl.gov/tftpd-*.tar.Z
+
+This directory contains source code for tftpd, a daemon that implements
+the trivial file transfer protocol. Based on the 4.4 BSD tftpd, this
+version has been modified to handle client requests in a single
+process.
+
+This program is designed for use in environments with lots of bootp
+clients. It only allows files to be read by clients listed in
+/etc/bootptab.
+
+Please send bugs and comments to tftpd@ee.lbl.gov.
+
+ - Craig Leres (leres@ee.lbl.gov)
+
+
+v1.2 Fri Jun  6 17:27:41 PDT 1997
+
+- Improve autoconf configuration.
+
+- Fix some endian problems. Thanks to John DeTreville (jdetrevi@nc.com)
+
+v1.1 Thu Feb  9 20:32:55 PST 1995
+
+- Initial release.
+

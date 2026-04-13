@@ -1,0 +1,527 @@
+
+                                    ARCHIE
+                                       
+What is ARCHIE
+
+   Archie is a service which helps users to locate files and directories
+   on anonymous FTP servers anywhere on the Internet.
+   
+   Administrators all over the world register anonymous FTP servers with
+   the archie service; once a month the archie service runs a program
+   which scans the directories and filenames contained in each of the
+   registered FTP servers, and generates a grand merged list of all the
+   files and directories contained in all the registered servers. More
+   than 1000 anonymous FTP sites are now represented in this list, which
+   is referred to as the archie database. The archie database currently
+   contains more than 2,100,000 filenames.
+   
+   The archie database is made available on several archie servers, all
+   of which contain the same information.
+   
+   Administrators can also provide a short description of software
+   packages contained in the files or directories at their site, but do
+   not have to do so. The descriptions may or may not be kept up to date:
+   there is no pressure on administrators to do this.
+   
+   Files made available at anonymous FTP sites contain software packages
+   for various systems (MS-Windows, MS-DOS, Macintosh, Unix, etc.),
+   utilities, information or documentation, mailing lists or Usenet group
+   discussion archives. At most FTP sites, the resources are organized
+   hierarchically in directories and subdirectories. The archie database
+   contains both the directory path and the file names.
+   
+Who can use ARCHIE
+
+   The archie database is available to all users of the Internet, and can
+   also be accessed via electronic mail. See the section Using ARCHIE
+   below for details.
+   
+How to get to ARCHIE
+
+   The archie database is maintained in the following locations:
+     _________________________________________________________________
+   
+Host                        Country
+
+archie.au                   Australia
+archie.aco.net              Austria
+archie.cs.mcgill.ca         Canada
+archie.uqam.ca              Canada
+archie.funet.fi             Finland
+archie.univ-rennes1.fr      France
+archie.th-darmstadt.de      Germany
+archie.ac.il                Israel
+archie.unipi.it             Italy
+archie.kyoto-u.ac.jp        Japan
+archie.wide.ad.jp           Japan
+archie.hana.nm.kr           Korea
+archie.sogang.ac.kr         Korea
+archie.nz                   New Zealand
+archie.uninett.no           Norway
+archie.rediris.es           Spain
+archie.luth.se              Sweden
+archie.switch.ch            Switzerland
+archie.ncu.edu.tw           Taiwan
+archie.twnic.net            Taiwan
+archie.doc.ic.ac.uk         United Kingdom
+archie.hensa.ac.uk          United Kingdom
+archie.ans.net              USA
+archie.internic.net         USA
+archie.rutgers.edu          USA
+archie.sura.net             USA
+archie.unl.edu              USA
+     _________________________________________________________________
+   
+   There are three ways to access the archie database: via a local
+   client, interactive Telnet session or electronic mail. Each type of
+   access is described below in the Using ARCHIE section.
+   
+Using ARCHIE
+
+   You are requested to respect a few basic rules when you look for
+   information on an archie server:
+     * avoid connecting during working hours; most of the archie servers
+       are not dedicated machines - they have local functions as well.
+     * make your queries as specific as possible; the response will be
+       quicker and shorter.
+     * user interfaces installed on your computer help to reduce the load
+       on the server sites, so please use them.
+     * use the archie server closest to you and, in particular, don't
+       overload the transatlantic lines.
+       
+   The three ways of accessing the archie database, via a local client,
+   via an interactive Telnet session or using electronic mail, are
+   described below.
+   
+   Note that version 3.0 of the archie server is now available, and some
+   of the commands for interactive access and the e-mail interface are
+   slightly different from previous versions of the server (2.11 and
+   earlier). Command formats marked with a (+) are valid in version 3.0
+   only, those marked with a (*) are acceptable only in previous
+   versions. You can use the version command to find out which version is
+   installed at any particular server.
+   
+   Using a local client
+   
+   You are encouraged to use a local archie client because the archie
+   server does not then have to provide you with an interactive
+   interface: requests from your local client to the archie server will
+   be non-interactive, and will thus place less of a burden on the
+   server. Server performance will be increased and response time will
+   improve for all users.
+   
+   Public domain clients for accessing archie servers are available for:
+   Macintosh, MS-DOS, OS/2, VMS, NeXT, Unix and X-Windows. All these
+   platforms support a simple command line client; the xarchie client for
+   the X Window System provides a graphical user interface. The clients
+   are available from the archie sites using anonymous FTP, and are in
+   the directories /pub/archie/clients or /archie/clients.
+   
+   Archie client command and parameters
+   
+   A graphical interface (GUI), enables you to access the archie
+   functions by pressing mouse buttons in order to select menu options.
+   
+   archie clients written for use without a graphical user interface
+   require you to type in the command archie, followed by one or more
+   parameters. If you omit the parameters you are given a list of the
+   possible parameters with a short description of each one. A
+   description of the parameters is given below, where angle brackets
+   (<>) indicate an optional parameter and a vertical bar (|) indicates a
+   choice of parameters.
+     _________________________________________________________________
+   
+archie <-parameters> string | pattern
+     _________________________________________________________________
+   
+   where the optional parameters are:
+   
+   o
+          specifies an output file name to store the results (not
+          available with all clients).
+          
+   l
+          lists the result one match per line. This form is suitable for
+          parsing by programs.
+          
+   t
+          sorts the result by date.
+          
+   m#
+          specifies maximum number of matches to return (# within the
+          range 0 to 1000). The default value is 95.
+          
+   h archie-server
+          specifies which archie server should be used; if this parameter
+          is not given, then the query will be sent to the default archie
+          server, if one is defined.
+          
+   L
+          lists known servers and current default server.
+          
+   The following group of optional parameters determines the kind of
+   search performed on the database. They are mutually exclusive.
+   
+   s
+          a match occurs if the file/directory name contains string. The
+          search is case insensitive.
+          
+   c
+          as above, but the search is case sensitive.
+          
+   e
+          string must EXACTLY match (including case) the file/directory
+          name in the database. This is the DEFAULT search method.
+          
+   r
+          searches the database using pattern. It contains special
+          characters which must be interpreted before performing the
+          search.
+          
+   There may be slight differences in the options available with
+   different clients on different platforms.
+   
+   The result is a list of FTP site addresses which contain files or
+   directories matching the argument, together with the size of the file,
+   its last modification date and its directory. By default, the list is
+   sorted by host address. See the Examples section below for an example
+   of archie output.
+   
+   Using Telnet
+   
+   You can use Telnet to connect to an archie server interactively (see
+   the list of servers in the section How to get to ARCHIE above). At the
+   login: prompt enter archie. The login procedure leaves the user at the
+   prompt archie> indicating that the server is ready for user requests.
+   
+   Archie servers respond to the commands listed below; the way they
+   respond can be defined using the special command set, which changes
+   the values of a set of variables described at the end of this section.
+   
+   The following commands are available:
+   
+   exit, quit, bye
+          exits archie.
+          
+   help <command-name>
+          invokes the on-line help. If a command-name is given, the help
+          request is restricted to that command. Pressing the RETURN key
+          exits from the on-line help.
+          
+   list <pattern>
+          provides a list of the FTP servers in the database and the time
+          at which they were last updated. The result is a list of site
+          names, with the site IP address and date of the last update in
+          the database. The optional parameter limits the list to sites
+          matching pattern: the command list with no pattern will list
+          all sites in the database (more than 1000 sites!). E.g.
+          
+
+list \.de$
+
+   will list all German sites
+          
+   site(*) site-name
+          lists the directories and subdirectories held in the database
+          from a particular site-name. The result may be very long.
+          
+   whatis string
+          searches the database of software package descriptions for
+          string. The search is case-insensitive.
+          
+   prog string | pattern
+          
+   find(+) string | pattern
+          searches the database for string or pattern. Searches may be
+          performed in a number of different ways specified in the
+          variable search, which also determines whether the parameter is
+          treated as a string or as a pattern. The search produces a list
+          of FTP site addresses which contain filenames matching the
+          pattern or containing the string, the size of the file, its
+          last modification date and its directory path. The number of
+          matches is limited by the maxhits variable. The list can be
+          sorted in different ways, depending on the value of the sortby
+          variable. By default, the variables search, maxhits and sortby
+          are set to, respectively, exact match search on string, 1000
+          hits and unsorted resulting list. A search can be aborted by
+          typing the keyboard interrupt character; the list produced at
+          that point will be displayed. See the Examples section below
+          for an example of the prog command and its results.
+          
+   mail <email> <,email2...>
+          places the result of the last command in a mail message and
+          dispatches specified e-mail address(es). If no mail address is
+          specified as a parameter, the result is sent to the address
+          specified in the variable mailto.
+          
+   show <variable>
+          displays the value of the given variable. If issued with no
+          argument, it displays all variables. The archie variables are
+          shown below with the details of the set command.
+          
+   set variable value
+          changes the value of the specified archie variable. The
+          variables specify how other archie commands should operate.
+          
+   Variables and values are:
+   
+   compress(+) compress-method
+          specifies the compression method (none or compress) to be used
+          before mailing a result with the mail command. The default is
+          none.
+          
+   encode(+) encode-method
+          specifies the encoding method (none or uuencode) to be used
+          before mailing a result with the mail command. This variable is
+          ignored if compress is not set. The default is none.
+          
+   mailto email <,email2 ...>
+          specifies the e-mail address(es) to be used when the mail
+          command is issued with no arguments.
+          
+   maxhits number
+          specifies the maximum number of matches prog will generate
+          (within the range 0 to 1000). The default value is 1000.
+          
+   search search-value
+          determines the kind of search performed on the database by the
+          command: prog string | pattern. search-values are:
+          
+        sub
+                a partial and case insensitive search is performed with
+                string on the database, e.g.:
+                
+
+"is" will match "islington" and "this" and "poison"
+
+        subcase
+                as above but the search is case sensitive, e.g.
+                
+
+"TeX" will match "LaTeX" but not "Latex"
+
+        exact
+                the parameter of prog (string) must EXACTLY match the
+                string in the database (including case). The fastest
+                search method of all, and the default.
+                
+        regex
+                pattern is used as a Unix regular expression to match
+                filenames during the database search.
+                
+        sortby sort-value
+                describes how to sort the result of prog. sort-values
+                are:
+                
+              hostname
+                      on the FTP site address in lexical order.
+                      
+              time
+                      by the modification date, most recent first.
+                      
+              size
+                      by the size of the files or directories in the
+                      list, largest first.
+                      
+              filename
+                      on file or directory name in lexical order.
+                      
+              none
+                      unsorted (default)
+                      
+                Reverse sorts can be carried out by prepending r to the
+                sortby value given (e.g. rhostname instead of hostname).
+                
+        term terminal-type <number-of-rows <number-of-columns>>
+                tells the archie server what type of terminal you are
+                using, and optionally its size in rows and columns, e.g.
+                
+
+set term xterm 24 100
+
+   Using electronic mail
+   
+   Users limited to electronic mail connectivity can access the archie
+   servers. The domain addresses of the servers are listed in the section
+   How to get to ARCHIE (e.g. archie@archie.ac.il).
+   
+   The electronic mail interface to an archie server recognizes a subset
+   of the commands described in Using Telnet. These are described below.
+   An empty message, or a message containing no valid requests, is
+   treated as a help request.
+   
+   Archie commands are sent in the body part of the mail message, but the
+   Subject: line is processed as if it were part of the main body.
+   Command lines begin in the first column; all lines that do not match a
+   valid command are ignored.
+   
+   help
+          sends you the help file. The help command is exclusive, so
+          other commands in the same message are ignored.
+          
+   path return-address
+          
+   set mailto(+) return-address
+          specifies a return e-mail address different from that which is
+          extracted from the message header. If you do not receive a
+          reply from the archie server within several hours, you might
+          need to add a path command to your message request.
+          
+   list pattern <pattern2 ...>
+          requests a list of the sites in the database that match
+          pattern, with the time at which they were last updated. The
+          result is a list with site names, site IP addresses and date of
+          each site's last update in the database.
+          
+   site(*) site-name
+          lists the directories and subdirectories of site-name in the
+          database.
+          
+   whatis string <string2 ...>
+          searches the descriptions of software packages for each string.
+          The search is case insensitive.
+          
+   prog pattern <pattern2 ...>
+          
+   find(+) pattern <pattern2>
+          uses pattern as a Unix regular expression to be matched when
+          searching the database. If multiple patterns are placed on one
+          line, the results will be mailed back in one message. If
+          several lines are sent, each containing a prog command, then
+          multiple messages will be returned, one for each prog line.
+          Results are sorted by FTP site address in lexical order. If
+          pattern contains spaces, it must be quoted with single (') or
+          double (") quotes. The search is case insensitive.
+          
+   compress(*)
+          causes the result of the current request to be compressed and
+          uuencoded. When you receive the reply, you should run it
+          through uudecode, to produce a .Z file. You can then run
+          uncompress on the .Z file and get the result of your request.
+          
+   set compress(+) compress-method
+          specifies the compression method (none or compress) to be used
+          before mailing the result of the current request. The default
+          is none.
+          
+   set encode(+) encode-method
+          specifies the encoding method (none or uuencode) to be used
+          before mailing the result of the current request. This variable
+          is ignored if compress is not set. The default is none.
+          
+          Note: set compress compress and set encode uuencode would
+          produce the same result as the former compress command.
+          
+   quit
+          nothing past this point is interpreted. Useful if a signature
+          is automatically appended to the end of your mail messages.
+          
+   Description of pattern
+   
+   A pattern is a specification of a character string, and may include
+   characters which take a special meaning. The special meaning will be
+   lost if "\" is put before the character. The special characters are:
+   
+   .
+          (period) this is the wildcard character that replaces any
+          single character, e.g. "...." will match any 4-character
+          string.
+          
+   ^
+          (caret) if "^" appears at the beginning of the pattern, then
+          only strings which start with the substring following the "^"
+          will match the pattern. If the substring occurs anywhere else
+          in the string it does not match the pattern, e.g.
+          
+
+"^efghi" will match "efghi" or "efghijlk" but not "abcefghi"
+
+   $
+          (dollar) if "$" appears at the end of the pattern, then the
+          searched string must end with the substring preceding the "$".
+          If the substring occurs anywhere else in the searched string,
+          it is not considered to match, e.g.
+          
+
+"efghi$" will match "efghi" or "abcdefghi" but not "efghijkl"
+
+Examples
+
+   If you are using an archie client, and enter the command:
+archie -s eudora
+
+   or if you send, by e-mail or during a Telnet session, the command:
+prog eudora
+
+   or
+find eudora
+
+   then archie will send you the following results:
+Host ftp.ascii.co.jp    (133.152.1.1)
+Last updated 03:38  8 Aug 1993
+
+ Location: /pub/MAC
+   DIRECTORY  drwxrwxr-x 2048 bytes 00:00  6 May 1992  eudora
+
+Host ftp.ascii.co.jp    (133.152.1.1)
+Last updated 03:38  8 Aug 1993
+
+ Location: /pub/MAC/eudora
+   FILE  -r--r--r-- 281139 bytes 00:00 21 Oct 1991  eudora1.2.2.sit.hqx
+
+Host ftp.ci.ua.pt    (192.80.21.201)
+Last updated 04:53  9 Aug 1993
+
+ Location: /pub/NetNews/comp.binaries.mac
+   FILE  -rw-r--r-- 438 bytes 12:04 10 Jul 1993  Eudora1.3.readme
+
+Host ftp.ci.ua.pt    (192.80.21.201)
+Last updated 04:53  9 Aug 1993
+
+ Location: /pub/NetNews/comp.binaries.mac
+   FILE  -rw-r--r-- 278912 bytes 12:04 10 Jul 1993  Eudora1.3.sit.bin
+
+   etc.
+   
+   If you send the command list \.de$ by e-mail or in a Telnet session,
+   then you will get the following results:
+
+alice.fmi.uni-passau.de          132.231.1.180  12:31  8 Aug 1993
+askhp.ask.uni-karlsruhe.de       129.13.200.33  12:25  8 Aug 1993
+athene.uni-paderborn.de           131.234.2.32  15:21  6 Aug 1993
+bseis.eis.cs.tu-bs.de             134.169.33.1  00:18 31 Jul 1993
+clio.rz.uni-duesseldorf.de        134.99.128.3  12:10  8 Aug 1993
+cns.wtza-berlin.de                141.16.244.4  16:08 31 Jul 1993
+
+   etc.
+   
+   If you send the command whatis compression by e-mail or in a Telnet
+   session then you will get the following results:
+
+RFC 468      Braden, R.T. FTP data compression 1973 March 8; 5p.
+arc          PC compression program
+deltac       Image compression using delta modulation
+spl          Splay tree compression routines
+squeeze      A file compression program
+uncrunch     Uncompression program
+unsqueeze    Uncompression programs
+
+Learning more about ARCHIE
+
+   However you communicate with the archie server, on-line help is
+   available.
+   
+   If you have any questions about archie, write to the Archie Group,
+   Bunyip Information Systems Inc. at info@bunyip.com.
+   
+   Bug reports, comments, suggestions, etc. should be mailed to
+   archie-group@bunyip.com. In addition, the database administrator at a
+   particular archie server can be contacted at
+   archie-admin@address.of.archie.server, e.g. archie-admin@archie.ac.il.
+   
+   Mailing list: archie-people@bunyip.com
+   To subscribe send a mail to: archie-people-request@bunyip.com
+   
+   Archie was developed by Alan Emtage, Peter Deutsch, and Bill Heelan
+   from the McGill University Computing Center, Canada. Archie is now
+   supported by Bunyip Information Systems Inc., Canada.

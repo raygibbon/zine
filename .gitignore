@@ -1,0 +1,24 @@
+# Watcom/build output
+*.o
+*.O
+*.obj
+*.OBJ
+*.exe
+*.EXE
+*.map
+*.MAP
+__wcl_*
+
+build/
+WATT32/
+OUTPUT/
+MYBLOG/OUTPUT/
+
+# Local DOS mount root.
+mnt/
+
+*.HTM
+*.CSS
+/FONT.TTF
+
+.DS_Store

@@ -1,0 +1,10 @@
+#
+# test script for dos-ftp
+#
+
+@echo waiting 10 seconds..
+@wait +00:10
+@stop
+
+@wait 23:40:59
+bye
