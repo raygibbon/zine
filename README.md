@@ -1,6 +1,6 @@
 # Zine
 
-**Local Zine** is a tiny 16-bit static site generator for MS-DOS 6.22.
+**Zine** is a tiny 16-bit static site generator for MS-DOS 6.22.
 It builds real DOS binaries with OpenWatcom and generates plain HTML from simple text source files.
 It is designed to run under DOSBox-X or on vintage DOS hardware.
 
@@ -26,6 +26,16 @@ It is designed to run under DOSBox-X or on vintage DOS hardware.
 - keeps outputs DOS-safe and uppercase, e.g. `INDEX.HTM`
 - supports drafts, categories, tags, and archives
 - uses incremental rebuilds to avoid unnecessary output churn
+
+---
+
+## Screenshots
+
+![CRT theme](screenshots/crt.png)
+
+![VGA theme](screenshots/vga.png)
+
+![Win98 theme](screenshots/win98.png)
 
 ---
 
