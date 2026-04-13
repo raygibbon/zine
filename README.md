@@ -1,4 +1,4 @@
-# Local Zine
+# Zine
 
 Local Zine is a 16-bit C static site generator for MS-DOS 6.22. It builds multi-page blog and page-based sites from plain text source files and runs as a real DOS executable under DOSBox-X or on vintage hardware.
 
