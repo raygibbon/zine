@@ -94,26 +94,56 @@ That keeps Watt-32 and DOS networking isolated from the generator.
 
 ### Recommended DOSBox-X setup
 
-```text
-MOUNT C /path/to/local-zine/mnt
-C:
-SET WATTCP.CFG=C:\
-NE2000 0x60 3 0x300
-ZINE.EXE SERVE MYBLOG 8080
-```
-
-If you use DOSBox-X `slirp`, forward the host port:
+In your DOSBox-X config file, enable NE2000 and slirp forwarding:
 
 ```ini
+[ne2000]
+ne2000  = true
+backend = slirp
+
 [ethernet, slirp]
 tcp_port_forwards = 8080
 ```
 
-Then open:
+Then in DOSBox-X:
+
+```text
+MOUNT C /path/to/local-zine/mnt
+C:
+SET WATTCP.CFG=C:\WATTCP.CFG
+NE2000 0x60 3 0x300
+ZINE.EXE SERVE MYBLOG 8080
+```
+
+Open in your host browser:
 
 ```text
 http://localhost:8080
 ```
+
+### Minimal Watt-32 config for local Zine
+
+Create `mnt/WATTCP.CFG` with:
+
+```ini
+# Minimal Watt-32 config for Local Zine zhttp.exe in DOSBox-X.
+# DOSBox-X NE2000 uses packet driver vector 0x60 in the project tasks.
+
+print = "Local Zine Watt-32 setup"
+
+pkt.vector = 0x60
+
+my_ip = 10.0.2.15
+netmask = 255.255.255.0
+gateway = 10.0.2.2
+nameserver = 10.0.2.3
+domain.suffix = local
+
+sockdelay = 30
+tcp.nagle = 0
+```
+
+If you are using mTCP, add `PACKETINT 0X60` to `MTCP.CFG` and then run `DHCP.EXE` inside DOSBox-X.
 
 ### Important notes
 

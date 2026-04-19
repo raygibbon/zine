@@ -11,7 +11,7 @@ GEN_SYSERR="$ROOT_DIR/scripts/watt32-gen-syserr.py"
 
 cd "$SRC_DIR"
 
-make -C "$UTIL_DIR" linux
+# make -C "$UTIL_DIR" linux
 
 sed -i 's/^#undef USE_BSD_API/#define USE_BSD_API/' config.h
 sed -i 's/^#undef USE_BUFFERED_IO/#define USE_BUFFERED_IO/' config.h
