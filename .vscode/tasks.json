@@ -24,7 +24,7 @@
         "run",
         "com.dosbox_x.DOSBox-X",
         "-conf",
-        "${env:HOME}/.config/dosbox-x/dosbox-x-2025.02.01.conf",
+        "${env:HOME}/.var/app/com.dosbox_x.DOSBox-X/config/dosbox-x/dosbox-x-2026.03.29.conf",
         "-c",
         "mount c ${workspaceFolder}/mnt",
         "-c",
@@ -49,7 +49,7 @@
         "run",
         "com.dosbox_x.DOSBox-X",
         "-conf",
-        "${env:HOME}/.config/dosbox-x/dosbox-x-2025.02.01.conf",
+        "${env:HOME}/.var/app/com.dosbox_x.DOSBox-X/config/dosbox-x/dosbox-x-2026.03.29.conf",
         "-c",
         "mount c ${workspaceFolder}/mnt",
         "-c",
@@ -145,10 +145,7 @@
         "scripts/configure-watt32-watcom.sh"
       ],
       "options": {
-        "cwd": "${workspaceFolder}",
-        "env": {
-          "WATT_ROOT": "${env:HOME}/opt/watt32/src"
-        }
+        "cwd": "${workspaceFolder}"
       },
       "problemMatcher": []
     },
@@ -163,15 +160,15 @@
         "all"
       ],
       "options": {
-        "cwd": "${env:HOME}/opt/watt32/src/src",
+        "cwd": "${workspaceFolder}/3rd/watt32/src/src",
         "env": {
-          "WATT_ROOT": "${env:HOME}/opt/watt32/src",
+          "WATT_ROOT": "${workspaceFolder}/3rd/watt32/src",
           "WATCOM": "${env:HOME}/opt/watcom",
           "PATH": "${env:HOME}/opt/watcom/binl:${env:PATH}",
           "EDPATH": "${env:HOME}/opt/watcom/eddat",
           "INCLUDE": "${env:HOME}/opt/watcom/h",
           "LIB": "${env:HOME}/opt/watcom/lib286",
-          "W32_BIN2C": "${env:HOME}/opt/watt32/src/util/linux/bin2c"
+          "W32_BIN2C": "${workspaceFolder}/3rd/watt32/src/util/linux/bin2c"
         }
       },
       "problemMatcher": []
